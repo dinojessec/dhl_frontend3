@@ -1,42 +1,43 @@
 <template>
   <div class="header">
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-        <a
-          class="nav-link active"
-          href="#"
-        >Active</a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          href="#"
-        >Link</a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          href="#"
-        >Link</a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link disabled"
-          href="#"
-          tabindex="-1"
-          aria-disabled="true"
-        >Disabled</a>
-      </li>
-    </ul>
+
+    <nav class="navbar navbar-dark bg-dark">
+      <ul class="nav justify-content-center">
+        <li>
+          <router-link
+            class="nav-link"
+            to="/"
+            exact
+          >Home</router-link>
+        </li>
+        <li>
+          <router-link
+            class="nav-link"
+            to="/about"
+            exact
+          >About</router-link>
+        </li>
+        <li>
+          <router-link
+            class="nav-link"
+            to="/register"
+            exact
+          >Register</router-link>
+        </li>
+      </ul>
+    </nav>
+
   </div>
 </template>
 
 <script>
 export default {
-    name: 'GlobalHeader',
-
-}
+  name: 'GlobalHeader',
+};
 </script>
 
-<style>
+<style scoped>
+.nav-link {
+  color: #eeeeee;
+}
 </style>

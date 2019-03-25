@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <h1>this is about page</h1>
+  <div class="reg-form">
+    <h1>registration form</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'about',
-};
+    name: 'reg-form',
+}
 </script>
 
 <style>
