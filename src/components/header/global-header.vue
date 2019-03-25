@@ -2,7 +2,7 @@
   <div class="header">
 
     <nav class="navbar navbar-dark bg-dark">
-      <ul class="nav justify-content-center">
+      <ul class="nav d-flex justify-content-center">
         <li>
           <router-link
             class="nav-link"
@@ -37,6 +37,9 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  margin-bottom: 10px;
+}
 .nav-link {
   color: #eeeeee;
 }

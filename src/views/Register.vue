@@ -1,7 +1,18 @@
 <template>
   <div class="register">
-    <h1>register page</h1>
-    <reg-form></reg-form>
+
+    <div class="row">
+      <div class="col">
+        <reg-form></reg-form>
+      </div>
+    </div>
+    <div class="container mt-5 d-flex flex-row-reverse">
+      <button
+        type="button"
+        class="btn btn-primary btn-sm"
+      >Small button</button>
+    </div>
+
   </div>
 </template>
 

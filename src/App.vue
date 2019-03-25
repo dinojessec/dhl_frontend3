@@ -2,7 +2,7 @@
   <div id="app">
     <global-header></global-header>
 
-    <div class="content container-fluid mt-5">
+    <div class="container-fluid mt-5">
       <router-view />
     </div>
 
@@ -25,10 +25,7 @@ export default {
 .container {
   position: relative;
   height: 100%;
-  background-color: #e0e0e0;
-  display: table;
-  height: 100%;
   width: 100%;
-  margin: 1;
+  margin-bottom: 15px;
 }
 </style>
