@@ -1,13 +1,9 @@
 <template>
   <div class="container">
     <form>
+      {{ student }}
+      {{ strandList }}
       <h3>Register</h3>
-      <ul>
-        <li
-          v-for="error in errors.all()"
-          :key="error"
-        >{{ error }}</li>
-      </ul>
       <!-- input name -->
       <div class="form-row">
         <div class="form-group col-12 col-md-4">
@@ -183,15 +179,51 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'reg-form',
+  inject: ['$validator'],
+  props: ['strandList'],
   data() {
     return {
-      student: [],
-    }
+      student: {
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        username: '',
+      },
+    };
   },
+
+  watch: {
+    student: {
+      handler(val) {
+        const dataMap = val;
+        this.$store.commit('studentStateChange', dataMap);
+      },
+      deep: true,
+    },
+  },
+
+  methods: {
+    generateUser() {
+      const firstName = this.student.firstName;
+      const middleName = this.student.middleName;
+      const lastName = this.student.lastName;
+
+      if (typeof firstName !== 'undefined' && typeof middleName !== 'undefined' && typeof lastName !== 'undefined') {
+        const username = `${lastName}${firstName}${middleName.charAt(0)}`;
+        this.student.username = username.replace(/\s/g, '').toLowerCase();
+      }
+    },
+  },
+
 };
 </script>
 
-<style>
+<style scoped>
+.err {
+  color: #ff0000;
+}
 </style>

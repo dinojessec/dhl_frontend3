@@ -2,8 +2,13 @@
   <div id="app">
     <global-header></global-header>
 
+    <!-- content -->
     <div class="container-fluid mt-5">
-      <router-view />
+      <div class="row">
+        <div class="col">
+          <router-view />
+        </div>
+      </div>
     </div>
 
   </div>
