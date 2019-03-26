@@ -2,6 +2,7 @@
 
   <div class="container">
     {{ studentInfo }}
+    {{ }}
     <div class="row p-1">
       <div class="col-12">
         <div
@@ -249,7 +250,10 @@
             role="tabpanel"
             aria-labelledby="parent-tab"
           >
-            <parent-information></parent-information>
+            <parent-information
+              :editable="editable"
+              :studentInfo="studentInfo"
+            ></parent-information>
           </div>
           <div
             class="tab-pane fade"
@@ -300,6 +304,17 @@ export default {
     }
   },
 
+  watch: {
+    studentInfo: {
+      handler(val) {
+        const dataMap = val;
+        console.log(dataMap);
+        this.$store.commit('sendStudentInfoToState', dataMap);
+      },
+      deep: true,
+    },
+  },
+
   methods: {
     getStudentInformation() {
       axios.get('http://localhost:3000/api/v1/profile')
@@ -310,6 +325,10 @@ export default {
         .catch((err) => {
           throw err;
         });
+    },
+
+    updateStudentInformation() {
+      
     },
   },
 
