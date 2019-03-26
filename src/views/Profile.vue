@@ -65,7 +65,7 @@
               <h4
                 class=""
                 v-if="editable === false"
-              >{{ studentInfo.strand }}</h4>
+              >{{ studentInfo.strandName }}</h4>
               <select
                 class="form-control shadow bg-white rounded"
                 v-model="studentInfo.strand"
