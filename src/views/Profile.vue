@@ -16,6 +16,7 @@
       <div class="p-2 col-md-3 col-12">
         <div class="profile-img">
           <img
+            src="../assets/avatar.png"
             class="img-thumbnail rounded float-left"
             alt=""
           />
@@ -274,19 +275,19 @@
 <script>
 import axios from 'axios';
 
-// import PersonalInformation from '@/components/user/personal-information.vue';
-// import AddressInformation from '@/components/user/address-information.vue';
-// import ParentInformation from '@/components/user/parent-information.vue';
-// import EducationInformation from '@/components/user/education-information.vue';
+import PersonalInformation from '../components/student/personal-information';
+import AddressInformation from '../components/student/address-information';
+import ParentInformation from '../components/student/parent-information';
+import EducationInformation from '../components/student/education-information';
 
 export default {
   name: 'Profile',
   // NOTE: define a prop that contains the value of profile get request
   components: {
-    // PersonalInformation,
-    // AddressInformation,
-    // ParentInformation,
-    // EducationInformation,
+    PersonalInformation,
+    AddressInformation,
+    ParentInformation,
+    EducationInformation,
   },
   data() {
     return {
@@ -301,7 +302,6 @@ export default {
       axios.get('http://localhost:3000/api/v1/profile')
         .then((val) => {
           const queryResult = val.data.studentQuery[0];
-          console.log(queryResult);
           this.studentInfo = queryResult;
         })
         .catch((err) => {

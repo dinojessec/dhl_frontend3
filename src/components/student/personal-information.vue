@@ -13,25 +13,32 @@
       <div class="col-3">
         <label>Age</label>
         <input
+          readonly
           type="text"
           class="form-control"
           placeholder="Age true"
-          v-if="editable === true"
-        >
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Age false"
-          v-if="editable === false"
         >
       </div>
       <div class="col-4">
         <label>Gender</label>
         <input
+          readonly
           type="text"
           class="form-control"
           placeholder="Gender"
+          :value="studentInfo.gender"
+          v-if="editable === false"
         >
+        <select
+          class="form-control"
+          v-model="studentInfo.gender"
+          v-validate="'included:male,female'"
+          name="gender"
+          v-if="editable === true"
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
       </div>
     </div>
 
@@ -150,7 +157,7 @@
 export default {
   name: 'PersonalInformation',
   props: ['editable', 'studentInfo'],
-}
+};
 </script>
 
 <style lang="scss" scoped>
