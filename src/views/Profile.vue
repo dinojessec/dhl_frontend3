@@ -238,7 +238,10 @@
             role="tabpanel"
             aria-labelledby="address-tab"
           >
-            <address-information></address-information>
+            <address-information
+              :editable="editable"
+              :studentInfo="studentInfo"
+            ></address-information>
           </div>
           <div
             class="tab-pane fade"
