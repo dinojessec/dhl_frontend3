@@ -2,7 +2,6 @@
   <div class="container">
     <form>
       {{ student }}
-      {{ strandList }}
       <h3>Register</h3>
       <!-- input name -->
       <div class="form-row">
@@ -15,7 +14,7 @@
             v-model="student.firstName"
             autofocus
             name="First Name"
-            v-validate="'required'"
+            v-validate="{ required: true, alpha_spaces: true }"
           >
           <div class="err">{{ errors.first('First Name') }}</div>
         </div>
@@ -27,7 +26,7 @@
             placeholder="Middle name"
             v-model="student.middleName"
             name="Middle Name"
-            v-validate="'required'"
+            v-validate="{ required: true, alpha_spaces: true }"
           >
           <div class="err">{{ errors.first('Middle Name') }}</div>
         </div>
@@ -39,7 +38,7 @@
             placeholder="Last name"
             v-model="student.lastName"
             name="Last Name"
-            v-validate="'required'"
+            v-validate="{ required: true, alpha_spaces: true }"
           >
           <div class="err">{{ errors.first('Last Name') }}</div>
         </div>
@@ -71,29 +70,42 @@
             class="form-control shadow bg-white rounded"
             placeholder="Password"
             v-model="student.password"
+            name="password"
+            v-validate="'min:6'"
           >
+          <div class="err">{{ errors.first('password') }}</div>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-12 col-md-6">
           <label>Birthday</label>
-          <input
+          <!-- <input
             type="text"
             class="form-control shadow bg-white rounded"
+            placeholder="input year/month/date e.g. yyyy/mm/dd"
             v-model="student.birthday"
+            v-validate="'date_format:yyyy/MM/dd | required'"
+            name="birthday"
           >
+          <div class="err">{{ errors.first('birthday') }}</div> -->
         </div>
         <div class="form-group col-12 col-md-6">
           <label>Gender</label>
           <select
             class="form-control shadow bg-white rounded"
             v-model="student.gender"
+            v-validate="'included:male,female'"
+            name="gender"
           >
-            <option selected>Choose...</option>
+            <option
+              selected
+              disabled
+            >Choose...</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+          <div class="err">{{ errors.first('gender') }}</div>
         </div>
       </div>
 
@@ -104,7 +116,10 @@
             type="text"
             class="form-control shadow bg-white rounded"
             v-model="student.mobileNumber"
+            v-validate="'numeric'"
+            name="mobile"
           >
+          <div class="err">{{ errors.first('mobile') }}</div>
         </div>
         <div class="form-group col-12 col-md-4">
           <label>Landline Number</label>
@@ -112,7 +127,10 @@
             type="text"
             class="form-control shadow bg-white rounded"
             v-model="student.landlineNumber"
+            v-validate="'numeric'"
+            name="landline"
           >
+          <div class="err">{{ errors.first('landline') }}</div>
         </div>
         <div class="form-group col-12 col-md-4">
           <label>Email</label>
@@ -120,7 +138,10 @@
             type="email"
             class="form-control shadow bg-white rounded"
             v-model="student.email"
+            v-validate="'email'"
+            name="email"
           >
+          <div class="err">{{ errors.first('email') }}</div>
         </div>
       </div>
 
@@ -144,7 +165,10 @@
             class="form-control shadow bg-white rounded"
             v-model="student.gradeLevel"
           >
-            <option selected>Choose...</option>
+            <option
+              selected
+              disabled
+            >Choose...</option>
             <option value="grade11">Grade 11</option>
             <option value="grade12">Grade 12</option>
           </select>

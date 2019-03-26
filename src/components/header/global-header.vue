@@ -2,7 +2,7 @@
   <div class="header">
 
     <nav class="navbar navbar-dark bg-dark">
-      <ul class="nav d-flex justify-content-center">
+      <ul class="nav d-flex flex-row">
         <li>
           <router-link
             class="nav-link"
@@ -23,6 +23,16 @@
             to="/register"
             exact
           >Register</router-link>
+        </li>
+      </ul>
+
+      <ul class="nav d-flex flex-row-reverse">
+        <li>
+          <router-link
+            class="nav-link"
+            to="/profile"
+            exact
+          >Profile</router-link>
         </li>
       </ul>
     </nav>
