@@ -2,7 +2,6 @@
 
   <div class="container">
     {{ studentInfo }}
-    {{ }}
     <div class="row p-1">
       <div class="col-12">
         <div
@@ -199,7 +198,7 @@
           v-if="editable === false"
         >Edit Profile</button>
         <button
-          @click="editable = !editable"
+          @click="updateStudentInformation"
           v-if="editable === true"
         >Save Changes</button>
       </div>
@@ -308,7 +307,7 @@ export default {
     studentInfo: {
       handler(val) {
         const dataMap = val;
-        console.log(dataMap);
+        // console.log(dataMap);
         this.$store.commit('sendStudentInfoToState', dataMap);
       },
       deep: true,
@@ -328,7 +327,17 @@ export default {
     },
 
     updateStudentInformation() {
-      
+      const updatedInfo = this.$store.getters.getStudentInfo;
+      // console.log(updatedInfo);
+      axios.post('http://localhost:3000/api/v1/profile', updatedInfo)
+        .then((result) => {
+          const inputVal = result;
+          console.log(inputVal);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      this.editable = !this.editable;
     },
   },
 

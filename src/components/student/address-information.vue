@@ -2,14 +2,14 @@
   <div class="container">
     <!-- 1st row -->
     <h3>my Address</h3>
-    <div class="row">
+    <div class="row p-2">
       <div class="col-3">
-        <label>House Number</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="houseNumber"
+          placeholder="House Number"
           :value="studentInfo.houseNumber"
           v-if="editable === false"
         >
@@ -17,17 +17,18 @@
           class="form-control"
           type="text"
           id="houseNumber"
+          placeholder="House Number"
           v-model="studentInfo.houseNumber"
           v-if="editable === true"
         >
       </div>
       <div class="col-5">
-        <label>Street Name</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="streetName"
+          placeholder="Street Name"
           :value="studentInfo.streetName"
           v-if="editable === false"
         >
@@ -35,17 +36,18 @@
           class="form-control"
           type="text"
           id="streetName"
+          placeholder="Street Name"
           v-model="studentInfo.streetName"
           v-if="editable === true"
         >
       </div>
       <div class="col-4">
-        <label>Barangay</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="barangay"
+          placeholder="Barangay"
           :value="studentInfo.barangay"
           v-if="editable === false"
         >
@@ -53,20 +55,21 @@
           class="form-control"
           type="text"
           id="barangay"
+          placeholder="Barangay"
           v-model="studentInfo.barangay"
           v-if="editable === true"
         >
       </div>
     </div>
 
-    <div class="row">
+    <div class="row p-2">
       <div class="col-6">
-        <label>Town</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="town"
+          placeholder="Town"
           :value="studentInfo.town"
           v-if="editable === false"
         >
@@ -74,17 +77,18 @@
           class="form-control"
           type="text"
           id="town"
+          placeholder="Town"
           v-model="studentInfo.town"
           v-if="editable === true"
         >
       </div>
       <div class="col-6">
-        <label>City</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="city"
+          placeholder="City"
           :value="studentInfo.city"
           v-if="editable === false"
         >
@@ -92,6 +96,7 @@
           class="form-control"
           type="text"
           id="city"
+          placeholder="City"
           v-model="studentInfo.city"
           v-if="editable === true"
         >
@@ -99,14 +104,14 @@
     </div>
 
     <h3>my Father Address</h3>
-    <div class="row">
+    <div class="row p-2">
       <div class="col-3">
-        <label>House Number</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="fatherHouseNumber"
+          placeholder="House Number"
           :value="studentInfo.fatherHouseNumber"
           v-if="editable === false"
         >
@@ -114,17 +119,18 @@
           class="form-control"
           type="text"
           id="fatherHouseNumber"
+          placeholder="House Number"
           v-model="studentInfo.fatherHouseNumber"
           v-if="editable === true"
         >
       </div>
       <div class="col-5">
-        <label>Street Name</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="fatherStreetName"
+          placeholder="Street Name"
           :value="studentInfo.fatherStreetName"
           v-if="editable === false"
         >
@@ -132,17 +138,18 @@
           class="form-control"
           type="text"
           id="fatherStreetName"
+          placeholder="Street Name"
           v-model="studentInfo.fatherStreetName"
           v-if="editable === true"
         >
       </div>
       <div class="col-4">
-        <label>Barangay</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="fatherBarangy"
+          placeholder="Barangay"
           :value="studentInfo.fatherBarangay"
           v-if="editable === false"
         >
@@ -150,20 +157,21 @@
           class="form-control"
           type="text"
           id="fatherBarangy"
+          placeholder="Barangay"
           v-model="studentInfo.fatherBarangay"
           v-if="editable === true"
         >
       </div>
     </div>
 
-    <div class="row">
+    <div class="row p-2">
       <div class="col-6">
-        <label>Town</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="fatherTown"
+          placeholder="Town"
           :value="studentInfo.fatherTown"
           v-if="editable === false"
         >
@@ -171,17 +179,18 @@
           class="form-control"
           type="text"
           id="fatherTown"
+          placeholder="Town"
           v-model="studentInfo.fatherTown"
           v-if="editable === true"
         >
       </div>
       <div class="col-6">
-        <label>City</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="fatherCity"
+          placeholder="City"
           :value="studentInfo.fatherCity"
           v-if="editable === false"
         >
@@ -189,6 +198,7 @@
           class="form-control"
           type="text"
           id="fatherCity"
+          placeholder="City"
           v-model="studentInfo.fatherCity"
           v-if="editable === true"
         >
@@ -196,14 +206,14 @@
     </div>
 
     <h3>my Mother Address</h3>
-    <div class="row">
+    <div class="row p-2">
       <div class="col-3">
-        <label>House Number</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="motherHouseNumber"
+          placeholder="House Number"
           :value="studentInfo.motherHouseNumber"
           v-if="editable === false"
         >
@@ -211,17 +221,18 @@
           class="form-control"
           type="text"
           id="motherHouseNumber"
+          placeholder="House Number"
           v-model="studentInfo.motherHouseNumber"
           v-if="editable === true"
         >
       </div>
       <div class="col-5">
-        <label>Street Name</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="motherStreetName"
+          placeholder="Street Name"
           :value="studentInfo.motherStreetName"
           v-if="editable === false"
         >
@@ -229,17 +240,18 @@
           class="form-control"
           type="text"
           id="motherStreetName"
+          placeholder="Street Name"
           v-model="studentInfo.motherStreetName"
           v-if="editable === true"
         >
       </div>
       <div class="col-4">
-        <label>Barangay</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="motherBarangay"
+          placeholder="Barangay"
           :value="studentInfo.motherBarangay"
           v-if="editable === false"
         >
@@ -247,20 +259,21 @@
           class="form-control"
           type="text"
           id="motherBarangay"
+          placeholder="Barangay"
           v-model="studentInfo.motherBarangay"
           v-if="editable === true"
         >
       </div>
     </div>
 
-    <div class="row">
+    <div class="row p-2">
       <div class="col-6">
-        <label>Town</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="motherTown"
+          placeholder="Town"
           :value="studentInfo.motherTown"
           v-if="editable === false"
         >
@@ -268,17 +281,18 @@
           class="form-control"
           type="text"
           id="motherTown"
+          placeholder="Town"
           v-model="studentInfo.motherTown"
           v-if="editable === true"
         >
       </div>
       <div class="col-6">
-        <label>City</label>
         <input
           readonly
           class="form-control"
           type="text"
           id="motherCity"
+          placeholder="City"
           :value="studentInfo.motherCity"
           v-if="editable === false"
         >
@@ -286,6 +300,7 @@
           class="form-control"
           type="text"
           id="motherCity"
+          placeholder="City"
           v-model="studentInfo.motherCity"
           v-if="editable === true"
         >
