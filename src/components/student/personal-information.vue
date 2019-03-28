@@ -131,7 +131,7 @@
 
     <div class="form-row p-2">
       <!-- religion -->
-      <div class="col col-md-3">
+      <div class="col col-md-6">
         <input
           readonly
           type="text"
@@ -145,6 +145,23 @@
           class="form-control"
           v-model="studentInfo.religion"
           placeholder="Religion"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col col-md-6">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          v-model="studentInfo.guardian"
+          placeholder="Guardian"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          v-model="studentInfo.guardian"
+          placeholder="Guardian"
           v-if="editable === true"
         >
       </div>

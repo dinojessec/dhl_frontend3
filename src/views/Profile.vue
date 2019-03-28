@@ -328,7 +328,7 @@ export default {
 
     updateStudentInformation() {
       const updatedInfo = this.$store.getters.getStudentInfo;
-      // console.log(updatedInfo);
+      console.log(updatedInfo);
       axios.post('http://localhost:3000/api/v1/profile', updatedInfo)
         .then((result) => {
           const inputVal = result;

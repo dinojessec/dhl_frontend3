@@ -3,6 +3,10 @@
 
     <div class="row">
       <div class="col">
+        <div
+          class="p-3 mb-2 bg-success text-white"
+          v-if="successMessage !== ''"
+        >{{ successMessage }}</div>
         <reg-form :strandList="strandList"></reg-form>
       </div>
     </div>
@@ -12,7 +16,7 @@
         class="btn btn-primary btn-sm"
         @click="saveStudent()"
         :disabled="errors.any()"
-      >Save</button>
+      >Submit</button>
     </div>
 
   </div>
@@ -31,19 +35,20 @@ export default {
   data() {
     return {
       strandList: [],
+      successMessage: '',
     }
   },
 
-  created() {
-    axios.get('http://localhost:3000/api/v1/register')
-      .then((response) => {
-        const loadStrand = response.data.strandData;
-        this.strandList = loadStrand;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+  // created() {
+  //   axios.get('http://localhost:3000/api/v1/register')
+  //     .then((response) => {
+  //       const loadStrand = response.data.strandData;
+  //       this.strandList = loadStrand;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // },
 
   methods: {
     saveStudent() {
@@ -55,7 +60,9 @@ export default {
           console.log(response.data.message);
           const submitResult = response.data.message;
           if (submitResult === 'success') {
-            this.$router.replace({ path: '/register-success' });
+            this.successMessage = 'Account Created! Please Log-in and update your profile';
+              // reroute the user to login page 
+            // this.$router.replace({ path: '/login' });
           }
         })
         .catch((error) => {

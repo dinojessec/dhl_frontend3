@@ -1,20 +1,27 @@
 <template>
-  <div class="home">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4">D H L</h1>
-      </div>
-    </div>
+  <div class="container">
+    <carousel
+      :minSwipeDistance="8"
+      :per-page="1"
+    >
+      <slide>
+        <h1>Welcome to DHL</h1>
+      </slide>
+      <slide>
+        <strand></strand>
+      </slide>
+    </carousel>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import Strand from '../components/strand/strand';
 
 export default {
   name: 'home',
   components: {
+    Strand,
   },
 };
 </script>
