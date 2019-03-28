@@ -131,7 +131,7 @@
 
     <div class="form-row p-2">
       <!-- religion -->
-      <div class="col">
+      <div class="col col-md-3">
         <input
           readonly
           type="text"
@@ -145,6 +145,43 @@
           class="form-control"
           v-model="studentInfo.religion"
           placeholder="Religion"
+          v-if="editable === true"
+        >
+      </div>
+    </div>
+
+    <div class="form-row p-2">
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          v-model="studentInfo.preferredShift"
+          placeholder="Preferred Shift"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          v-model="studentInfo.preferredShift"
+          placeholder="Preferred Shift"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          v-model="studentInfo.referredBy"
+          placeholder="Referred By"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          v-model="studentInfo.referredBy"
+          placeholder="Referred By"
           v-if="editable === true"
         >
       </div>
