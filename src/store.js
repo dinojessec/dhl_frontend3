@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     student: {},
     studentInfo: {},
-    // strand: [],
+    strand: {},
   },
 
   mutations: {
@@ -20,10 +20,11 @@ export default new Vuex.Store({
       const stateRef = state;
       stateRef.studentInfo = payload;
     },
-    // setStrandList(state, payload) {
-    //   const stateRef = state;
-    //   stateRef.strand = payload;
-    // },
+
+    addNewStrand(state, payload) {
+      const stateRef = state;
+      stateRef.strand = payload;
+    },
   },
 
   actions: {},
@@ -33,6 +34,6 @@ export default new Vuex.Store({
 
     getStudentInfo: state => state.studentInfo,
 
-    // getStrandData: state => state.strand,
+    getNewStrand: state => state.strand,
   },
 });

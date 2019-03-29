@@ -31,5 +31,16 @@ export default new Router({
       name: 'profile',
       component: () => import('./views/Profile.vue'),
     },
+    // admin routes protected
+    {
+      path: '/admin',
+      name: 'adim',
+      component: () => import('./views/Admin.vue'),
+    },
+    {
+      path: '/admin/strand',
+      name: 'strand',
+      component: () => import('./components/strand/strand.vue'),
+    },
   ],
 });

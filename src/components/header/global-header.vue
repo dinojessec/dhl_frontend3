@@ -35,6 +35,15 @@
           >Profile</router-link>
         </li>
       </ul>
+      <ul class="nav d-flex flex-row-reverse">
+        <li>
+          <router-link
+            class="nav-link"
+            to="/admin"
+            exact
+          >Admin</router-link>
+        </li>
+      </ul>
     </nav>
 
   </div>

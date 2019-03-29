@@ -39,16 +39,16 @@ export default {
     }
   },
 
-  // created() {
-  //   axios.get('http://localhost:3000/api/v1/register')
-  //     .then((response) => {
-  //       const loadStrand = response.data.strandData;
-  //       this.strandList = loadStrand;
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // },
+  created() {
+    axios.get('http://localhost:3000/api/v1/register')
+      .then((response) => {
+        const loadStrand = response.data.strandData;
+        this.strandList = loadStrand;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 
   methods: {
     saveStudent() {

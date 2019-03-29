@@ -73,8 +73,8 @@
               >
                 <option
                   v-for="item in strandList"
-                  :key="item.strandId"
-                  v-bind:value="item.strandId"
+                  :key="item.strandID"
+                  v-bind:value="item.strandID"
                 >{{ item.strandName }}</option>
               </select>
             </div>

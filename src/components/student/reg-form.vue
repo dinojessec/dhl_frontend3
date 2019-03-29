@@ -91,8 +91,53 @@
               <div class="err">{{ errors.first('Confirm Password') }}</div>
             </div>
           </div>
-        </div>
 
+          <div class="form-row">
+            <div class="form-group col-12 col-md-4">
+              <label>Strand</label>
+              <select
+                class="form-control shadow bg-white rounded"
+                v-model="student.strandID"
+              >
+                <option
+                  v-for="item in strandList"
+                  :key="item.strandID"
+                  :value="item.strandID"
+                >{{ item.strandName }}</option>
+              </select>
+            </div>
+            <div class="form-group col-12 col-md-4">
+              <label>LRN</label>
+              <input
+                type="text"
+                class="form-control shadow bg-white rounded"
+                placeholder="LRN"
+                v-model="student.LRN"
+                name="LRN"
+                v-validate="{ numeric: true }"
+              >
+              <div class="err">{{ errors.first('LRN') }}</div>
+            </div>
+            <div class="form-group col-12 col-md-4">
+              <label>Grade Level</label>
+              <select
+                class="form-control shadow bg-white rounded"
+                v-model="student.gradeLevel"
+                v-validate="{ required: true }"
+                name="Grade Level"
+              >
+                <option
+                  selected
+                  disabled
+                >Choose...</option>
+                <option value="grade11">Grade 11</option>
+                <option value="grade12">Grade 12</option>
+              </select>
+              <div class="err">{{ errors.first('Grade Level') }}</div>
+            </div>
+          </div>
+          <!-- card body -->
+        </div>
       </div>
     </form>
 
