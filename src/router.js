@@ -31,6 +31,11 @@ export default new Router({
       name: 'profile',
       component: () => import('./views/Profile.vue'),
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Log-in.vue'),
+    },
     // admin routes protected
     {
       path: '/admin',

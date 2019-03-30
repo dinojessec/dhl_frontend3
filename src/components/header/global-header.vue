@@ -30,12 +30,17 @@
         <li>
           <router-link
             class="nav-link"
+            to="/login"
+            exact
+          >Log-in</router-link>
+        </li>
+        <li>
+          <router-link
+            class="nav-link"
             to="/profile"
             exact
           >Profile</router-link>
         </li>
-      </ul>
-      <ul class="nav d-flex flex-row-reverse">
         <li>
           <router-link
             class="nav-link"

@@ -98,6 +98,8 @@
               <select
                 class="form-control shadow bg-white rounded"
                 v-model="student.strandID"
+                v-validate="{ required: true }"
+                name="strand"
               >
                 <option
                   v-for="item in strandList"
@@ -105,6 +107,7 @@
                   :value="item.strandID"
                 >{{ item.strandName }}</option>
               </select>
+              <div class="err">{{ errors.first('strand') }}</div>
             </div>
             <div class="form-group col-12 col-md-4">
               <label>LRN</label>
@@ -114,7 +117,7 @@
                 placeholder="LRN"
                 v-model="student.LRN"
                 name="LRN"
-                v-validate="{ numeric: true }"
+                v-validate="{ numeric: true, required: true }"
               >
               <div class="err">{{ errors.first('LRN') }}</div>
             </div>
@@ -136,7 +139,7 @@
               <div class="err">{{ errors.first('Grade Level') }}</div>
             </div>
           </div>
-          <!-- card body -->
+
         </div>
       </div>
     </form>

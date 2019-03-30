@@ -4,9 +4,18 @@
     <div class="row">
       <div class="col">
         <div
+          class="p-3 mb-2 bg-danger text-white"
+          v-if="errors.any()"
+        >{{ responseMessage }}</div>
+        <div
           class="p-3 mb-2 bg-success text-white"
-          v-if="successMessage !== ''"
-        >{{ successMessage }}</div>
+          v-if="!errors.any()"
+          :hidden="!errors.any()"
+        >{{ responseMessage }}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
         <reg-form :strandList="strandList"></reg-form>
       </div>
     </div>
@@ -35,7 +44,7 @@ export default {
   data() {
     return {
       strandList: [],
-      successMessage: '',
+      responseMessage: '',
     }
   },
 
@@ -52,23 +61,24 @@ export default {
 
   methods: {
     saveStudent() {
-      const studentData = this.$store.getters.getStudentData;
-      console.log(studentData);
+      const check = this.$validator.validate();
+      if(check) {
+        this.responseMessage = 'All fields are required!';
+      } else {
+        const studentData = this.$store.getters.getStudentData;
+      // console.log(studentData);
       axios
         .post('http://localhost:3000/api/v1/register', studentData)
         .then((response) => {
-          console.log(response.data.message);
-          const submitResult = response.data.message;
-          if (submitResult === 'success') {
-            this.successMessage = 'Account Created! Please Log-in and update your profile';
-              // reroute the user to login page 
-            // this.$router.replace({ path: '/login' });
-          }
+          const responseMessage = response;
+          console.log(responseMessage);
         })
         .catch((error) => {
           console.log(error);
         });
+      }
     },
+
   },
 };
 </script>
