@@ -21,7 +21,7 @@
       <div class="col">
         <table class="table">
           <thead class="thead-dark">
-            <tr>
+            <tr class="">
               <th scope="col">Name</th>
               <th scope="col">Action</th>
             </tr>
@@ -72,7 +72,6 @@ export default {
     methods: {
       addStrand() {
         const val = this.newStrand;
-        // console.log(val);
         
         axios.post('http://localhost:3000/api/v1/admin/strand', val)
             .then((res) => {
@@ -86,11 +85,10 @@ export default {
       },
 
       removeStrand(index) {
-        // console.log(index);
         const value = {
           id: index,
         }
-      // console.log(value);
+      console.log(value);
         axios.put('http://localhost:3000/api/v1/admin/strand', value)
           .then((res) => {
             const queryResquest = res;

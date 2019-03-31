@@ -4,11 +4,11 @@
     <div class="row">
       <div class="col">
         <div
-          class="p-3 mb-2 bg-danger text-white"
+          class="p-3 mb-2 alert-danger"
           v-if="error === false"
         >{{ responseMessage }}</div>
         <div
-          class="p-3 mb-2 bg-success text-white"
+          class="p-3 mb-2 alert-success"
           v-if="error === true"
         >{{ responseMessage }}</div>
       </div>
