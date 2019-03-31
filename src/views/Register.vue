@@ -5,12 +5,11 @@
       <div class="col">
         <div
           class="p-3 mb-2 bg-danger text-white"
-          v-if="errors.any()"
+          v-if="error === false"
         >{{ responseMessage }}</div>
         <div
           class="p-3 mb-2 bg-success text-white"
-          v-if="!errors.any()"
-          :hidden="!errors.any()"
+          v-if="error === true"
         >{{ responseMessage }}</div>
       </div>
     </div>
@@ -45,6 +44,7 @@ export default {
     return {
       strandList: [],
       responseMessage: '',
+      error: '',
     }
   },
 
@@ -61,22 +61,27 @@ export default {
 
   methods: {
     saveStudent() {
-      const check = this.$validator.validate();
-      if(check) {
-        this.responseMessage = 'All fields are required!';
-      } else {
-        const studentData = this.$store.getters.getStudentData;
-      // console.log(studentData);
-      axios
-        .post('http://localhost:3000/api/v1/register', studentData)
-        .then((response) => {
-          const responseMessage = response;
-          console.log(responseMessage);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.$validator.validateAll().then((result) => {
+        if (!result) {
+          this.responseMessage = 'All fields are required!';
+          this.error = result
+          console.log(result);
+        } else {
+          this.responseMessage = 'Account Created!';
+          const studentData = this.$store.getters.getStudentData;
+          console.log(studentData);
+          this.error = result;
+          // axios
+          //   .post('http://localhost:3000/api/v1/register', studentData)
+          //   .then((response) => {
+          //     const responseMessage = response;
+          //     console.log(responseMessage);
+          //   })
+          //   .catch((error) => {
+          //     console.log(error);
+          //   });
       }
+      });
     },
 
   },
