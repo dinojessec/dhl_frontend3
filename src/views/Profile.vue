@@ -194,10 +194,14 @@
       </div>
       <div class="p-2 col-md-2 col-12">
         <button
+          type="button"
+          class="btn btn-warning"
           @click="editable = !editable"
           v-if="editable === false"
         >Edit Profile</button>
         <button
+          type="button"
+          class="btn btn-info"
           @click="updateStudentInformation"
           v-if="editable === true"
         >Save Changes</button>
@@ -279,28 +283,28 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
-import PersonalInformation from '../components/student/personal-information';
-import AddressInformation from '../components/student/address-information';
-import ParentInformation from '../components/student/parent-information';
-import EducationInformation from '../components/student/education-information';
+import PersonalInformation from "../components/student/personal-information";
+import AddressInformation from "../components/student/address-information";
+import ParentInformation from "../components/student/parent-information";
+import EducationInformation from "../components/student/education-information";
 
 export default {
-  name: 'Profile',
+  name: "Profile",
   // NOTE: define a prop that contains the value of profile get request
   components: {
     PersonalInformation,
     AddressInformation,
     ParentInformation,
-    EducationInformation,
+    EducationInformation
   },
   data() {
     return {
       editable: false,
       studentInfo: [],
-      strandList: [],
-    }
+      strandList: []
+    };
   },
 
   watch: {
@@ -308,20 +312,21 @@ export default {
       handler(val) {
         const dataMap = val;
         // console.log(dataMap);
-        this.$store.commit('sendStudentInfoToState', dataMap);
+        this.$store.commit("sendStudentInfoToState", dataMap);
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
 
   methods: {
     getStudentInformation() {
-      axios.get('http://localhost:3000/api/v1/profile')
-        .then((val) => {
+      axios
+        .get("http://localhost:3000/api/v1/profile")
+        .then(val => {
           const queryResult = val.data.studentQuery[0];
           this.studentInfo = queryResult;
         })
-        .catch((err) => {
+        .catch(err => {
           throw err;
         });
     },
@@ -329,18 +334,18 @@ export default {
     updateStudentInformation() {
       const updatedInfo = this.$store.getters.getStudentInfo;
       console.log(updatedInfo);
-      axios.post('http://localhost:3000/api/v1/profile', updatedInfo)
-        .then((result) => {
+      axios
+        .post("http://localhost:3000/api/v1/profile", updatedInfo)
+        .then(result => {
           const inputVal = result;
           console.log(inputVal);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
       this.editable = !this.editable;
-    },
-  },
-
+    }
+  }
 };
 </script>
 

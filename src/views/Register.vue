@@ -4,12 +4,14 @@
     <div class="row">
       <div class="col">
         <div
-          class="p-3 mb-2 alert-danger"
-          v-if="error === false"
+          class="alert alert-danger"
+          role="alert"
+          v-if="status === 404"
         >{{ responseMessage }}</div>
         <div
-          class="p-3 mb-2 alert-success"
-          v-if="error === true"
+          class="alert alert-success"
+          role="alert"
+          v-if="status === 200"
         >{{ responseMessage }}</div>
       </div>
     </div>
@@ -31,60 +33,64 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
-import regForm from '../components/student/reg-form';
+import regForm from "../components/student/reg-form";
 
 export default {
-  name: 'Register',
+  name: "Register",
   components: {
     regForm
   },
   data() {
     return {
       strandList: [],
-      responseMessage: '',
-      error: '',
-    }
+      responseMessage: "",
+      error: "",
+      status: ""
+    };
   },
 
   created() {
-    axios.get('http://localhost:3000/api/v1/register')
-      .then((response) => {
+    axios
+      .get("http://localhost:3000/api/v1/register")
+      .then(response => {
         const loadStrand = response.data.strandData;
         this.strandList = loadStrand;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   },
 
   methods: {
     saveStudent() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (!result) {
-          this.responseMessage = 'All fields are required!';
-          this.error = result
-          console.log(result);
+          this.responseMessage = "All fields are required!";
+          // this.error = result;
+          this.status = 404;
+          return;
         } else {
-          this.responseMessage = 'Account Created!';
           const studentData = this.$store.getters.getStudentData;
           console.log(studentData);
-          this.error = result;
-          // axios
-          //   .post('http://localhost:3000/api/v1/register', studentData)
-          //   .then((response) => {
-          //     const responseMessage = response;
-          //     console.log(responseMessage);
-          //   })
-          //   .catch((error) => {
-          //     console.log(error);
-          //   });
-      }
+          // this.error = result;
+          axios
+            .post("http://localhost:3000/api/v1/register", studentData)
+            .then(response => {
+              console.log(response);
+              const responseMessage = response.data.message;
+              const responseStatus = response.data.status;
+              this.responseMessage = responseMessage;
+              this.status = responseStatus;
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
       });
-    },
-
-  },
+    }
+  }
 };
 </script>
 

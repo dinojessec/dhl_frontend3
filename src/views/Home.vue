@@ -8,7 +8,7 @@
         <h1>Welcome to DHL</h1>
       </slide>
       <slide>
-        <strand></strand>
+        <h1>Slide 2</h1>
       </slide>
     </carousel>
   </div>
@@ -20,8 +20,6 @@ import Strand from '../components/strand/strand';
 
 export default {
   name: 'home',
-  components: {
-    Strand,
-  },
+  components: {},
 };
 </script>

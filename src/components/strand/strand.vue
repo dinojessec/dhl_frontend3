@@ -45,64 +45,62 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-    name: 'Strand',
-    data() {
-        return {
-          newStrand: {
-            strandName: '',
-          },
-          strandList: [],
-        }
-    },
+  name: "Strand",
+  data() {
+    return {
+      newStrand: {
+        strandName: ""
+      },
+      strandList: []
+    };
+  },
 
-    created() {
-    axios.get('http://localhost:3000/api/v1/admin/strand')
-      .then((response) => {
+  created() {
+    axios
+      .get("http://localhost:3000/api/v1/admin/strand")
+      .then(response => {
         const loadStrand = response.data.strandData;
         this.strandList = loadStrand;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   },
 
-    methods: {
-      addStrand() {
-        const val = this.newStrand;
-        
-        axios.post('http://localhost:3000/api/v1/admin/strand', val)
-            .then((res) => {
-              const queryResquest = res.data;
-              console.log(queryResquest);
-            })
-            .catch((err) => {
-              console.log('failed', err);
-            });
-            window.location.reload(true);
-      },
+  methods: {
+    addStrand() {
+      const val = this.newStrand;
 
-      removeStrand(index) {
-        const value = {
-          id: index,
-        }
-      console.log(value);
-        axios.put('http://localhost:3000/api/v1/admin/strand', value)
-          .then((res) => {
-            const queryResquest = res;
-            console.log(queryResquest);
-            console.log('remove request');
-          })
-          .catch((err) => {
-            console.log('remove request error', err);
-          });
-          window.location.reload(true);
-      }
+      axios
+        .post("http://localhost:3000/api/v1/admin/strand", val)
+        .then(res => {
+          const queryResquest = res.data;
+        })
+        .catch(err => {
+          console.log("failed", err);
+        });
+      window.location.reload(true);
     },
-    
-}
+
+    removeStrand(index) {
+      const value = {
+        id: index
+      };
+      axios
+        .put("http://localhost:3000/api/v1/admin/strand", value)
+        .then(res => {
+          const queryResquest = res;
+        })
+        .catch(err => {
+          console.log("remove request error", err);
+        });
+      window.location.reload(true);
+    }
+  }
+};
 </script>
 
 <style>
