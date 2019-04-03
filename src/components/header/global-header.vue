@@ -56,7 +56,12 @@
 
 <script>
 export default {
-  name: 'GlobalHeader',
+  name: "GlobalHeader",
+  data() {
+    return {
+      hasToken: ""
+    };
+  }
 };
 </script>
 

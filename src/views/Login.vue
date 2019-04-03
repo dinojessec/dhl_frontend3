@@ -60,8 +60,15 @@ export default {
         password: ""
       },
       response: "",
-      status: ""
+      status: "",
+      hide: ""
     };
+  },
+
+  computed: {
+    verified() {
+      this.hide = localStorage.getItem("token");
+    }
   },
 
   methods: {
@@ -76,14 +83,16 @@ export default {
         Axios.post("http://localhost:3000/api/v1/login", input)
           .then(response => {
             const res = response;
+            localStorage.setItem("token", res.data.token);
+            console.log(res);
             const resMsg = response.data.message;
             this.response = resMsg;
             const resStatus = response.data.status;
             this.status = resStatus;
             const resID = response.data.id;
-            if (resStatus === 200) {
-              this.$router.push({ path: `/${resID}` });
-            }
+            // if (resStatus === 200) {
+            //   this.$router.redirect({ path: `/profile/${resID}` });
+            // }
           })
           .catch(err => {
             console.log("axios error", err);

@@ -282,6 +282,25 @@ export default {
     };
   },
 
+  created() {
+    // getStudentInformation() {
+    const id = axios
+      .post("http://localhost:3000/api/v1/profile", {
+        params: {
+          pdsID: 42
+        }
+      })
+      .then(val => {
+        const queryResult = val.data.studentQuery;
+        console.log(queryResult);
+        this.studentInfo = queryResult;
+      })
+      .catch(err => {
+        throw err;
+      });
+    // }
+  },
+
   watch: {
     studentInfo: {
       handler(val) {
@@ -293,25 +312,6 @@ export default {
   },
 
   methods: {
-    getStudentInformation() {
-      axios
-        .get("http://localhost:3000/api/v1/profile", null, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          },
-          params: 42
-        })
-        .then(val => {
-          const queryResult = val.data.studentQuery;
-          console.log(queryResult);
-          this.studentInfo = queryResult;
-        })
-        .catch(err => {
-          throw err;
-        });
-    },
-
     updateStudentInformation() {
       const updatedInfo = this.$store.getters.getStudentInfo;
       console.log(updatedInfo);
