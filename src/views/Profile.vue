@@ -61,39 +61,13 @@
           <!-- strand -->
           <div class="row">
             <div class="col">
-              <h4
-                class=""
-                v-if="editable === false"
-              >{{ studentInfo.strandName }}</h4>
-              <select
-                class="form-control shadow bg-white rounded"
-                v-model="studentInfo.strand"
-                v-if="editable === true"
-                @click="getStrandList()"
-              >
-                <option
-                  v-for="item in strandList"
-                  :key="item.strandID"
-                  v-bind:value="item.strandID"
-                >{{ item.strandName }}</option>
-              </select>
+              <h4>{{ studentInfo.strandName }}</h4>
             </div>
           </div>
           <!-- grade level -->
           <div class="row">
             <div class="col">
-              <h4
-                class=""
-                v-if="editable === false"
-              >{{ studentInfo.gradeLevel }}</h4>
-              <select
-                class="form-control"
-                v-if="editable === true"
-                v-model="studentInfo.gradeLevel"
-              >
-                <option value="Grade 11">Grade 11</option>
-                <option value="Grade 12">Grade 12</option>
-              </select>
+              <h4>{{ studentInfo.gradeLevel }}</h4>
             </div>
           </div>
           <!-- LRN -->
@@ -115,17 +89,7 @@
           <!-- section -->
           <div class="row">
             <div class="col">
-              <h4
-                class=""
-                v-if="editable === false"
-              >Section</h4>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Section"
-                v-model="studentInfo.section"
-                v-if="editable === true"
-              >
+              <h4>{{ studentInfo.section }}</h4>
             </div>
           </div>
           <!-- <p>&nbsp;</p> -->
@@ -210,13 +174,24 @@
 
     <div class="row">
       <div class="col-md-3 col-12">
-        <div class="other-info">
-          <h4 class="display-5">Account info</h4>
-          <h6 class=""><strong>{{ studentInfo.username }}</strong></h6>
-          <a
-            href="#"
-            class="badge badge-primary"
-          >Change Password</a>
+        <div class="container other-info">
+          <div class="align-items-start">
+            <div class="col">
+              <h4 class="display-5">Account info</h4>
+              <h5>
+                <router-link to="/strand">Strand</router-link>
+              </h5>
+              <h5>
+                <router-link to="/section">Section</router-link>
+              </h5>
+              <h5>
+                <router-link to="/gradelevel">Grade Level</router-link>
+              </h5>
+              <p>&nbsp;</p>
+              <h5 class="mb-2"><strong>username{{ studentInfo.username }}</strong></h5>
+              <button class="btn btn-primary btn-sm mb-2">Change Password</button>
+            </div>
+          </div>
         </div>
         <button @click="getStudentInformation()">test button</button>
       </div>
@@ -311,7 +286,6 @@ export default {
     studentInfo: {
       handler(val) {
         const dataMap = val;
-        // console.log(dataMap);
         this.$store.commit("sendStudentInfoToState", dataMap);
       },
       deep: true
@@ -321,9 +295,16 @@ export default {
   methods: {
     getStudentInformation() {
       axios
-        .get("http://localhost:3000/api/v1/profile")
+        .get("http://localhost:3000/api/v1/profile", null, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          },
+          params: 42
+        })
         .then(val => {
-          const queryResult = val.data.studentQuery[0];
+          const queryResult = val.data.studentQuery;
+          console.log(queryResult);
           this.studentInfo = queryResult;
         })
         .catch(err => {
@@ -335,7 +316,7 @@ export default {
       const updatedInfo = this.$store.getters.getStudentInfo;
       console.log(updatedInfo);
       axios
-        .post("http://localhost:3000/api/v1/profile", updatedInfo)
+        .put("http://localhost:3000/api/v1/profile", updatedInfo)
         .then(result => {
           const inputVal = result;
           console.log(inputVal);
