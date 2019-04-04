@@ -65,12 +65,6 @@ export default {
     };
   },
 
-  computed: {
-    verified() {
-      this.hide = localStorage.getItem("token");
-    }
-  },
-
   methods: {
     login() {
       const user = this.userInput.username;
@@ -90,9 +84,8 @@ export default {
             const resStatus = response.data.status;
             this.status = resStatus;
             const resID = response.data.id;
-            // if (resStatus === 200) {
-            //   this.$router.redirect({ path: `/profile/${resID}` });
-            // }
+            localStorage.setItem("userID", resID);
+            location.reload();
           })
           .catch(err => {
             console.log("axios error", err);

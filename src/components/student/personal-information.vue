@@ -5,10 +5,20 @@
       <div class="col-5">
         <label>Birthday</label>
         <input
+          readonly
           type="date"
           class="form-control"
-          v-model="studentInfo.birthday"
+          v-model="studentInfo.formatedBirthday"
+          v-if="editable === false"
         >
+        <input
+          type="date"
+          name="birthday"
+          class="form-control"
+          v-if="editable === true"
+          v-validate="{ required: true }"
+        >
+        <div class="err">{{ errors.first('birthday') }}</div>
       </div>
       <div class="col-3">
         <label>Age</label>
@@ -16,7 +26,7 @@
           readonly
           type="text"
           class="form-control"
-          placeholder="Age true"
+          :value="studentInfo.age"
         >
       </div>
       <div class="col-4">
@@ -32,10 +42,11 @@
         <select
           class="form-control"
           v-model="studentInfo.gender"
-          v-validate="'included:male,female'"
           name="gender"
           v-if="editable === true"
+          v-validate="{ required: true }"
         >
+          <div class="err">{{ errors.first('gender') }}</div>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
@@ -48,15 +59,19 @@
           readonly
           class="form-control"
           :value="studentInfo.email"
+          placeholder="Email"
           v-if="editable === false"
         >
         <input
           type="text"
+          name="email"
           class="form-control"
           v-model="studentInfo.email"
           placeholder="Email"
           v-if="editable === true"
+          v-validate="{ required: true, email: true }"
         >
+        <div class="err">{{ errors.first('email') }}</div>
       </div>
       <div class="col">
         <input
@@ -67,11 +82,14 @@
         >
         <input
           type="text"
+          name="mobile number"
           class="form-control"
           v-model="studentInfo.mobileNumber"
           placeholder="Mobile Number"
           v-if="editable === true"
+          v-validate="{ required: true, digits:10 }"
         >
+        <div class="err">{{ errors.first('mobile number') }}</div>
       </div>
       <div class="col">
         <input
@@ -82,11 +100,14 @@
         >
         <input
           type="text"
+          name="landline number"
           class="form-control"
           v-model="studentInfo.landlineNumber"
           placeholder="Landline Number"
           v-if="editable === true"
+          v-validate="{ required: true, digits: 10 }"
         >
+        <div class="err">{{ errors.first('landline number') }}</div>
       </div>
     </div>
 
@@ -209,10 +230,14 @@
 
 <script>
 export default {
-  name: 'PersonalInformation',
-  props: ['editable', 'studentInfo'],
+  name: "PersonalInformation",
+  inject: ["$validator"],
+  props: ["editable", "studentInfo"]
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.err {
+  color: #ff0000;
+}
 </style>

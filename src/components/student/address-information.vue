@@ -16,11 +16,14 @@
         <input
           class="form-control"
           type="text"
+          name="house number"
           id="houseNumber"
           placeholder="House Number"
           v-model="studentInfo.houseNumber"
           v-if="editable === true"
+          v-validate="{ required: true }"
         >
+        <div class="err">{{ errors.first('house number') }}</div>
       </div>
       <div class="col-5">
         <input
@@ -35,11 +38,14 @@
         <input
           class="form-control"
           type="text"
+          name="street name"
           id="streetName"
           placeholder="Street Name"
           v-model="studentInfo.streetName"
           v-if="editable === true"
+          v-validate="{ required: true }"
         >
+        <div class="err">{{ errors.first('street name') }}</div>
       </div>
       <div class="col-4">
         <input
@@ -54,11 +60,14 @@
         <input
           class="form-control"
           type="text"
+          name="barangay"
           id="barangay"
           placeholder="Barangay"
           v-model="studentInfo.barangay"
           v-if="editable === true"
+          v-validate="{ required: true }"
         >
+        <div class="err">{{ errors.first('barangay') }}</div>
       </div>
     </div>
 
@@ -77,10 +86,13 @@
           class="form-control"
           type="text"
           id="town"
+          name="town"
           placeholder="Town"
           v-model="studentInfo.town"
           v-if="editable === true"
+          v-validate="{ required: true }"
         >
+        <div class="err">{{ errors.first('town') }}</div>
       </div>
       <div class="col-6">
         <input
@@ -96,10 +108,13 @@
           class="form-control"
           type="text"
           id="city"
+          name="city"
           placeholder="City"
           v-model="studentInfo.city"
           v-if="editable === true"
+          v-validate="{ required: true }"
         >
+        <div class="err">{{ errors.first('city') }}</div>
       </div>
     </div>
 
@@ -313,11 +328,15 @@
 
 <script>
 export default {
-  name: 'AddressInformation',
-  props: ['editable', 'studentInfo'],
+  name: "AddressInformation",
+  inject: ["$validator"],
+  props: ["editable", "studentInfo"]
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.err {
+  color: #ff0000;
+}
 </style>
 

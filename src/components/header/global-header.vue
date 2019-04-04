@@ -39,6 +39,7 @@
             class="nav-link"
             to="/profile"
             exact
+            v-if="loggedIn"
           >Profile</router-link>
         </li>
         <li>
@@ -46,6 +47,7 @@
             class="nav-link"
             to="/admin"
             exact
+            v-if="loggedIn"
           >Admin</router-link>
         </li>
       </ul>
@@ -57,11 +59,12 @@
 <script>
 export default {
   name: "GlobalHeader",
+  props: ["loggedIn"],
   data() {
-    return {
-      hasToken: ""
-    };
-  }
+    return {};
+  },
+
+  watch: {}
 };
 </script>
 

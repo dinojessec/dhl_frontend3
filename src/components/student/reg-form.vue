@@ -92,54 +92,6 @@
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group col-12 col-md-4">
-              <label>Strand</label>
-              <select
-                class="form-control shadow bg-white rounded"
-                v-model="student.strandID"
-                v-validate="{ required: true }"
-                name="strand"
-              >
-                <option
-                  v-for="item in strandList"
-                  :key="item.strandID"
-                  :value="item.strandID"
-                >{{ item.strandName }}</option>
-              </select>
-              <div class="err">{{ errors.first('strand') }}</div>
-            </div>
-            <div class="form-group col-12 col-md-4">
-              <label>LRN</label>
-              <input
-                type="text"
-                class="form-control shadow bg-white rounded"
-                placeholder="LRN"
-                v-model="student.LRN"
-                name="LRN"
-                v-validate="{ numeric: true, required: true }"
-              >
-              <div class="err">{{ errors.first('LRN') }}</div>
-            </div>
-            <div class="form-group col-12 col-md-4">
-              <label>Grade Level</label>
-              <select
-                class="form-control shadow bg-white rounded"
-                v-model="student.gradeLevel"
-                v-validate="{ required: true }"
-                name="Grade Level"
-              >
-                <option
-                  selected
-                  disabled
-                >Choose...</option>
-                <option value="grade11">Grade 11</option>
-                <option value="grade12">Grade 12</option>
-              </select>
-              <div class="err">{{ errors.first('Grade Level') }}</div>
-            </div>
-          </div>
-
         </div>
       </div>
     </form>
@@ -343,19 +295,18 @@
 </template>
 
 <script>
-
 export default {
-  name: 'reg-form',
-  inject: ['$validator'],
-  props: ['strandList'],
+  name: "reg-form",
+  inject: ["$validator"],
+  props: ["strandList"],
   data() {
     return {
       student: {
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        username: '',
-      },
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        username: ""
+      }
     };
   },
 
@@ -363,26 +314,29 @@ export default {
     student: {
       handler(val) {
         const dataMap = val;
-        this.$store.commit('studentStateChange', dataMap);
+        this.$store.commit("studentStateChange", dataMap);
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
 
   methods: {
     generateUser() {
       const wholeFirstName = this.student.firstName;
-      const firstName = wholeFirstName.replace(/ .*/,'');
+      const firstName = wholeFirstName.replace(/ .*/, "");
       const middleName = this.student.middleName;
       const lastName = this.student.lastName;
 
-      if (typeof firstName !== 'undefined' && typeof middleName !== 'undefined' && typeof lastName !== 'undefined') {
+      if (
+        typeof firstName !== "undefined" &&
+        typeof middleName !== "undefined" &&
+        typeof lastName !== "undefined"
+      ) {
         const username = `${lastName}${firstName}${middleName.charAt(0)}`;
-        this.student.username = username.replace(/\s/g, '').toLowerCase();
+        this.student.username = username.replace(/\s/g, "").toLowerCase();
       }
-    },
-  },
-
+    }
+  }
 };
 </script>
 

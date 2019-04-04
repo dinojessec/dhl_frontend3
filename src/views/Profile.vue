@@ -7,8 +7,14 @@
         <div
           class="alert alert-danger"
           role="alert"
+          v-if="errors.any()"
         >
-          This message will show if any of the required fields are empty
+          <ul>
+            <li
+              v-for="error in errors.all()"
+              :key="error"
+            >{{ error }}</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -76,7 +82,7 @@
               <h4
                 class=""
                 v-if="editable === false"
-              >LRN</h4>
+              >{{ studentInfo.LRN }}</h4>
               <input
                 type="text"
                 class="form-control"
@@ -92,7 +98,7 @@
               <h4>{{ studentInfo.section }}</h4>
             </div>
           </div>
-          <!-- <p>&nbsp;</p> -->
+          <p>&nbsp;</p>
           <ul
             class="nav nav-tabs"
             id="myTab"
@@ -142,17 +148,6 @@
                 aria-selected="false"
               >Education</a>
             </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="grades-tab"
-                data-toggle="tab"
-                href="#Grades"
-                role="tab"
-                aria-controls="grades"
-                aria-selected="false"
-              >Grades</a>
-            </li>
           </ul>
         </div>
       </div>
@@ -177,7 +172,6 @@
         <div class="container other-info">
           <div class="align-items-start">
             <div class="col">
-              <h4 class="display-5">Account info</h4>
               <h5>
                 <router-link to="/strand">Strand</router-link>
               </h5>
@@ -188,12 +182,12 @@
                 <router-link to="/gradelevel">Grade Level</router-link>
               </h5>
               <p>&nbsp;</p>
+              <h4 class="display-5">Account info</h4>
               <h5 class="mb-2"><strong>username{{ studentInfo.username }}</strong></h5>
               <button class="btn btn-primary btn-sm mb-2">Change Password</button>
             </div>
           </div>
         </div>
-        <button @click="getStudentInformation()">test button</button>
       </div>
       <div class="col-12 col-md-9">
         <div
@@ -239,7 +233,10 @@
             role="tabpanel"
             aria-labelledby="education-tab"
           >
-            <education-information></education-information>
+            <education-information
+              :editable="editable"
+              :studentInfo="studentInfo"
+            ></education-information>
           </div>
           <div
             class="tab-pane fade"
@@ -283,22 +280,7 @@ export default {
   },
 
   created() {
-    // getStudentInformation() {
-    const id = axios
-      .post("http://localhost:3000/api/v1/profile", {
-        params: {
-          pdsID: 42
-        }
-      })
-      .then(val => {
-        const queryResult = val.data.studentQuery;
-        console.log(queryResult);
-        this.studentInfo = queryResult;
-      })
-      .catch(err => {
-        throw err;
-      });
-    // }
+    this.getStudentInformation();
   },
 
   watch: {
@@ -312,6 +294,27 @@ export default {
   },
 
   methods: {
+    getStudentInformation() {
+      const clientID = localStorage.getItem("userID");
+      axios
+        .get(`http://localhost:3000/api/v1/profile/${clientID}`)
+        .then(val => {
+          console.log(val);
+          const queryResult = val.data.info[0];
+          const queryResultStrand = val.data.strand;
+          console.log(queryResult);
+          this.studentInfo = queryResult;
+          this.studentInfo.strandName = queryResultStrand;
+        })
+        .catch(err => {
+          throw err;
+        });
+    },
+
+    // capitalizeFirstLetter(string) {
+    //   return string.charAt(0).toUpperCase() + string.slice(1);
+    // },
+
     updateStudentInformation() {
       const updatedInfo = this.$store.getters.getStudentInfo;
       console.log(updatedInfo);

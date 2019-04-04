@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <global-header></global-header>
+    <global-header :loggedIn="loggedIn"></global-header>
 
     <!-- content -->
     <div class="container-fluid mt-5">
@@ -15,13 +15,28 @@
 </template>
 
 <script>
-import globalHeader from './components/header/global-header';
+import globalHeader from "./components/header/global-header";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    globalHeader,
+    globalHeader
   },
+  data() {
+    return {
+      loggedIn: false
+    };
+  },
+
+  created() {
+    const token = !!localStorage.getItem("token");
+    if (token === "null" || token === "undefined") {
+      console.log("wrong credentials");
+      this.loggedIn = token;
+    } else {
+      this.loggedIn = token;
+    }
+  }
 };
 </script>
 
