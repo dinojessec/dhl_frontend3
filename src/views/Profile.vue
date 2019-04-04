@@ -161,7 +161,7 @@
         <button
           type="button"
           class="btn btn-info"
-          @click="updateStudentInformation"
+          @click="updateStudentInformation()"
           v-if="editable === true"
         >Save Changes</button>
       </div>
@@ -183,7 +183,7 @@
               </h5>
               <p>&nbsp;</p>
               <h4 class="display-5">Account info</h4>
-              <h5 class="mb-2"><strong>username{{ studentInfo.username }}</strong></h5>
+              <h5 class="mb-2"><strong>{{ studentInfo.username }}</strong></h5>
               <button class="btn btn-primary btn-sm mb-2">Change Password</button>
             </div>
           </div>
@@ -299,10 +299,10 @@ export default {
       axios
         .get(`http://localhost:3000/api/v1/profile/${clientID}`)
         .then(val => {
-          console.log(val);
+          // console.log(val);
           const queryResult = val.data.info[0];
           const queryResultStrand = val.data.strand;
-          console.log(queryResult);
+          // console.log(queryResult);
           this.studentInfo = queryResult;
           this.studentInfo.strandName = queryResultStrand;
         })
@@ -322,7 +322,7 @@ export default {
         .put("http://localhost:3000/api/v1/profile", updatedInfo)
         .then(result => {
           const inputVal = result;
-          console.log(inputVal);
+          console.log("axios put request result", inputVal);
         })
         .catch(err => {
           console.log(err);

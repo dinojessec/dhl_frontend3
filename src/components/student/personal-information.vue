@@ -6,9 +6,9 @@
         <label>Birthday</label>
         <input
           readonly
-          type="date"
+          type="text"
           class="form-control"
-          v-model="studentInfo.formatedBirthday"
+          :value="studentInfo.formatedBirthday"
           v-if="editable === false"
         >
         <input
@@ -16,6 +16,7 @@
           name="birthday"
           class="form-control"
           v-if="editable === true"
+          v-model="studentInfo.birthday"
           v-validate="{ required: true }"
         >
         <div class="err">{{ errors.first('birthday') }}</div>
@@ -198,13 +199,16 @@
           placeholder="Preferred Shift"
           v-if="editable === false"
         >
-        <input
+        <select
           type="text"
           class="form-control"
           v-model="studentInfo.preferredShift"
           placeholder="Preferred Shift"
           v-if="editable === true"
         >
+          <option value="am">A.M.</option>
+          <option value="pm">P.M.</option>
+        </select>
       </div>
       <div class="col">
         <input

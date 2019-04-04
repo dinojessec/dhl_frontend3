@@ -83,7 +83,7 @@ export default {
             this.response = resMsg;
             const resStatus = response.data.status;
             this.status = resStatus;
-            const resID = response.data.id;
+            const resID = response.data.userID;
             localStorage.setItem("userID", resID);
             location.reload();
           })
