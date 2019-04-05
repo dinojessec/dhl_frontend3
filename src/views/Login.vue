@@ -77,15 +77,21 @@ export default {
         Axios.post("http://localhost:3000/api/v1/login", input)
           .then(response => {
             const res = response;
-            localStorage.setItem("token", res.data.token);
             console.log(res);
             const resMsg = response.data.message;
             this.response = resMsg;
             const resStatus = response.data.status;
             this.status = resStatus;
-            const resID = response.data.userID;
-            localStorage.setItem("userID", resID);
+            const resPdsID = response.data.id;
+            const resUserID = response.data.userID;
+            const groupID = response.data.groupID;
+            localStorage.setItem("token", resPdsID);
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("userID", resUserID);
+            localStorage.setItem("groupID", groupID);
+            this.$router.push({ path: `/` });
             location.reload();
+            // this.$router.push({ path: `/profile/${resUserID}` });
           })
           .catch(err => {
             console.log("axios error", err);

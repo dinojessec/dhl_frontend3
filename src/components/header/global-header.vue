@@ -32,14 +32,22 @@
             class="nav-link"
             to="/login"
             exact
+            v-if="!loggedIn"
           >Log-in</router-link>
+          <router-link
+            class="nav-link"
+            to="/"
+            exact
+            v-if="loggedIn"
+            @click.native="logout()"
+          >Log-out</router-link>
         </li>
         <li>
           <router-link
             class="nav-link"
-            to="/profile"
+            :to="{ path: '/profile/' + this.userID }"
             exact
-            v-if="loggedIn"
+            v-if="groupID >= 1"
           >Profile</router-link>
         </li>
         <li>
@@ -47,8 +55,16 @@
             class="nav-link"
             to="/admin"
             exact
-            v-if="loggedIn"
+            v-if="groupID >= 2"
           >Admin</router-link>
+        </li>
+        <li>
+          <router-link
+            class="nav-link"
+            to="/"
+            exact
+            v-if="groupID >= 3"
+          >User</router-link>
         </li>
       </ul>
     </nav>
@@ -59,12 +75,17 @@
 <script>
 export default {
   name: "GlobalHeader",
-  props: ["loggedIn"],
+  props: ["groupID", "userID", "loggedIn"],
   data() {
     return {};
   },
 
-  watch: {}
+  methods: {
+    logout() {
+      localStorage.clear();
+      location.reload();
+    }
+  }
 };
 </script>
 
@@ -73,6 +94,9 @@ export default {
   margin-bottom: 10px;
 }
 .nav-link {
+  color: #eeeeee;
+}
+.logout {
   color: #eeeeee;
 }
 </style>

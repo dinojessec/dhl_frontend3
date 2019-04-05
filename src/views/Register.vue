@@ -17,7 +17,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <reg-form :strandList="strandList"></reg-form>
+        <reg-form></reg-form>
       </div>
     </div>
     <div class="container mt-5 d-flex flex-row-reverse">
@@ -44,24 +44,23 @@ export default {
   },
   data() {
     return {
-      strandList: [],
       responseMessage: "",
       error: "",
       status: ""
     };
   },
 
-  created() {
-    axios
-      .get("http://localhost:3000/api/v1/register")
-      .then(response => {
-        const loadStrand = response.data.strandData;
-        this.strandList = loadStrand;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
+  // created() {
+  //   axios
+  //     .get("http://localhost:3000/api/v1/register")
+  //     .then(response => {
+  //       const loadStrand = response.data.strandData;
+  //       this.strandList = loadStrand;
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // },
 
   methods: {
     saveStudent() {
@@ -83,6 +82,7 @@ export default {
               const responseStatus = response.data.status;
               this.responseMessage = responseMessage;
               this.status = responseStatus;
+              // this.$router.push({ path: "/" });
             })
             .catch(error => {
               console.log(error);

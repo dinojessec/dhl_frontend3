@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <global-header :loggedIn="loggedIn"></global-header>
+    <global-header
+      :loggedIn="loggedIn"
+      :groupID="groupID"
+      :userID="userID"
+    ></global-header>
 
     <!-- content -->
     <div class="container-fluid mt-5">
@@ -24,18 +28,16 @@ export default {
   },
   data() {
     return {
-      loggedIn: false
+      loggedIn: "",
+      groupID: "",
+      userID: ""
     };
   },
 
   created() {
-    const token = !!localStorage.getItem("token");
-    if (token === "null" || token === "undefined") {
-      console.log("wrong credentials");
-      this.loggedIn = token;
-    } else {
-      this.loggedIn = token;
-    }
+    this.loggedIn = !!localStorage.getItem("token");
+    this.userID = localStorage.getItem("userID");
+    this.groupID = localStorage.getItem("groupID");
   }
 };
 </script>

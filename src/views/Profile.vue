@@ -280,7 +280,24 @@ export default {
   },
 
   created() {
-    this.getStudentInformation();
+    // get student info
+    console.log("oncreate");
+    const clientID = localStorage.getItem("userID");
+    // const clientID = this.$route.params.id;
+    console.log(clientID);
+    axios
+      .get("http://localhost:3000/api/v1/profile/" + clientID)
+      .then(val => {
+        // console.log(val);
+        const queryResult = val.data.info[0];
+        const queryResultStrand = val.data.strand;
+        // console.log(queryResult);
+        this.studentInfo = queryResult;
+        this.studentInfo.strandName = queryResultStrand;
+      })
+      .catch(err => {
+        throw err;
+      });
   },
 
   watch: {
@@ -294,23 +311,6 @@ export default {
   },
 
   methods: {
-    getStudentInformation() {
-      const clientID = localStorage.getItem("userID");
-      axios
-        .get(`http://localhost:3000/api/v1/profile/${clientID}`)
-        .then(val => {
-          // console.log(val);
-          const queryResult = val.data.info[0];
-          const queryResultStrand = val.data.strand;
-          // console.log(queryResult);
-          this.studentInfo = queryResult;
-          this.studentInfo.strandName = queryResultStrand;
-        })
-        .catch(err => {
-          throw err;
-        });
-    },
-
     // capitalizeFirstLetter(string) {
     //   return string.charAt(0).toUpperCase() + string.slice(1);
     // },

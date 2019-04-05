@@ -16,10 +16,10 @@
 
 <script>
 // @ is an alias to /src
-import Strand from '../components/strand/strand';
+// import Strand from '../components/strand/strand';
 
 export default {
-  name: 'home',
-  components: {},
+  name: "home",
+  components: {}
 };
 </script>
