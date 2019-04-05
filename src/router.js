@@ -37,6 +37,12 @@ export default new Router({
       name: 'login',
       component: () => import('./views/Login.vue'),
     },
+    {
+      path: '/success',
+      name: 'success',
+      component: () => import('./components/login/login-form.vue'),
+    },
+
     // admin routes protected
     {
       path: '/admin',

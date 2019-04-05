@@ -78,20 +78,21 @@ export default {
           .then(response => {
             const res = response;
             console.log(res);
-            const resMsg = response.data.message;
+            const resStatus = res.data.status;
+            const resMsg = res.data.message;
             this.response = resMsg;
-            const resStatus = response.data.status;
             this.status = resStatus;
-            const resPdsID = response.data.id;
-            const resUserID = response.data.userID;
-            const groupID = response.data.groupID;
-            localStorage.setItem("token", resPdsID);
+            const resPdsID = res.data.id;
+            const resUserID = res.data.userID;
+            const groupID = res.data.groupID;
+            const username = res.data.name;
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userID", resUserID);
             localStorage.setItem("groupID", groupID);
+            localStorage.setItem("name", username);
             this.$router.push({ path: `/` });
-            location.reload();
             // this.$router.push({ path: `/profile/${resUserID}` });
+            location.reload(false);
           })
           .catch(err => {
             console.log("axios error", err);

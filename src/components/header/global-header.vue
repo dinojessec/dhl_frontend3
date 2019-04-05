@@ -22,6 +22,7 @@
             class="nav-link"
             to="/register"
             exact
+            v-if="!loggedIn"
           >Register</router-link>
         </li>
       </ul>
@@ -66,6 +67,10 @@
             v-if="groupID >= 3"
           >User</router-link>
         </li>
+        <li><button
+            class="btn btn-light"
+            v-if="loggedIn"
+          >{{ username }}</button></li>
       </ul>
     </nav>
 
@@ -75,7 +80,7 @@
 <script>
 export default {
   name: "GlobalHeader",
-  props: ["groupID", "userID", "loggedIn"],
+  props: ["groupID", "userID", "loggedIn", "username"],
   data() {
     return {};
   },
@@ -83,7 +88,7 @@ export default {
   methods: {
     logout() {
       localStorage.clear();
-      location.reload();
+      location.reload(false);
     }
   }
 };
