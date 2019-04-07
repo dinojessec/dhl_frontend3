@@ -46,7 +46,7 @@
         <li>
           <router-link
             class="nav-link"
-            :to="{ path: '/profile/' + this.userID }"
+            to="/profile"
             exact
             v-if="groupID >= 1"
           >Profile</router-link>

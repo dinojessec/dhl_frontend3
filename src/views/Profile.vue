@@ -148,6 +148,17 @@
                 aria-selected="false"
               >Education</a>
             </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="competency-tab"
+                data-toggle="tab"
+                href="#Competency"
+                role="tab"
+                aria-controls="competency"
+                aria-selected="false"
+              >Competency</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -173,7 +184,7 @@
           <div class="align-items-start">
             <div class="col">
               <h5>
-                <router-link to="/strand">Strand</router-link>
+                <router-link to="/strand/">Strand</router-link>
               </h5>
               <h5>
                 <router-link to="/section">Section</router-link>
@@ -184,7 +195,7 @@
               <p>&nbsp;</p>
               <h4 class="display-5">Account info</h4>
               <h5 class="mb-2"><strong>{{ studentInfo.username }}</strong></h5>
-              <button class="btn btn-primary btn-sm mb-2">Change Password</button>
+              <router-link to="/changepassword"><button class="btn btn-outline-info">Change Password</button></router-link>
             </div>
           </div>
         </div>
@@ -240,11 +251,11 @@
           </div>
           <div
             class="tab-pane fade"
-            id="Grades"
+            id="Competency"
             role="tabpanel"
-            aria-labelledby="grades-tab"
+            aria-labelledby="competency-tab"
           >
-            grades
+            Competency
           </div>
         </div>
       </div>
@@ -283,8 +294,7 @@ export default {
     // get student info
     console.log("oncreate");
     const clientID = localStorage.getItem("userID");
-    // const clientID = this.$route.params.id;
-    console.log(clientID);
+    // console.log(clientID);
     axios
       .get("http://localhost:3000/api/v1/profile/" + clientID)
       .then(val => {
@@ -317,7 +327,7 @@ export default {
 
     updateStudentInformation() {
       const updatedInfo = this.$store.getters.getStudentInfo;
-      console.log(updatedInfo);
+      // console.log(updatedInfo);
       axios
         .put("http://localhost:3000/api/v1/profile", updatedInfo)
         .then(result => {

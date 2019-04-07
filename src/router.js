@@ -26,23 +26,27 @@ export default new Router({
       name: 'register',
       component: () => import('./views/Register.vue'),
     },
-    // profiles
-    {
-      path: '/profile/:id',
-      name: 'profile',
-      component: () => import('./views/Profile.vue'),
-    },
     {
       path: '/login',
       name: 'login',
       component: () => import('./views/Login.vue'),
     },
+    // profiles
     {
-      path: '/success',
-      name: 'success',
-      component: () => import('./components/login/login-form.vue'),
+      path: '/profile',
+      name: 'profile',
+      component: () => import('./views/Profile.vue'),
     },
-
+    {
+      path: '/strand',
+      name: 'selectstrand',
+      component: () => import('./components/strand/select-strand.vue'),
+    },
+    {
+      path: '/changepassword',
+      name: 'changepassword',
+      component: () => import('./components/password/password.vue'),
+    },
     // admin routes protected
     {
       path: '/admin',
