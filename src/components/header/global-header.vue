@@ -46,8 +46,7 @@
         <li>
           <router-link
             class="nav-link"
-            to="/profile"
-            exact
+            :to="{ name: 'profile', params: { id: this.currentUser } }"
             v-if="groupID >= 1"
           >Profile</router-link>
         </li>
@@ -82,7 +81,9 @@ export default {
   name: "GlobalHeader",
   props: ["groupID", "userID", "loggedIn", "username"],
   data() {
-    return {};
+    return {
+      currentUser: localStorage.getItem("userID")
+    };
   },
 
   methods: {

@@ -90,9 +90,9 @@ export default {
             localStorage.setItem("userID", resUserID);
             localStorage.setItem("groupID", groupID);
             localStorage.setItem("name", username);
-            this.$router.push({ path: `/` });
+            this.$router.replace({ path: `/` });
             // this.$router.push({ path: `/profile/${resUserID}` });
-            location.reload(false);
+            location.reload();
           })
           .catch(err => {
             console.log("axios error", err);

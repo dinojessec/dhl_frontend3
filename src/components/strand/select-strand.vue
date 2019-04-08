@@ -3,18 +3,24 @@
   <div class="container">
     <div class="form-row">
       <div class="col">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Strand List</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th v-model="selectedStrand">test</th>
-            </tr>
-          </tbody>
-        </table>
+        <label>Select Strand</label>
+        <select
+          class="custom-select custom-select-lg mb-3"
+          v-model="selectedStrand.newStrand"
+          size="5"
+        >
+          <option
+            v-for="item in strandlist"
+            :key="item.strandID"
+            :value="item"
+          >{{ item.strandName }}</option>
+        </select>
+        <input
+          type="submit"
+          value="Update"
+          class="btn btn-outline-primary"
+          @click="saveNewStrand()"
+        >
       </div>
     </div>
   </div>
@@ -29,25 +35,38 @@ export default {
   data() {
     return {
       strandlist: [],
-      selectedStrand: ""
+      selectedStrand: {}
     };
   },
 
   created() {
-    const user = localStorage.getItem("userID");
-    // console.log(user);
-    // Axios.get("http://localhost:3000/api/v1/profile/" + this.ID)
-    //   .then(val => {
-    //     // console.log(val);
-    //     const queryResult = val.data.info[0];
-    //     const queryResultStrand = val.data.strand;
-    //     // console.log(queryResult);
-    //     this.studentInfo = queryResult;
-    //     this.studentInfo.strandName = queryResultStrand;
-    //   })
-    //   .catch(err => {
-    //     throw err;
-    //   });
+    Axios.get(`http://localhost:3000/api/v1/selectstrand`)
+      .then(val => {
+        console.log(val);
+        this.strandlist = val.data.result;
+      })
+      .catch(err => {
+        throw err;
+      });
+  },
+
+  methods: {
+    saveNewStrand() {
+      const user = localStorage.getItem("userID");
+      const newStrand = this.selectedStrand.newStrand;
+      console.log(newStrand);
+      Axios.put("http://localhost:3000/api/v1/selectstrand", {
+        newStrand,
+        user
+      })
+        .then(response => {
+          console.log(response);
+          this.$router.go(-1);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 };
 </script>

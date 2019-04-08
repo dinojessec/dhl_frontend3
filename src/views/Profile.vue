@@ -184,7 +184,7 @@
           <div class="align-items-start">
             <div class="col">
               <h5>
-                <router-link to="/strand/">Strand</router-link>
+                <router-link to="/selectstrand">Strand</router-link>
               </h5>
               <h5>
                 <router-link to="/section">Section</router-link>
@@ -292,13 +292,12 @@ export default {
 
   created() {
     // get student info
-    console.log("oncreate");
     const clientID = localStorage.getItem("userID");
-    // console.log(clientID);
+    console.log(clientID);
     axios
       .get("http://localhost:3000/api/v1/profile/" + clientID)
       .then(val => {
-        // console.log(val);
+        console.log(val);
         const queryResult = val.data.info[0];
         const queryResultStrand = val.data.strand;
         // console.log(queryResult);
@@ -327,7 +326,7 @@ export default {
 
     updateStudentInformation() {
       const updatedInfo = this.$store.getters.getStudentInfo;
-      // console.log(updatedInfo);
+      console.log(updatedInfo);
       axios
         .put("http://localhost:3000/api/v1/profile", updatedInfo)
         .then(result => {

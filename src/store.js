@@ -8,6 +8,9 @@ export default new Vuex.Store({
     student: {},
     studentInfo: {},
     strand: {},
+    token: null,
+    groupID: null,
+    loggedIn: false,
   },
 
   mutations: {
@@ -25,9 +28,26 @@ export default new Vuex.Store({
       const stateRef = state;
       stateRef.strand = payload;
     },
+
+    updateToken(state, token) {
+      const stateRef = state;
+      stateRef.token = token;
+    },
+
+    updateGroupID(state, groupID) {
+      const stateRef = state;
+      stateRef.groupID = groupID;
+    },
   },
 
-  actions: {},
+  actions: {
+    fetchToken({ commit }) {
+      commit('updateToken', localStorage.getItem('token'));
+    },
+    fetchGroupID({ commit }) {
+      commit('updateGroupID', localStorage.getItem('groupID'));
+    },
+  },
 
   getters: {
     getStudentData: state => state.student,
