@@ -82,17 +82,12 @@ export default {
             const resMsg = res.data.message;
             this.response = resMsg;
             this.status = resStatus;
-            const resPdsID = res.data.id;
-            const resUserID = res.data.userID;
-            const groupID = res.data.groupID;
-            const username = res.data.name;
+            const username = res.data.username;
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("userID", resUserID);
-            localStorage.setItem("groupID", groupID);
-            localStorage.setItem("name", username);
-            this.$router.replace({ path: `/` });
+            localStorage.setItem("username", username);
+            this.$router.go(0);
             // this.$router.push({ path: `/profile/${resUserID}` });
-            location.reload();
+            // location.reload();
           })
           .catch(err => {
             console.log("axios error", err);

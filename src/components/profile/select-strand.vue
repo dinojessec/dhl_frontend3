@@ -40,7 +40,15 @@ export default {
   },
 
   created() {
-    Axios.get(`http://localhost:3000/api/v1/selectstrand`)
+    // console.log(this.$store.state);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    };
+    Axios.get(`http://localhost:3000/api/v1/selectstrand`, config)
       .then(val => {
         console.log(val);
         this.strandlist = val.data.result;
@@ -52,13 +60,15 @@ export default {
 
   methods: {
     saveNewStrand() {
-      const user = localStorage.getItem("userID");
+      const token = localStorage.getItem("token");
       const newStrand = this.selectedStrand.newStrand;
-      console.log(newStrand);
-      Axios.put("http://localhost:3000/api/v1/selectstrand", {
-        newStrand,
-        user
-      })
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      Axios.put(`http://localhost:3000/api/v1/selectstrand`, newStrand, config)
         .then(response => {
           console.log(response);
           this.$router.go(-1);

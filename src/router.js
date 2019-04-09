@@ -34,7 +34,7 @@ const router = new Router({
     },
     // profiles
     {
-      path: '/profile/:id',
+      path: '/profile',
       name: 'profile',
       component: () => import('./views/Profile.vue'),
     },
@@ -52,6 +52,12 @@ const router = new Router({
       path: '/changepassword',
       name: 'changepassword',
       component: () => import('./components/password/password.vue'),
+    },
+    // payment
+    {
+      path: '/payment',
+      name: 'payment',
+      component: () => import('./components/payment/payment.vue'),
     },
     // admin routes protected
     {

@@ -4,14 +4,15 @@
       :loggedIn="loggedIn"
       :groupID="groupID"
       :userID="userID"
-      :username="username"
     ></global-header>
+
     <!-- content -->
     <div class="
       container-fluid
       mt-5">
       <div class="row">
         <div class="col">
+          {{ groupID }}
           <router-view />
         </div>
       </div>
@@ -32,16 +33,13 @@ export default {
     return {
       loggedIn: "",
       groupID: "",
-      userID: "",
-      username: ""
+      userID: ""
     };
   },
 
   created() {
-    this.loggedIn = !!localStorage.getItem("token");
-    this.userID = localStorage.getItem("userID");
-    this.groupID = localStorage.getItem("groupID");
-    this.username = localStorage.getItem("name");
+    this.groupID = this.$store.getters.getGroupID;
+    this.loggedIn = this.$store.getters.getToken;
   }
 };
 </script>

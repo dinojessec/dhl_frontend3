@@ -292,15 +292,23 @@ export default {
 
   created() {
     // get student info
-    const clientID = localStorage.getItem("userID");
-    console.log(clientID);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    };
     axios
-      .get("http://localhost:3000/api/v1/profile/" + clientID)
+      .get(`http://localhost:3000/api/v1/profile`, config)
       .then(val => {
         console.log(val);
+        const groupID = val.data.groupID;
+        const userID = val.data.userID;
+        this.$store.commit("updateGroupID", groupID);
+        this.$store.commit("updateUserID", userID);
         const queryResult = val.data.info[0];
         const queryResultStrand = val.data.strand;
-        // console.log(queryResult);
         this.studentInfo = queryResult;
         this.studentInfo.strandName = queryResultStrand;
       })
@@ -320,15 +328,17 @@ export default {
   },
 
   methods: {
-    // capitalizeFirstLetter(string) {
-    //   return string.charAt(0).toUpperCase() + string.slice(1);
-    // },
-
     updateStudentInformation() {
-      const updatedInfo = this.$store.getters.getStudentInfo;
-      console.log(updatedInfo);
+      const userID = localStorage.getItem("userID");
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
       axios
-        .put("http://localhost:3000/api/v1/profile", updatedInfo)
+        .put(`http://localhost:3000/api/v1/profile/${userID}`, config)
         .then(result => {
           const inputVal = result;
           console.log("axios put request result", inputVal);
