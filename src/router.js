@@ -41,7 +41,7 @@ const router = new Router({
     {
       path: '/selectstrand',
       name: 'selectstrand',
-      component: () => import('./components/strand/select-strand.vue'),
+      component: () => import('./components/profile/select-strand.vue'),
     },
     {
       path: '/changepassword',
@@ -57,7 +57,7 @@ const router = new Router({
     {
       path: '/admin/strand',
       name: 'strand',
-      component: () => import('./components/strand/strand.vue'),
+      component: () => import('./components/admin/strand.vue'),
     },
   ],
 });

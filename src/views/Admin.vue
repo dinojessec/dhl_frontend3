@@ -9,7 +9,7 @@
 <script>
 import axios from "axios";
 
-import Strand from "../components/strand/strand";
+import Strand from "../components/admin/strand";
 
 export default {
   name: "Admin",
