@@ -190,7 +190,7 @@
                 <router-link to="/section">Section</router-link>
               </h5>
               <h5>
-                <router-link to="/gradelevel">Grade Level</router-link>
+                <router-link to="/selectgradelevel">Grade Level</router-link>
               </h5>
               <p>&nbsp;</p>
               <h4 class="display-5">Account info</h4>

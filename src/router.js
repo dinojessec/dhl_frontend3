@@ -44,6 +44,11 @@ const router = new Router({
       component: () => import('./components/profile/select-strand.vue'),
     },
     {
+      path: '/selectgradelevel',
+      name: 'selectgradelevel',
+      component: () => import('./components/profile/gradelevel.vue'),
+    },
+    {
       path: '/changepassword',
       name: 'changepassword',
       component: () => import('./components/password/password.vue'),
