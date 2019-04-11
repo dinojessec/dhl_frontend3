@@ -33,12 +33,18 @@ export default {
 
   methods: {
     select(value) {
-      const userID = localStorage.getItem("userID");
-      console.log(value);
-      Axios.put("http://localhost:3000/api/v1/selectgradelevel", {
-        userID,
-        value
-      })
+      const selectedGradeLevel = value;
+      const token = localStorage.getItem("token");
+      const data = {
+        selectedGradeLevel
+      };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      Axios.put("http://localhost:3000/api/v1/selectgradelevel", data, config)
         .then(response => {
           console.log(response);
           this.$router.go(-1);
