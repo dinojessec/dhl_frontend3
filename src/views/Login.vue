@@ -76,18 +76,22 @@ export default {
         const input = this.userInput;
         Axios.post("http://localhost:3000/api/v1/login", input)
           .then(response => {
-            const res = response;
-            console.log(res);
-            const resStatus = res.data.status;
-            const resMsg = res.data.message;
-            this.response = resMsg;
-            this.status = resStatus;
-            const username = res.data.username;
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("username", username);
-            this.$router.go(0);
-            // this.$router.push({ path: `/profile/${resUserID}` });
-            // location.reload();
+            console.log(response);
+            const token = response.data.token;
+            const userID = response.data.userID;
+            const username = response.data.username;
+            const status = response.data.status;
+            const message = response.data.message;
+            if (status === 404) {
+              this.response = message;
+              this.status = status;
+            } else {
+              localStorage.setItem("token", token);
+              localStorage.setItem("userID", userID);
+              localStorage.setItem("username", username);
+              this.$router.push({ path: "/" });
+              location.reload();
+            }
           })
           .catch(err => {
             console.log("axios error", err);
