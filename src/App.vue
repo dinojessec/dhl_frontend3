@@ -39,7 +39,7 @@ export default {
 
   created() {
     this.groupID = this.$store.getters.getGroupID;
-    this.loggedIn = this.$store.getters.getToken;
+    this.loggedIn = localStorage.getItem("token");
   }
 };
 </script>
