@@ -50,18 +50,6 @@ export default {
     };
   },
 
-  // created() {
-  //   axios
-  //     .get("http://localhost:3000/api/v1/register")
-  //     .then(response => {
-  //       const loadStrand = response.data.strandData;
-  //       this.strandList = loadStrand;
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // },
-
   methods: {
     saveStudent() {
       this.$validator.validateAll().then(result => {
@@ -73,7 +61,6 @@ export default {
         } else {
           const studentData = this.$store.getters.getStudentData;
           console.log(studentData);
-          // this.error = result;
           axios
             .post("http://localhost:3000/api/v1/register", studentData)
             .then(response => {
