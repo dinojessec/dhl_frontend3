@@ -46,7 +46,6 @@ export default {
       };
       Axios.put("http://localhost:3000/api/v1/selectgradelevel", data, config)
         .then(response => {
-          console.log(response);
           this.$router.go(-1);
         })
         .catch(e => {
