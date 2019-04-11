@@ -46,8 +46,7 @@
         <li>
           <router-link
             class="nav-link"
-            to="/profile"
-            v-if="loggedIn"
+            :to="{ name: 'profile', params: { userID: this.userID }}"
           >Profile</router-link>
         </li>
         <li>
@@ -55,7 +54,6 @@
             class="nav-link"
             to="/admin"
             exact
-            v-if="groupID >= 2"
           >Admin</router-link>
         </li>
         <li>
@@ -63,7 +61,6 @@
             class="nav-link"
             to="/payment"
             exact
-            v-if="groupID >= 3"
           >Payment</router-link>
         </li>
         <li>
@@ -71,7 +68,6 @@
             class="nav-link"
             to="/"
             exact
-            v-if="groupID >= 4"
           >User</router-link>
         </li>
         <li><button
@@ -87,10 +83,11 @@
 <script>
 export default {
   name: "GlobalHeader",
-  props: ["groupID", "userID", "loggedIn"],
+  props: ["groupID", "loggedIn"],
   data() {
     return {
-      currentUser: localStorage.getItem("username")
+      currentUser: localStorage.getItem("username"),
+      userID: localStorage.getItem("userID")
     };
   },
 
