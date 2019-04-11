@@ -28,7 +28,7 @@
           />
         </div>
       </div>
-      <div class="p-2 col-md-7 col-12">
+      <div class="p-2 col-md-7 col-12 mb-1">
         <div class="profile-head">
           <!-- profile name -->
           <h1
@@ -184,13 +184,19 @@
           <div class="align-items-start">
             <div class="col">
               <h5>
-                <router-link to="/selectstrand">Strand</router-link>
+                <router-link to="/selectstrand"><button
+                    type="button"
+                    class="btn btn-primary"
+                  >Strand</button></router-link>
               </h5>
               <h5>
                 <router-link to="/section">Section</router-link>
               </h5>
               <h5>
-                <router-link to="/selectgradelevel">Grade Level</router-link>
+                <router-link to="/selectgradelevel"><button
+                    type="button"
+                    class="btn btn-primary"
+                  >Grade Level</button></router-link>
               </h5>
               <p>&nbsp;</p>
               <h4 class="display-5">Account info</h4>
@@ -293,6 +299,8 @@ export default {
   created() {
     // get student info
     const token = localStorage.getItem("token");
+    const userID = this.$route.params.userID;
+    // console.log(userID);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -300,15 +308,13 @@ export default {
       }
     };
     axios
-      .get(`http://localhost:3000/api/v1/profile`, config)
+      .get(`http://localhost:3000/api/v1/profile/${userID}`, config)
       .then(val => {
-        console.log(val);
+        // console.log(val);
         const groupID = val.data.groupID;
         const userID = val.data.userID;
-        this.$store.commit("updateGroupID", groupID);
-        this.$store.commit("updateUserID", userID);
         const queryResult = val.data.info[0];
-        const queryResultStrand = val.data.strand;
+        const queryResultStrand = val.data.strandResult;
         this.studentInfo = queryResult;
         this.studentInfo.strandName = queryResultStrand;
       })
@@ -338,7 +344,7 @@ export default {
         }
       };
       axios
-        .put(`http://localhost:3000/api/v1/profile/${userID}`, config)
+        .put(`http://localhost:3000/api/v1/profile/`, config)
         .then(result => {
           const inputVal = result;
           console.log("axios put request result", inputVal);
