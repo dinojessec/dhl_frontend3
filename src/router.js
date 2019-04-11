@@ -34,7 +34,7 @@ const router = new Router({
     },
     // profiles
     {
-      path: '/profile',
+      path: '/profile/:userID',
       name: 'profile',
       component: () => import('./views/Profile.vue'),
     },
@@ -70,27 +70,38 @@ const router = new Router({
       name: 'strand',
       component: () => import('./components/admin/strand.vue'),
     },
+    {
+      path: '/admin/studentlist',
+      name: 'studentlist',
+      component: () => import('./components/admin/student-list.vue'),
+    },
+    // user routes
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('./components/user/user.vue'),
+    },
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('fetchToken');
-  if (to.fullPath === '/profile') {
-    if (!store.state.token) {
-      next('/login');
-    }
-  }
-  if (to.fullPath === '/user') {
-    if (!store.state.token) {
-      next('/login');
-    }
-  }
-  if (to.fullPath === '/admin') {
-    if (!store.state.token) {
-      next('/login');
-    }
-  }
-  next();
-});
+// router.beforeEach((to, from, next) => {
+//   store.dispatch('fetchToken');
+//   if (to.fullPath === '/profile') {
+//     if (!store.state.token) {
+//       next('/login');
+//     }
+//   }
+//   if (to.fullPath === '/user') {
+//     if (!store.state.token) {
+//       next('/login');
+//     }
+//   }
+//   if (to.fullPath === '/admin') {
+//     if (!store.state.token) {
+//       next('/login');
+//     }
+//   }
+//   next();
+// });
 
 export default router;
