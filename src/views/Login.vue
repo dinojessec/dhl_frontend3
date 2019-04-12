@@ -79,6 +79,7 @@ export default {
             console.log(response);
             const token = response.data.token;
             const userID = response.data.userID;
+            const roleID = response.data.roleID;
             const username = response.data.username;
             const status = response.data.status;
             const message = response.data.message;
@@ -86,10 +87,11 @@ export default {
               this.response = message;
               this.status = status;
             } else {
+              localStorage.setItem("roleID", roleID);
               localStorage.setItem("token", token);
               localStorage.setItem("userID", userID);
               localStorage.setItem("username", username);
-              this.$router.push({ path: "/" });
+              // this.$router.push({ path: "/" });
               location.reload();
             }
           })

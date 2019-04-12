@@ -62,7 +62,7 @@ const router = new Router({
     // admin routes protected
     {
       path: '/admin',
-      name: 'adim',
+      name: 'admin',
       component: () => import('./views/Admin.vue'),
     },
     {
@@ -85,20 +85,23 @@ const router = new Router({
 });
 
 // router.beforeEach((to, from, next) => {
-//   store.dispatch('fetchToken');
-//   if (to.fullPath === '/profile') {
-//     if (!store.state.token) {
+//   console.log(to);
+//   console.log(from);
+//   const token = !!localStorage.getItem('token');
+//   console.log(token);
+//   if (to.fullpath === '/profile') {
+//     if (!token) {
 //       next('/login');
 //     }
 //   }
 //   if (to.fullPath === '/user') {
-//     if (!store.state.token) {
+//     if (!token) {
 //       next('/login');
 //     }
 //   }
-//   if (to.fullPath === '/admin') {
-//     if (!store.state.token) {
-//       next('/login');
+//   if (to.fullPath === '/admin' || from.fullPath === '/admin') {
+//     if (!token) {
+//       next({ path: '/' });
 //     }
 //   }
 //   next();

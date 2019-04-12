@@ -10,7 +10,7 @@ export default new Vuex.Store({
     strand: {},
     token: null,
     userID: null,
-    groupID: null,
+    roleID: null,
   },
 
   mutations: {
@@ -39,18 +39,15 @@ export default new Vuex.Store({
       stateRef.userID = userID;
     },
 
-    updateGroupID(state, groupID) {
+    updateRoleID(state, roleID) {
       const stateRef = state;
-      stateRef.groupID = groupID;
+      stateRef.roleID = roleID;
     },
   },
 
   actions: {
     fetchToken({ commit }) {
       commit('updateToken', localStorage.getItem('token'));
-    },
-    fetchGroupID({ commit }) {
-      commit('updateGroupID', localStorage.getItem('groupID'));
     },
     // {
     //   fetchUserID({ commit }) {
@@ -68,7 +65,7 @@ export default new Vuex.Store({
 
     getUserID: state => state.userID,
 
-    getGroupID: state => state.groupID,
+    getRoleID: state => state.roleID,
 
     getToken: state => state.token,
   },

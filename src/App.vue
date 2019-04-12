@@ -2,8 +2,9 @@
   <div id="app">
     <global-header
       :loggedIn="loggedIn"
-      :groupID="groupID"
+      :username="username"
       :userID="userID"
+      :roleID="roleID"
     ></global-header>
 
     <!-- content -->
@@ -12,7 +13,6 @@
       mt-5">
       <div class="row">
         <div class="col">
-          {{ groupID }}
           <router-view />
         </div>
       </div>
@@ -32,14 +32,17 @@ export default {
   data() {
     return {
       loggedIn: "",
-      groupID: "",
-      userID: ""
+      username: "",
+      userID: "",
+      roleID: ""
     };
   },
 
   created() {
-    this.groupID = this.$store.getters.getGroupID;
     this.loggedIn = localStorage.getItem("token");
+    this.username = localStorage.getItem("username");
+    this.userID = localStorage.getItem("userID");
+    this.roleID = localStorage.getItem("roleID");
   }
 };
 </script>
