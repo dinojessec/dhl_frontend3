@@ -281,7 +281,6 @@ import EducationInformation from "../components/student/education-information";
 
 export default {
   name: "Profile",
-  // NOTE: define a prop that contains the value of profile get request
   components: {
     PersonalInformation,
     AddressInformation,
