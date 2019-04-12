@@ -47,28 +47,28 @@
           <router-link
             class="nav-link"
             :to="{ name: 'profile', params: { userID: this.userID }}"
-            v-if="loggedIn"
+            v-if="roleID >= 1"
           >Profile</router-link>
         </li>
         <li>
           <router-link
             class="nav-link"
             :to="{ name: 'admin'}"
-            v-if="loggedIn"
+            v-if="roleID >= 2"
           >Admin</router-link>
         </li>
         <li>
           <router-link
             class="nav-link"
             to="/payment"
-            v-if="loggedIn"
+            v-if="roleID >= 3"
           >Payment</router-link>
         </li>
         <li>
           <router-link
             class="nav-link"
             to="/"
-            v-if="loggedIn"
+            v-if="roleID >= 4"
           >User</router-link>
         </li>
         <li><button
