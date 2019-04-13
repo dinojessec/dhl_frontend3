@@ -91,7 +91,7 @@ export default {
               localStorage.setItem("token", token);
               localStorage.setItem("userID", userID);
               localStorage.setItem("username", username);
-              // this.$router.push({ path: "/" });
+              this.$router.push({ path: "/" });
               location.reload();
             }
           })

@@ -34,7 +34,7 @@
           <h1
             class="display-4"
             v-if="editable === false"
-          >{{ studentInfo.firstName }} {{ studentInfo.middleName}} {{ studentInfo.lastName }}</h1>
+          >{{ studentInfo.firstName | capitalize }} {{ studentInfo.middleName | capitalize }} {{ studentInfo.lastName | capitalize }}</h1>
           <div class="row">
             <div class="col">
               <input
@@ -352,6 +352,14 @@ export default {
           console.log(err);
         });
       this.editable = !this.editable;
+    }
+  },
+
+  filters: {
+    capitalize(value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
     }
   }
 };
