@@ -67,7 +67,7 @@
         <li>
           <router-link
             class="nav-link"
-            to="/"
+            to="/user"
             v-if="roleID >= 4"
           >User</router-link>
         </li>
