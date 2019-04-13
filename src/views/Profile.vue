@@ -172,7 +172,7 @@
         <button
           type="button"
           class="btn btn-info"
-          @click="updateStudentInformation()"
+          @click="validateForm()"
           v-if="editable === true"
         >Save Changes</button>
       </div>
@@ -202,6 +202,23 @@
               <h4 class="display-5">Account info</h4>
               <h5 class="mb-2"><strong>{{ studentInfo.username }}</strong></h5>
               <router-link to="/changepassword"><button class="btn btn-outline-info">Change Password</button></router-link>
+              <hr>
+              <div v-if="studentInfo.status">
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  v-if="studentInfo.status === 'pending'"
+                >
+                  {{ studentInfo.status }}
+                </div>
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  v-if="studentInfo.status === 'approved'"
+                >
+                  {{ studentInfo.status }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -299,7 +316,6 @@ export default {
     // get student info
     const token = localStorage.getItem("token");
     const userID = this.$route.params.userID;
-    // console.log(userID);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -333,7 +349,18 @@ export default {
   },
 
   methods: {
+    validateForm() {
+      const valid = this.$validator.validateAll().then(result => {
+        if (!result) {
+          console.log("invalid inut. some fields are empty", result);
+        } else {
+          this.updateStudentInformation();
+        }
+      });
+    },
+
     updateStudentInformation() {
+      const data = this.$store.getters.getStudentInfo;
       const userID = localStorage.getItem("userID");
       const token = localStorage.getItem("token");
       const config = {
@@ -343,7 +370,7 @@ export default {
         }
       };
       axios
-        .put(`http://localhost:3000/api/v1/profile/`, config)
+        .put(`http://localhost:3000/api/v1/profile/${userID}`, data, config)
         .then(result => {
           const inputVal = result;
           console.log("axios put request result", inputVal);
