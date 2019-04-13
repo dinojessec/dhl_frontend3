@@ -73,16 +73,28 @@ export default {
 
   methods: {
     changePassword() {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      axios;
       const user = localStorage.getItem("userID");
       const password = this.change.password;
       if (password === "") {
         console.log("password field empty");
         this.responseMsg = "Password field can't be empty..";
       } else {
-        Axios.put("http://localhost:3000/api/v1/changepassword", {
-          user,
-          password
-        })
+        Axios.put(
+          "http://localhost:3000/api/v1/changepassword",
+          {
+            user,
+            password
+          },
+          config
+        )
           .then(response => {
             console.log(response);
           })
