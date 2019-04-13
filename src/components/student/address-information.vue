@@ -117,7 +117,7 @@
         <div class="err">{{ errors.first('city') }}</div>
       </div>
     </div>
-
+    <hr>
     <h3>my Father Address</h3>
     <div class="row p-2">
       <div class="col-3">
@@ -219,7 +219,7 @@
         >
       </div>
     </div>
-
+    <hr>
     <h3>my Mother Address</h3>
     <div class="row p-2">
       <div class="col-3">
