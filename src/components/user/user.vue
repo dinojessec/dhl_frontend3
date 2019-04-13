@@ -4,13 +4,15 @@
       <div class="col"><input
           type="text"
           class="form-control"
-        ></div>
+          v-model="filter"
+          placeholder="filter search"
+        >{{filter }}</div>
     </div>
 
     <div class="form-row mb-3">
 
       <div class="col-2">
-        <h4>Search By:</h4>{{ searchResult }}
+        <h4>Search By:</h4>
       </div>
 
       <div class="col">
@@ -94,7 +96,7 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="item in searchResult">
+          <template v-for="item in filteredSearch">
             <tr>
               <th scope="row"></th>
               <td>{{ item.firstName }} {{ item.middleName }} {{ item.lastName }}</td>
@@ -152,7 +154,8 @@ export default {
       searchResult: [],
       selectedUser: {
         roleID: ""
-      }
+      },
+      filter: ""
     };
   },
 
@@ -165,7 +168,7 @@ export default {
         .then(val => {
           const value = val.data.result;
           console.log(value);
-          this.searchResult = value;
+          this.searchResult = value.slice(0, 20);
         })
         .catch(err => {
           throw err;
@@ -188,6 +191,14 @@ export default {
         .catch(e => {
           console.log("update role error", e);
         });
+    }
+  },
+
+  computed: {
+    filteredSearch() {
+      return this.searchResult.filter(item => {
+        return item.firstName.match(this.filter);
+      });
     }
   }
 };
