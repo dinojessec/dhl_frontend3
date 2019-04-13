@@ -166,8 +166,27 @@
         <textarea
           class="form-control"
           rows="3"
-          placeholder="Input list of Organization and Awards received from that Org"
+          placeholder="Input list of Organization and Awards received from that Organization"
         ></textarea>
+      </div>
+    </div>
+    <div class="form-row p-2">
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          v-model="studentInfo.preferredCourse"
+          placeholder="Preferred Course in College"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          v-model="studentInfo.preferredCourse"
+          placeholder="Preferred Course in College"
+          v-if="editable === true"
+        >
       </div>
     </div>
 
