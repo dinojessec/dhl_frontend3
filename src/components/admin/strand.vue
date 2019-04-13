@@ -6,12 +6,15 @@
           type="text"
           class="form-control"
           v-model="newStrand.strandName"
+          v-validate="{required: true}"
+          name="strand"
         >
+        <div class="err">{{ errors.first('strand') }}</div>
       </div>
       <div class="col col-md-2">
         <button
           class="btn btn-primary"
-          @click="addStrand()"
+          @click="validateInput()"
         >
           Add
         </button>
@@ -59,8 +62,15 @@ export default {
   },
 
   created() {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    };
     axios
-      .get("http://localhost:3000/api/v1/admin/strand")
+      .get("http://localhost:3000/api/v1/admin/strand", config)
       .then(response => {
         const loadStrand = response.data.strandData;
         this.strandList = loadStrand;
@@ -71,11 +81,27 @@ export default {
   },
 
   methods: {
-    addStrand() {
-      const val = this.newStrand;
+    validateInput() {
+      const valid = this.$validator.validateAll().then(result => {
+        if (!result) {
+          console.log("invalid inut. some fields are empty", result);
+        } else {
+          this.addStrand();
+        }
+      });
+    },
 
+    addStrand() {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      const val = this.newStrand;
       axios
-        .post("http://localhost:3000/api/v1/admin/strand", val)
+        .post("http://localhost:3000/api/v1/admin/strand", val, config)
         .then(res => {
           const queryResquest = res.data;
         })
@@ -86,11 +112,19 @@ export default {
     },
 
     removeStrand(index) {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      axios;
       const value = {
         id: index
       };
       axios
-        .put("http://localhost:3000/api/v1/admin/strand", value)
+        .put("http://localhost:3000/api/v1/admin/strand", value, config)
         .then(res => {
           const queryResquest = res;
         })
@@ -103,5 +137,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.err {
+  color: rgb(240, 4, 4);
+}
 </style>
