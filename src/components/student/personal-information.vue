@@ -1,25 +1,24 @@
 <template>
   <div class="container">
-
     <div class="form-row p-2">
       <div class="col-5">
         <label>Birthday</label>
         <input
-          readonly
+          disabled
           type="text"
           class="form-control"
           :value="studentInfo.formatedBirthday"
           v-if="editable === false"
         >
-        <input
-          type="date"
+        {{ dateFormat }}
+        <date-picker
+          placeholder="Input Birthday"
           name="birthday"
-          class="form-control"
+          v-model="birth"
+          :format="'YYYY/MM/DD'"
+          lang="en"
           v-if="editable === true"
-          v-model="studentInfo.birthday"
-          v-validate="{ required: true }"
-        >
-        <div class="err">{{ errors.first('birthday') }}</div>
+        ></date-picker>
       </div>
       <div class="col-3">
         <label>Age</label>
@@ -56,6 +55,7 @@
 
     <div class="form-row p-2">
       <div class="col">
+        <label>Email</label>
         <input
           readonly
           class="form-control"
@@ -75,6 +75,7 @@
         <div class="err">{{ errors.first('email') }}</div>
       </div>
       <div class="col">
+        <label>Mobile Number</label>
         <input
           readonly
           class="form-control"
@@ -93,6 +94,7 @@
         <div class="err">{{ errors.first('mobile number') }}</div>
       </div>
       <div class="col">
+        <label>Landline Number</label>
         <input
           readonly
           class="form-control"
@@ -111,10 +113,11 @@
         <div class="err">{{ errors.first('landline number') }}</div>
       </div>
     </div>
-
+    <hr>
     <div class="form-row p-2">
       <!-- ethnicGroup -->
-      <div class="col">
+      <div class="col-md-6">
+        <label>Ethnic Group</label>
         <input
           readonly
           type="text"
@@ -132,7 +135,8 @@
         >
       </div>
       <!-- motherTongue -->
-      <div class="col">
+      <div class="col-md-6">
+        <label>Mother Tongue</label>
         <input
           readonly
           type="text"
@@ -150,10 +154,10 @@
         >
       </div>
     </div>
-
+    <hr>
     <div class="form-row p-2">
-      <!-- religion -->
-      <div class="col col-md-6">
+      <div class="col">
+        <label>Religion</label>
         <input
           readonly
           type="text"
@@ -167,30 +171,14 @@
           class="form-control"
           v-model="studentInfo.religion"
           placeholder="Religion"
-          v-if="editable === true"
-        >
-      </div>
-      <div class="col col-md-6">
-        <input
-          readonly
-          type="text"
-          class="form-control"
-          v-model="studentInfo.guardian"
-          placeholder="Guardian"
-          v-if="editable === false"
-        >
-        <input
-          type="text"
-          class="form-control"
-          v-model="studentInfo.guardian"
-          placeholder="Guardian"
           v-if="editable === true"
         >
       </div>
     </div>
-
+    <hr>
     <div class="form-row p-2">
       <div class="col">
+        <label>Preferred Shift</label>
         <input
           readonly
           type="text"
@@ -202,15 +190,19 @@
         <select
           type="text"
           class="form-control"
+          name="shift"
           v-model="studentInfo.preferredShift"
           placeholder="Preferred Shift"
           v-if="editable === true"
+          v-validate="{ required: true }"
         >
+          <div class="err">{{ errors.first('shift') }}</div>
           <option value="am">A.M.</option>
           <option value="pm">P.M.</option>
         </select>
       </div>
       <div class="col">
+        <label>Referred By:</label>
         <input
           readonly
           type="text"
@@ -233,10 +225,46 @@
 </template>
 
 <script>
+import DatePicker from "vue2-datepicker";
+
 export default {
   name: "PersonalInformation",
   inject: ["$validator"],
-  props: ["editable", "studentInfo"]
+  props: ["editable", "studentInfo"],
+  components: {
+    DatePicker
+  },
+  data() {
+    return {
+      birth: ""
+    };
+  },
+
+  watch: {
+    dateFormat: {
+      handler(val) {
+        const dataMap = this.dateFormat;
+        this.$store.dispatch("passNewBirthday", dataMap);
+      },
+      deep: true
+    }
+  },
+
+  computed: {
+    dateFormat: {
+      cache: false,
+      get() {
+        let date = new Date(this.birth);
+        const newDate =
+          date.getFullYear() +
+          "/" +
+          ("0" + (date.getMonth() + 1)).slice(-2) +
+          "/" +
+          ("0" + date.getDate()).slice(-2);
+        return newDate;
+      }
+    }
+  }
 };
 </script>
 
