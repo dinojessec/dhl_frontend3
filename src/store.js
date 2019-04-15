@@ -56,7 +56,6 @@ export default new Vuex.Store({
     },
 
     passNewBirthday({ commit }, payload) {
-      console.log('payload', payload);
       commit('updateBirthday', payload)
     }
 
