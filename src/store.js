@@ -24,6 +24,11 @@ export default new Vuex.Store({
       stateRef.studentInfo = payload;
     },
 
+    updateBirthday(state, payload) {
+      const stateRef = state;
+      stateRef.studentInfo.birthday = payload;
+    },
+
     addNewStrand(state, payload) {
       const stateRef = state;
       stateRef.strand = payload;
@@ -49,11 +54,12 @@ export default new Vuex.Store({
     fetchToken({ commit }) {
       commit('updateToken', localStorage.getItem('token'));
     },
-    // {
-    //   fetchUserID({ commit }) {
-    //     commit('updateUserID', );
-    //   }
-    // },
+
+    passNewBirthday({ commit }, payload) {
+      console.log('payload', payload);
+      commit('updateBirthday', payload)
+    }
+
   },
 
   getters: {
