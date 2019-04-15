@@ -10,15 +10,17 @@
           :value="studentInfo.formatedBirthday"
           v-if="editable === false"
         >
-        {{ dateFormat }}
         <date-picker
           placeholder="Input Birthday"
           name="birthday"
-          v-model="birth"
+          :value="birth"
+          @input="(value) => { this.birth = value}"
+          v-model="studentInfo.birthday"
           :format="'YYYY/MM/DD'"
           lang="en"
           v-if="editable === true"
         ></date-picker>
+        {{birth}}
       </div>
       <div class="col-3">
         <label>Age</label>
