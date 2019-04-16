@@ -7,7 +7,7 @@
           disabled
           type="text"
           class="form-control"
-          :value="studentInfo.formatedBirthday"
+          :value="studentInfo.birthday"
           v-if="editable === false"
         >
         <date-picker
@@ -20,7 +20,6 @@
           lang="en"
           v-if="editable === true"
         ></date-picker>
-        {{birth}}
       </div>
       <div class="col-3">
         <label>Age</label>
