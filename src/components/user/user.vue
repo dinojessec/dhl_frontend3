@@ -5,8 +5,8 @@
           type="text"
           class="form-control"
           v-model="filter"
-          placeholder="filter search"
-        >{{filter }}</div>
+          placeholder="filter name"
+        ></div>
     </div>
 
     <div class="form-row mb-3">
