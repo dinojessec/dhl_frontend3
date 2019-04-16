@@ -10,7 +10,7 @@
           type="text"
           id="houseNumber"
           placeholder="House Number"
-          :value="studentInfo.houseNumber"
+          :value="studentInfo.homeNumber"
           v-if="editable === false"
         >
         <input
@@ -19,7 +19,7 @@
           name="house number"
           id="houseNumber"
           placeholder="House Number"
-          v-model="studentInfo.houseNumber"
+          v-model="studentInfo.homeNumber"
           v-if="editable === true"
           v-validate="{ required: true }"
         >
