@@ -75,6 +75,11 @@ const router = new Router({
       name: 'studentlist',
       component: () => import('./components/admin/student-list.vue'),
     },
+    {
+      path: '/admin/checkout',
+      name: 'checkout',
+      component: () => import('./components/admin/checkout.vue'),
+    },
     // user routes
     {
       path: '/user',
