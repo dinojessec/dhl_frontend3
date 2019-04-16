@@ -1,7 +1,7 @@
 <template>
 
   <div class="container">
-    {{ studentInfo }}
+    <!-- {{ studentInfo }} -->
     <div class="row p-1">
       <div class="col-12">
         <div
@@ -31,10 +31,10 @@
       <div class="p-2 col-md-7 col-12 mb-1">
         <div class="profile-head">
           <!-- profile name -->
-          <h1
+          <h2
             class="display-4"
             v-if="editable === false"
-          >{{ studentInfo.firstName | capitalize }} {{ studentInfo.middleName | capitalize }} {{ studentInfo.lastName | capitalize }}</h1>
+          >{{ studentInfo.firstName | capitalize }} {{ studentInfo.middleName | capitalize }} {{ studentInfo.lastName | capitalize }}</h2>
           <div class="row">
             <div class="col">
               <input
@@ -204,15 +204,18 @@
               <router-link to="/changepassword"><button class="btn btn-outline-info">Change Password</button></router-link>
               <hr>
               <div v-if="studentInfo.status">
+
                 <div
                   class="alert alert-danger"
                   role="alert"
                   v-if="studentInfo.status === 'pending'"
+                  :disabled="roleID < 2"
+                  @click="approveStudent()"
                 >
                   {{ studentInfo.status }}
                 </div>
                 <div
-                  class="alert alert-danger"
+                  class="alert alert-success"
                   role="alert"
                   v-if="studentInfo.status === 'approved'"
                 >
@@ -308,7 +311,8 @@ export default {
     return {
       editable: false,
       studentInfo: [],
-      strandList: []
+      strandList: [],
+      roleID: localStorage.getItem("roleID")
     };
   },
 
@@ -352,15 +356,18 @@ export default {
     validateForm() {
       const valid = this.$validator.validateAll().then(result => {
         if (!result) {
-          console.log("invalid inut. some fields are empty", result);
+          console.log("invalid input. some fields are empty", result);
+          // alert("invalid input. some fields are empty");
         } else {
           this.updateStudentInformation();
+          // this.$router.go();
         }
       });
     },
 
     updateStudentInformation() {
       const data = this.$store.getters.getStudentInfo;
+      console.log(data);
       const userID = localStorage.getItem("userID");
       const token = localStorage.getItem("token");
       const config = {
@@ -379,6 +386,35 @@ export default {
           console.log(err);
         });
       this.editable = !this.editable;
+    },
+
+    approveStudent() {
+      const roleID = localStorage.getItem("roleID");
+      if (roleID < 2) {
+        alert("please complete required input");
+      } else {
+        const token = localStorage.getItem("token");
+        const studentID = this.$route.params.userID;
+        console.log(studentID);
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        };
+        axios
+          .put(
+            `http://localhost:3000/api/v1/profile/${studentID}/approve`,
+            null,
+            config
+          )
+          .then(response => {
+            console.log("approve response", response);
+          })
+          .catch(e => {
+            console.log(`error approving student ${e}`);
+          });
+      }
     }
   },
 
@@ -392,5 +428,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 </style>
