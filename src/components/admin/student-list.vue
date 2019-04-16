@@ -2,39 +2,50 @@
 
   <div class="container">
 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Grade Level</th>
-          <th scope="col">Strand</th>
-          <th scope="col">Section</th>
-          <th scope="col">Age</th>
-          <th scope="col">Gender</th>
-          <th scope="col">Status</th>
-          <th scope="col">Approver</th>
-        </tr>
-      </thead>
-
-      <template v-for="(student, index) in allStudents">
-        <tbody :key="student.studentID">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
           <tr>
-            <th scope="row">{{ index }}</th>
-            <td>
-              <router-link :to="{ path: `/profile/${student.userID}`}">{{ student.firstName }} {{ student.middleName }} {{ student.lastName }}</router-link>
-            </td>
-            <td>{{ student.gradeLevel }}</td>
-            <td>{{ student.strandName }}</td>
-            <td>section</td>
-            <td>{{ student.age }}</td>
-            <td>{{ student.gender }}</td>
-            <td>{{ student.status }}</td>
-            <td>approver</td>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Grade Level</th>
+            <th scope="col">Strand</th>
+            <th scope="col">Section</th>
+            <th scope="col">Age</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Status</th>
+            <th scope="col">Approver</th>
           </tr>
-        </tbody>
-      </template>
-    </table>
+        </thead>
+
+        <template v-for="(student, index) in allStudents">
+          <tbody :key="student.studentID">
+            <tr>
+              <th scope="row">{{ index }}</th>
+              <td>
+                <router-link :to="{ path: `/profile/${student.userID}`}">{{ student.firstName | capitalize }} {{ student.middleName | capitalize }} {{ student.lastName | capitalize }}</router-link>
+              </td>
+              <td>{{ student.gradeLevel }}</td>
+              <td>{{ student.strandName }}</td>
+              <td>section</td>
+              <td>{{ student.age }}</td>
+              <td>{{ student.gender }}</td>
+              <td>
+                <div
+                  class="alert alert-danger mb-0"
+                  v-if="student.status === 'pending'"
+                >{{ student.status }}</div>
+                <div
+                  class="alert alert-success mb-0"
+                  v-if="student.status === 'approved'"
+                >{{ student.status }}</div>
+              </td>
+              <td>{{ student.approvedBy }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </table>
+    </div>
 
   </div>
 
@@ -61,13 +72,19 @@ export default {
     axios
       .get(`http://localhost:3000/api/v1/admin/student`, config)
       .then(response => {
-        console.log(response);
-        console.log(response.data.response);
         this.allStudents = response.data.response;
       })
       .catch(e => {
         console.log(e);
       });
+  },
+
+  filters: {
+    capitalize(value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
   }
 };
 </script>
