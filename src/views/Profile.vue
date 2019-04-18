@@ -159,6 +159,17 @@
                 aria-selected="false"
               >Competency</a>
             </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="competency-tab"
+                data-toggle="tab"
+                href="#Grades"
+                role="tab"
+                aria-controls="grades"
+                aria-selected="false"
+              >JHS Grades</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -172,7 +183,7 @@
         <button
           type="button"
           class="btn btn-info"
-          @click="validateForm()"
+          @click.prevent="validateForm()"
           v-if="editable === true"
         >Save Changes</button>
       </div>
@@ -182,38 +193,60 @@
       <div class="col-md-3 col-12">
         <div class="container other-info">
           <div class="align-items-start">
-            <div class="col">
-              <h5>
-                <router-link to="/selectstrand"><button
-                    type="button"
-                    class="btn btn-primary"
-                  >Strand</button></router-link>
-              </h5>
-              <h5>
-                <router-link to="/section">Section</router-link>
-              </h5>
-              <h5>
-                <router-link to="/selectgradelevel"><button
-                    type="button"
-                    class="btn btn-primary"
-                  >Grade Level</button></router-link>
-              </h5>
+            <div class="col list-group">
+              <router-link
+                to="/selectstrand"
+                class="list-group-item list-group-item-action"
+              >Strand</router-link>
+              <router-link
+                to="/section"
+                class="list-group-item list-group-item-action disabled"
+              >Section</router-link>
+              <router-link
+                to="/selectgradelevel"
+                class="list-group-item list-group-item-action"
+              >Grade Level</router-link>
+              <router-link
+                to="/"
+                class="list-group-item list-group-item-action"
+              >Payments</router-link>
               <p>&nbsp;</p>
-              <h4 class="display-5">Account info</h4>
-              <h5 class="mb-2"><strong>{{ studentInfo.username }}</strong></h5>
-              <router-link to="/changepassword"><button class="btn btn-outline-info">Change Password</button></router-link>
+              <p>
+                <a
+                  class="btn btn-primary"
+                  data-toggle="collapse"
+                  href="#account-info"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="account-inf"
+                >Account Info</a>
+              </p>
+              <div class="row">
+                <div class="col">
+                  <div
+                    class="collapse multi-collapse"
+                    id="account-info"
+                  >
+                    <div class="card card-body">
+                      <small class="text-muted">username:</small><strong>{{ studentInfo.username }}</strong>
+                      <router-link to="/changepassword"><button class="btn btn-outline-info">Change Password</button></router-link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <hr>
               <div v-if="studentInfo.status">
-
-                <div
-                  class="alert alert-danger"
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
                   role="alert"
                   v-if="studentInfo.status === 'pending'"
                   :disabled="roleID < 2"
                   @click="approveStudent()"
                 >
                   {{ studentInfo.status }}
-                </div>
+                </button>
                 <div
                   class="alert alert-success"
                   role="alert"
@@ -281,8 +314,17 @@
             role="tabpanel"
             aria-labelledby="competency-tab"
           >
-            Competency
+            <competency-information></competency-information>
           </div>
+          <div
+            class="tab-pane fade"
+            id="Grades"
+            role="tabpanel"
+            aria-labelledby="grades-tab"
+          >
+            <grades-information></grades-information>
+          </div>
+
         </div>
       </div>
     </div>
@@ -298,6 +340,8 @@ import PersonalInformation from "../components/student/personal-information";
 import AddressInformation from "../components/student/address-information";
 import ParentInformation from "../components/student/parent-information";
 import EducationInformation from "../components/student/education-information";
+import CompetencyInformation from "../components/student/competency";
+import GradesInformation from "../components/student/grades";
 
 export default {
   name: "Profile",
@@ -305,7 +349,9 @@ export default {
     PersonalInformation,
     AddressInformation,
     ParentInformation,
-    EducationInformation
+    EducationInformation,
+    CompetencyInformation,
+    GradesInformation
   },
   data() {
     return {
@@ -414,6 +460,8 @@ export default {
           .catch(e => {
             console.log(`error approving student ${e}`);
           });
+        this.$router.go();
+        // this.$router.go(-1);
       }
     }
   },
