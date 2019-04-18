@@ -11,6 +11,7 @@
           v-if="editable === false"
         >
         <date-picker
+          :input-class="'form-control'"
           placeholder="Input Birthday"
           name="birthday"
           :value="birth"
