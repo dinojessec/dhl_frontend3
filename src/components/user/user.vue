@@ -96,10 +96,12 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="item in filteredSearch">
+          <template v-for="(item, index) in filteredSearch">
             <tr>
-              <th scope="row"></th>
-              <td>{{ item.firstName }} {{ item.middleName }} {{ item.lastName }}</td>
+              <th scope="row">{{ index }}</th>
+              <td>
+                <router-link :to="{ path: `/profile/${item.userID}` }">{{ item.firstName }} {{ item.middleName }} {{ item.lastName }}</router-link>
+              </td>
               <td>{{ item.roleName }}</td>
               <td><button
                   class="btn btn-outline-secondary dropdown-toggle"
@@ -162,7 +164,7 @@ export default {
   methods: {
     getUser() {
       const roleID = this.selectedUser.roleID;
-      console.log(roleID);
+      // console.log(roleID);
       axios
         .get(`http://localhost:3000/api/v1/user/${roleID}`)
         .then(val => {
@@ -176,8 +178,8 @@ export default {
     },
 
     updateRole(roleID, studentID) {
-      console.log(roleID);
-      console.log(studentID);
+      // console.log(roleID);
+      // console.log(studentID);
       const data = {
         roleID,
         studentID
