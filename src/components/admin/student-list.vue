@@ -35,10 +35,13 @@
                   class="alert alert-danger mb-0"
                   v-if="student.status === 'pending'"
                 >{{ student.status }}</div>
-                <div
-                  class="alert alert-success mb-0"
+                <router-link
+                  :to="{ path: `/admin/checkout/${student.userID}` }"
                   v-if="student.status === 'approved'"
-                >{{ student.status }}</div>
+                ><button
+                    type="button"
+                    class="btn btn-outline-success mb-0"
+                  >{{ student.status }}</button></router-link>
               </td>
               <td>{{ student.approvedBy }}</td>
             </tr>
