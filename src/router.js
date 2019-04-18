@@ -53,6 +53,11 @@ const router = new Router({
       name: 'changepassword',
       component: () => import('./components/password/password.vue'),
     },
+    {
+      path: '/student-payment',
+      name: 'studentpayment',
+      component: () => import('./components/student/payment.vue'),
+    },
     // payment
     {
       path: '/payment',
