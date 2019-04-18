@@ -207,7 +207,7 @@
                 class="list-group-item list-group-item-action"
               >Grade Level</router-link>
               <router-link
-                to="/"
+                to="/student-payment"
                 class="list-group-item list-group-item-action"
               >Payments</router-link>
               <p>&nbsp;</p>
