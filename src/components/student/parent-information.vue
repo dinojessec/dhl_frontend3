@@ -18,7 +18,10 @@
           placeholder="Father Name"
           v-model="studentInfo.fatherName"
           v-if="editable === true"
+          v-validate="{ alpha_spaces: true }"
+          name="fathername"
         >
+        <div class="err">{{ errors.first('fathername') }}</div>
       </div>
       <div class="col">
         <input
@@ -55,7 +58,10 @@
           placeholder="Father Mobile Number"
           v-model="studentInfo.fatherMobileNumber"
           v-if="editable === true"
+          v-validate="{ numeric: true, required: false }"
+          name="father mobile number"
         >
+        <div class="err">{{ errors.first('father mobile number') }}</div>
       </div>
       <div class="col">
         <input
@@ -72,7 +78,10 @@
           placeholder="Father Landline Number"
           v-model="studentInfo.fatherLandlineNumber"
           v-if="editable === true"
+          v-validate="{ numeric: true, required: false }"
+          name="father landline number"
         >
+        <div class="err">{{ errors.first('father landline number') }}</div>
       </div>
       <div class="col">
         <input
@@ -182,7 +191,10 @@
           placeholder="Mother Name"
           v-model="studentInfo.motherName"
           v-if="editable === true"
+          v-validate="{ alpha_spaces: true }"
+          name="mother name"
         >
+        <div class="err">{{ errors.first('mother name') }}</div>
       </div>
       <div class="col">
         <input
@@ -219,7 +231,10 @@
           placeholder="Mother Mobile Number"
           v-model="studentInfo.motherMobileNumber"
           v-if="editable === true"
+          v-validate="{ numeric: true }"
+          name="mobile number"
         >
+        <div class="err">{{ errors.first('mother mobile name') }}</div>
       </div>
       <div class="col">
         <input
@@ -236,7 +251,10 @@
           placeholder="Mother Landline Number"
           v-model="studentInfo.motherLandlineNumber"
           v-if="editable === true"
+          v-validate="{ numeric: true }"
+          name="landline number"
         >
+        <div class="err">{{ errors.first('mother landline name') }}</div>
       </div>
       <div class="col">
         <input
@@ -355,10 +373,14 @@
 
 <script>
 export default {
-  name: 'ParentInformation',
-  props: ['editable', 'studentInfo'],
+  name: "ParentInformation",
+  inject: ["$validator"],
+  props: ["editable", "studentInfo"]
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.err {
+  color: #ff0000;
+}
 </style>
