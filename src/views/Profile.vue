@@ -314,7 +314,7 @@
             role="tabpanel"
             aria-labelledby="competency-tab"
           >
-            <competency-information></competency-information>
+            <competency-information :editable="editable"></competency-information>
           </div>
           <div
             class="tab-pane fade"
@@ -322,7 +322,7 @@
             role="tabpanel"
             aria-labelledby="grades-tab"
           >
-            <grades-information></grades-information>
+            <grades-information :editable="editable"></grades-information>
           </div>
 
         </div>
@@ -413,7 +413,7 @@ export default {
 
     updateStudentInformation() {
       const data = this.$store.getters.getStudentInfo;
-      console.log(data);
+      console.log("student data", data);
       const userID = localStorage.getItem("userID");
       const token = localStorage.getItem("token");
       const config = {
