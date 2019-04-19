@@ -1,12 +1,23 @@
 <template>
   <div class="container">
-    <!-- <div class="row mb-2">
-      <div class="col">
-
-        {{ data }}
-      </div>
-    </div> -->
     <div class="row mb-2">
+      <div
+        class="col"
+        v-if="editable === false"
+      >
+        <p>click <i>Edit Profile</i> to input grades from Junior High School</p>
+      </div>
+      <div
+        class="col"
+        v-if="editable === true"
+      >
+        <p>Select subject from the Dropdown</p>
+      </div>
+    </div>
+    <div
+      class="row mb-2"
+      v-if="editable === true"
+    >
       <div class="col input-group">
         <select
           class="custom-select"
@@ -21,6 +32,8 @@
           placeholder="1st Quarter"
           v-model="input[selectedSubject + 1]"
           :readonly="!selectedSubject"
+          v-validate="{ numeric: true }"
+          name="1st grading"
         >
         <input
           type="text"
@@ -28,6 +41,8 @@
           placeholder="2nd Quarter"
           v-model="input[selectedSubject + 2]"
           :readonly="!selectedSubject"
+          v-validate="{ numeric: true }"
+          name="2nd grading"
         >
         <input
           type="text"
@@ -35,6 +50,8 @@
           placeholder="3rd Quarter"
           v-model="input[selectedSubject + 3]"
           :readonly="!selectedSubject"
+          v-validate="{ numeric: true }"
+          name="3rd grading"
         >
         <input
           type="text"
@@ -42,6 +59,8 @@
           placeholder="4th Quarter"
           v-model="input[selectedSubject + 4]"
           :readonly="!selectedSubject"
+          v-validate="{ numeric: true }"
+          name="4th grading"
         >
         <input
           type="text"
@@ -55,6 +74,15 @@
           @click="addSubject()"
           :hidden="!selectedSubject"
         >Add</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="err">{{ errors.first('1st grading') }}</div>
+        <div class="err">{{ errors.first('2nd grading') }}</div>
+        <div class="err">{{ errors.first('3rd grading') }}</div>
+        <div class="err">{{ errors.first('4th grading') }}</div>
       </div>
     </div>
     <hr>
@@ -87,6 +115,7 @@
                   class="close"
                   aria-label="Close"
                   @click="data.splice(index, 1)"
+                  v-if="editable === true"
                 >
                   <span aria-hidden="true">&times;</span>
                 </button></td>
@@ -102,6 +131,8 @@
 <script>
 export default {
   name: "JHSgrades",
+  inject: ["$validator"],
+  props: ["editable"],
   data() {
     return {
       selectedSubject: "",
@@ -114,10 +145,12 @@ export default {
     data: {
       handler(val) {
         const dataMap = val;
-        console.log(dataMap);
-        // CONVERT ARRAY TO OBJECT BEFORE COMMIT
-        // Object.assign.apply(Object, [{}].concat(sources));
-        // this.$store.commit("sendStudentInfoToState", dataMap);
+        const objDataMap = Object.assign.apply(Object, [{}].concat(dataMap));
+        console.log("object", objDataMap);
+        this.$store.commit("addJHSgrades", objDataMap);
+
+        // const data = this.$store.getters.getStudentInfo;
+        // console.log("student data", data);
       },
       deep: true
     }
@@ -145,4 +178,7 @@ export default {
 </script>
 
 <style>
+.err {
+  color: #ff0000;
+}
 </style>
