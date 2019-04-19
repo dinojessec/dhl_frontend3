@@ -165,8 +165,8 @@
           type="text"
           class="form-control p-2"
           placeholder="Input previous school type"
-          v-model="studentInfo.schoolTypeOther"
-          v-if="studentInfo.schoolType === 'other'"
+          v-model="studentInfo.schoolType"
+          v-if="studentInfo.schoolType !== 'public' && studentInfo.schoolType !== 'private'"
         >
       </div>
     </div>
