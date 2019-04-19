@@ -54,9 +54,9 @@ const router = new Router({
       component: () => import('./components/password/password.vue'),
     },
     {
-      path: '/student-payment',
+      path: '/profile/student-payment/:userID',
       name: 'studentpayment',
-      component: () => import('./components/student/payment.vue'),
+      component: () => import('./components/student/student-payment.vue'),
     },
     // payment
     {
