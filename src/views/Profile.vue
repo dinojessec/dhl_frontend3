@@ -207,7 +207,7 @@
                 class="list-group-item list-group-item-action"
               >Grade Level</router-link>
               <router-link
-                to="/student-payment"
+                :to="{ path: `/profile/student-payment/${this.$route.params.userID}` }"
                 class="list-group-item list-group-item-action"
               >Payments</router-link>
               <p>&nbsp;</p>
@@ -363,7 +363,6 @@ export default {
   },
 
   created() {
-    // get student info
     const token = localStorage.getItem("token");
     const userID = this.$route.params.userID;
     const config = {
