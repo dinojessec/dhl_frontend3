@@ -96,50 +96,53 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="(item, index) in filteredSearch">
-            <tr>
-              <th scope="row">{{ index }}</th>
-              <td>
-                <router-link :to="{ path: `/profile/${item.userID}` }">{{ item.firstName }} {{ item.middleName }} {{ item.lastName }}</router-link>
-              </td>
-              <td>{{ item.roleName }}</td>
-              <td><button
-                  class="btn btn-outline-secondary dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  :value="item.studentID"
-                >Change Role</button>
-                <div class="dropdown-menu">
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click="updateRole(1, item.studentID)"
-                  >Student</a>
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click="updateRole(2, item.studentID)"
-                  >Teacher</a>
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click="updateRole(3, item.studentID)"
-                  >Cashier</a>
-                  <div
-                    role="separator"
-                    class="dropdown-divider"
-                  ></div>
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click="updateRole(4, item.studentID)"
-                  >Admin</a>
-                </div>
-              </td>
-            </tr>
-          </template>
+
+          <tr
+            v-for="(item, index) in filteredSearch"
+            :key="item.ID"
+          >
+            <th scope="row">{{ index }}</th>
+            <td>
+              <router-link :to="{ path: `/profile/${item.userID}` }">{{ item.firstName }} {{ item.middleName }} {{ item.lastName }}</router-link>
+            </td>
+            <td>{{ item.roleName }}</td>
+            <td><button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                :value="item.studentID"
+              >Change Role</button>
+              <div class="dropdown-menu">
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  @click="updateRole(1, item.studentID)"
+                >Student</a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  @click="updateRole(2, item.studentID)"
+                >Teacher</a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  @click="updateRole(3, item.studentID)"
+                >Cashier</a>
+                <div
+                  role="separator"
+                  class="dropdown-divider"
+                ></div>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  @click="updateRole(4, item.studentID)"
+                >Admin</a>
+              </div>
+            </td>
+          </tr>
+
         </tbody>
       </table>
     </div>
@@ -207,4 +210,18 @@ export default {
 </script>
 
 <style scoped>
+tbody {
+  display: block;
+  height: 600px;
+  overflow: auto;
+}
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+thead {
+  width: calc(100% - 1em);
+}
 </style>
