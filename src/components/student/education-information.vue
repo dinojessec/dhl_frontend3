@@ -35,7 +35,10 @@
           placeholder="Elementary Year Graduated"
           v-model="studentInfo.elemYear"
           v-if="editable === true"
+          v-validate="{ numeric: true}"
+          name="elem graduation"
         >
+        <div class="err">{{ errors.first('elem graduation') }}</div>
       </div>
     </div>
     <div class="form-row p-2">
@@ -92,7 +95,10 @@
           placeholder="Junior High School Graduated"
           v-model="studentInfo.jhsYear"
           v-if="editable === true"
+          v-validate="{ numeric: true}"
+          name="junior high graduation"
         >
+        <div class="err">{{ errors.first('elem graduation') }}</div>
       </div>
     </div>
     <div class="form-row p-2">
@@ -147,21 +153,26 @@
           class="form-control"
           v-model="studentInfo.schoolType"
           v-if="editable === true"
+          v-validate="{ required: true }"
+          name="school type"
         >
+          <div class="err">{{ errors.first('school type') }}</div>
           <option value="public">Public</option>
           <option value="private">Private</option>
+          <option value="other">if other, please specify below..</option>
         </select>
+        <input
+          type="text"
+          class="form-control p-2"
+          placeholder="Input previous school type"
+          v-model="studentInfo.schoolTypeOther"
+          v-if="studentInfo.schoolType === 'other'"
+        >
       </div>
     </div>
 
     <h3>Organization</h3>
     <div class="form-row p-2">
-      <!-- <div class="col">
-                <input type="text" class="form-control" placeholder="Organization">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Organization Awards">
-            </div> -->
       <div class="col">
         <textarea
           class="form-control"
@@ -196,9 +207,13 @@
 <script>
 export default {
   name: "EducationInformation",
+  inject: ["$validator"],
   props: ["editable", "studentInfo"]
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.err {
+  color: #ff0000;
+}
 </style>
