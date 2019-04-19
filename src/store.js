@@ -48,6 +48,11 @@ export default new Vuex.Store({
       const stateRef = state;
       stateRef.roleID = roleID;
     },
+
+    addJHSgrades(state, payload) {
+      const stateRef = state;
+      stateRef.studentInfo.grades = payload;
+    }
   },
 
   actions: {
@@ -57,8 +62,11 @@ export default new Vuex.Store({
 
     passNewBirthday({ commit }, payload) {
       commit('updateBirthday', payload)
-    }
+    },
 
+    passJHSgrades({ commit }, payload) {
+      commit('addJHSgrades', payload);
+    }
   },
 
   getters: {
