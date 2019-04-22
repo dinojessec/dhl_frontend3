@@ -5,7 +5,7 @@
           type="text"
           class="form-control"
           v-model="filter"
-          placeholder="filter name"
+          placeholder="filter first name"
         ></div>
     </div>
 

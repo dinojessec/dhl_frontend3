@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-
-    <div class="row mb-3">
+    <p>payment page</p>
+    <!-- <div class="row mb-3">
       <div class="col">
         <div class="card text-center">
           <div class="card-header">
@@ -57,7 +57,7 @@
           Add Payment
         </button>
         <!--  modal -->
-        <div
+    <!-- <div
           class="modal fade"
           id="exampleModalCenter"
           tabindex="-1"
@@ -136,7 +136,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div>
 </template>

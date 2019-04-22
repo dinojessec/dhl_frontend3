@@ -66,14 +66,39 @@
           </div>
           <!-- strand -->
           <div class="row">
+            <div
+              class="col"
+              v-if="editable === true"
+            >
+              <select
+                v-model="studentInfo.strandID"
+                class="custom-select"
+              >
+                <option
+                  v-for="strand in strandlist"
+                  :key="strand.strandID"
+                  :value="strand.strandID"
+                >{{ strand.strandName }}</option>
+              </select>
+            </div>
+            <!-- if not editable -->
             <div class="col">
-              <h4>{{ studentInfo.strandName }}</h4>
+              <h4 v-if="editable === false">{{ studentInfo.strandName }}</h4>
             </div>
           </div>
           <!-- grade level -->
           <div class="row">
             <div class="col">
-              <h4>{{ studentInfo.gradeLevel }}</h4>
+              <select
+                v-model="studentInfo.gradeLevel"
+                class="custom-select"
+                v-if="editable === true"
+              >
+                <option value="Grade11">Grade 11</option>
+                <option value="Grade12">Grade 12</option>
+              </select>
+              <!-- if not editable -->
+              <h4 v-if="editable === false">{{ studentInfo.gradeLevel }}</h4>
             </div>
           </div>
           <!-- LRN -->
@@ -86,7 +111,7 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="LRN"
+                placeholder="input LRN"
                 v-model="studentInfo.LRN"
                 v-if="editable === true"
               >
@@ -177,7 +202,7 @@
         <button
           type="button"
           class="btn btn-warning"
-          @click="editable = !editable"
+          @click="loadData()"
           v-if="editable === false"
         >Edit Profile</button>
         <button
@@ -194,18 +219,18 @@
         <div class="container other-info">
           <div class="align-items-start">
             <div class="col list-group">
-              <router-link
+              <!-- <router-link
                 to="/selectstrand"
                 class="list-group-item list-group-item-action"
-              >Strand</router-link>
+              >Strand</router-link> -->
               <router-link
                 to="/section"
                 class="list-group-item list-group-item-action disabled"
               >Section</router-link>
-              <router-link
+              <!-- <router-link
                 to="/selectgradelevel"
                 class="list-group-item list-group-item-action"
-              >Grade Level</router-link>
+              >Grade Level</router-link> -->
               <router-link
                 :to="{ path: `/profile/student-payment/${this.$route.params.userID}` }"
                 class="list-group-item list-group-item-action"
@@ -391,6 +416,7 @@ export default {
     studentInfo: {
       handler(val) {
         const dataMap = val;
+        console.log(dataMap);
         this.$store.commit("sendStudentInfoToState", dataMap);
       },
       deep: true
@@ -425,7 +451,6 @@ export default {
         .put(`http://localhost:3000/api/v1/profile/${userID}`, data, config)
         .then(result => {
           const inputVal = result;
-          console.log("axios put request result", inputVal);
         })
         .catch(err => {
           console.log(err);
@@ -462,6 +487,25 @@ export default {
         this.$router.go();
         // this.$router.go(-1);
       }
+    },
+
+    loadData() {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      axios
+        .get(`http://localhost:3000/api/v1/profile/strand`, config)
+        .then(val => {
+          this.strandlist = val.data.result;
+          this.editable = !this.editable;
+        })
+        .catch(err => {
+          throw err;
+        });
     }
   },
 

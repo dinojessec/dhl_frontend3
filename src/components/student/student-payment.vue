@@ -51,6 +51,8 @@
                   class="form-control"
                   placeholder="Add Voucher.."
                   v-model="inputVoucher"
+                  v-validate="{ numeric: true }"
+                  name="voucher"
                 >
                 <div class="input-group-append">
                   <button
@@ -59,6 +61,7 @@
                     @click="addVoucher()"
                   >Add</button>
                 </div>
+                <div class="err">{{ errors.first('voucher') }}</div>
               </div>
             </div>
             <div class="ml-auto p-2">
@@ -66,7 +69,7 @@
                 class="alert alert-success mb-0"
                 role="alert"
               >
-                {{inputVoucher}}
+                {{values.voucherCode}}
               </div>
             </div>
           </div>
@@ -183,13 +186,38 @@ export default {
     return {
       roleID: localStorage.getItem("roleID"),
       inputVoucher: "",
-      payment: {}
+      payment: {},
+      values: []
     };
+  },
+  // TODO: must get payment records from student then display on payment page
+  created() {
+    const token = localStorage.getItem("token");
+    const userID = this.$route.params.userID;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .get(
+        `http://localhost:3000/api/v1/profile/student-payment/${userID}`,
+        config
+      )
+      .then(val => {
+        const value = val.data.voucherRes;
+        this.values = value;
+      })
+      .catch(err => {
+        throw err;
+      });
   },
 
   methods: {
     addVoucher() {
-      const voucher = this.inputVoucher;
+      const data = this.inputVoucher;
+      const userID = this.$route.params.userID;
       const token = localStorage.getItem("token");
       const config = {
         headers: {
@@ -197,11 +225,15 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      if (!voucher) {
+      if (!data) {
         alert("Invalid input");
       } else {
         axios
-          .put(`http://localhost:3000/api/v1/student-payment`, voucher, config)
+          .put(
+            `http://localhost:3000/api/v1/profile/student-payment/${userID}`,
+            { data },
+            config
+          )
           .then(response => {
             console.log(response);
           })
@@ -214,5 +246,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.err {
+  color: #ff0000;
+}
 </style>
