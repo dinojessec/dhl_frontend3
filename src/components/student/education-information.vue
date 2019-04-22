@@ -25,20 +25,23 @@
           readonly
           type="text"
           class="form-control"
-          placeholder="Elementary Year Graduated"
+          placeholder="data of graudation"
           :value="studentInfo.elemYear"
           v-if="editable === false"
         >
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Elementary Year Graduated"
+        <date-picker
+          :input-class="'form-control'"
+          placeholder="Input date of graduation"
           v-model="studentInfo.elemYear"
+          :value="elem"
+          @input="(value) => { this.elem = value}"
+          :format="'YYYY-MM'"
+          lang="en"
           v-if="editable === true"
-          v-validate="{ numeric: true}"
-          name="elem graduation"
-        >
-        <div class="err">{{ errors.first('elem graduation') }}</div>
+          v-validate="{ required: true }"
+          name="elementar graduation"
+        ></date-picker>
+        <div class="err">{{ errors.first('elementar graduation') }}</div>
       </div>
     </div>
     <div class="form-row p-2">
@@ -78,27 +81,33 @@
           placeholder="Junior High School"
           v-model="studentInfo.juniorHighSchool"
           v-if="editable === true"
+          v-validate="{ required: true }"
+          name="juniohighschool"
         >
+        <div class="err">{{ errors.first('juniohighschool') }}</div>
       </div>
       <div class="col-6">
         <input
           readonly
           type="text"
           class="form-control"
-          placeholder="Junior High School Graduated"
+          placeholder="data of graudation"
           :value="studentInfo.jhsYear"
           v-if="editable === false"
         >
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Junior High School Graduated"
+        <date-picker
+          :input-class="'form-control'"
+          placeholder="Input date of graduation"
           v-model="studentInfo.jhsYear"
+          :value="jhs"
+          @input="(value) => { this.jhs = value}"
+          :format="'YYYY-MM'"
+          lang="en"
           v-if="editable === true"
-          v-validate="{ numeric: true}"
+          v-validate="{ required: true }"
           name="junior high graduation"
-        >
-        <div class="err">{{ errors.first('elem graduation') }}</div>
+        ></date-picker>
+        <div class="err">{{ errors.first('junior high graduation') }}</div>
       </div>
     </div>
     <div class="form-row p-2">
@@ -121,7 +130,7 @@
       </div>
     </div>
     <div class="form-row p-2">
-      <div class="col-8">
+      <div class="col-9">
         <label>Junior High School Address</label>
         <input
           readonly
@@ -137,9 +146,12 @@
           placeholder="Junior High School Location"
           v-model="studentInfo.jhsLocation"
           v-if="editable === true"
+          v-validate="{ required: true }"
+          name="school address"
         >
+        <div class="err">{{ errors.first('school address') }}</div>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <label>School Type</label>
         <input
           readonly
@@ -166,7 +178,7 @@
           class="form-control p-2"
           placeholder="Input previous school type"
           v-model="studentInfo.schoolType"
-          v-if="studentInfo.schoolType !== 'public' && studentInfo.schoolType !== 'private'"
+          v-if="studentInfo.schoolType === 'other'"
         >
       </div>
     </div>
@@ -205,10 +217,61 @@
 </template>
 
 <script>
+import DatePicker from "vue2-datepicker";
+
 export default {
   name: "EducationInformation",
   inject: ["$validator"],
-  props: ["editable", "studentInfo"]
+  props: ["editable", "studentInfo"],
+  components: {
+    DatePicker
+  },
+  data() {
+    return {
+      jhs: "",
+      elem: ""
+    };
+  },
+
+  watch: {
+    jhsDateFormat: {
+      handler(val) {
+        const dataMap = this.jhsDateFormat;
+        this.$store.dispatch("passUpdatedJHS", dataMap);
+      },
+      deep: true
+    },
+
+    elemDateFormat: {
+      handler(val) {
+        const dataMap = this.elemDateFormat;
+        this.$store.dispatch("passUpdatedElem", dataMap);
+      },
+      deep: true
+    }
+  },
+
+  computed: {
+    jhsDateFormat: {
+      cache: false,
+      get() {
+        let date = new Date(this.jhs);
+        const newDate =
+          date.getFullYear() + "/" + ("0" + (date.getMonth() + 1)).slice(-2);
+        return newDate;
+      }
+    },
+
+    elemDateFormat: {
+      cache: false,
+      get() {
+        let date = new Date(this.elem);
+        const newDate =
+          date.getFullYear() + "/" + ("0" + (date.getMonth() + 1)).slice(-2);
+        return newDate;
+      }
+    }
+  }
 };
 </script>
 
