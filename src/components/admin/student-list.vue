@@ -2,7 +2,28 @@
 
   <div class="container">
     <div class="row mb-3">
+      <div class="col-3">
+        <label>Filter By: {{ filterBy }}</label>
+        <select
+          class="custom-select"
+          v-model="filterBy"
+        >
+          <option
+            value="firstName"
+            selected
+          >First Name</option>
+          <option value="lastName">Last Name</option>
+          <option value="gradeLevel">Grade Level</option>
+          <option value="strandName">Strand</option>
+          <option value="section">Section</option>
+          <option value="age">Age</option>
+          <option value="gender">Gender</option>
+          <option value="status">Status</option>
+          <option value="approvedBy">Approver</option>
+        </select>
+      </div>
       <div class="col-4">
+        <label>&nbsp</label>
         <input
           type="text"
           class="form-control"
@@ -16,13 +37,14 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">LRN</th>
             <th scope="col">Name</th>
-            <th scope="col">Grade Level</th>
             <th scope="col">Strand</th>
-            <th scope="col">Section</th>
             <th scope="col">Age</th>
             <th scope="col">Gender</th>
+            <th scope="col">School Name</th>
+            <th scope="col">School Location</th>
+            <th scope="col">Graduation Date</th>
             <th scope="col">Status</th>
             <th scope="col">Approver</th>
           </tr>
@@ -30,18 +52,20 @@
 
         <tbody>
           <tr
-            v-for="(student, index) in filteredSearch"
+            v-for="(student) in filteredSearch"
             :key="student.studentID"
           >
-            <th scope="row">{{ index }}</th>
+            <td scope="row">{{ student.LRN }}</td>
             <td>
               <router-link :to="{ path: `/profile/${student.userID}`}">{{ student.firstName | capitalize }} {{ student.middleName | capitalize }} {{ student.lastName | capitalize }}</router-link>
             </td>
-            <td>{{ student.gradeLevel }}</td>
+            <!-- <td>{{ student.gradeLevel }}</td> -->
             <td>{{ student.strandName }}</td>
-            <td>section</td>
             <td>{{ student.age }}</td>
             <td>{{ student.gender }}</td>
+            <td>{{ student.juniorHighSchool }}</td>
+            <td>{{ student.jhsLocation }}</td>
+            <td>{{ student.formattedJhsYear }}</td>
             <td>
               <div
                 class="alert alert-danger mb-0"
@@ -74,7 +98,9 @@ export default {
     return {
       searchResult: [],
       filter: "",
-      allStudents: []
+      allStudents: [],
+      // selected filter
+      filterBy: "firstName"
     };
   },
   created() {
@@ -90,7 +116,7 @@ export default {
       .then(response => {
         this.searchResult = response.data.response;
         // this.searchResult = response.data;
-        // console.log(response.data);
+        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
@@ -99,8 +125,11 @@ export default {
 
   computed: {
     filteredSearch() {
+      const filterRes = this.filterBy;
       return this.searchResult.filter(item => {
-        return item.firstName.match(this.filter);
+        const value = item[filterRes];
+        const result = this.filter;
+        return value.match(result);
       });
     }
   },
