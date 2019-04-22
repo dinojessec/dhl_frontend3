@@ -25,6 +25,16 @@
         >
           <option value="math">Math</option>
           <option value="english">English</option>
+          <option value="filipino">Filipino</option>
+          <option value="science">Science</option>
+          <option value="ap">Araling Panlipunan</option>
+          <option value="esp">Edukasyon sa Pagpapakatao (EsP)</option>
+          <option value="epp">Edukasyong Pantahanan at Pangkabuhayan (EPP)</option>
+          <option value="tle">Technology and Livelihood Education (TLE)</option>
+          <option value="music">Music</option>
+          <option value="arts">Arts</option>
+          <option value="pe">Physical Education</option>
+          <option value="health">Health</option>
         </select>
         <input
           type="text"
@@ -121,6 +131,17 @@
                 </button></td>
             </tr>
           </tbody>
+          <!-- tesing -->
+          <!-- <tbody>
+            <tr>
+              <th></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody> -->
         </table>
 
       </div>
@@ -146,11 +167,8 @@ export default {
       handler(val) {
         const dataMap = val;
         const objDataMap = Object.assign.apply(Object, [{}].concat(dataMap));
-        console.log("object", objDataMap);
+        // console.log("object", objDataMap);
         this.$store.commit("addJHSgrades", objDataMap);
-
-        // const data = this.$store.getters.getStudentInfo;
-        // console.log("student data", data);
       },
       deep: true
     }
