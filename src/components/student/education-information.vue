@@ -25,8 +25,8 @@
           readonly
           type="text"
           class="form-control"
-          placeholder="data of graudation"
-          :value="studentInfo.elemYear"
+          placeholder="date of graudation"
+          :value="studentInfo.formattedElemYear"
           v-if="editable === false"
         >
         <date-picker
@@ -35,7 +35,7 @@
           v-model="studentInfo.elemYear"
           :value="elem"
           @input="(value) => { this.elem = value}"
-          :format="'YYYY-MM'"
+          :format="'YYYY-MM-DD'"
           lang="en"
           v-if="editable === true"
           v-validate="{ required: true }"
@@ -92,7 +92,7 @@
           type="text"
           class="form-control"
           placeholder="data of graudation"
-          :value="studentInfo.jhsYear"
+          :value="studentInfo.formattedJhsYear"
           v-if="editable === false"
         >
         <date-picker
@@ -101,7 +101,7 @@
           v-model="studentInfo.jhsYear"
           :value="jhs"
           @input="(value) => { this.jhs = value}"
-          :format="'YYYY-MM'"
+          :format="'YYYY-MM-DD'"
           lang="en"
           v-if="editable === true"
           v-validate="{ required: true }"
@@ -257,7 +257,11 @@ export default {
       get() {
         let date = new Date(this.jhs);
         const newDate =
-          date.getFullYear() + "/" + ("0" + (date.getMonth() + 1)).slice(-2);
+          date.getFullYear() +
+          "-" +
+          ("0" + (date.getMonth() + 1)).slice(-2) +
+          "-" +
+          ("0" + date.getDate()).slice(-2);
         return newDate;
       }
     },
@@ -267,7 +271,11 @@ export default {
       get() {
         let date = new Date(this.elem);
         const newDate =
-          date.getFullYear() + "/" + ("0" + (date.getMonth() + 1)).slice(-2);
+          date.getFullYear() +
+          "-" +
+          ("0" + (date.getMonth() + 1)).slice(-2) +
+          "-" +
+          ("0" + date.getDate()).slice(-2);
         return newDate;
       }
     }
