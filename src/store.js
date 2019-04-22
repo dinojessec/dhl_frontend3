@@ -29,6 +29,16 @@ export default new Vuex.Store({
       stateRef.studentInfo.birthday = payload;
     },
 
+    updateJhsGraduation(state, payload) {
+      const stateRef = state;
+      stateRef.studentInfo.jhsYear = payload;
+    },
+
+    updateElemGraduation(state, payload) {
+      const stateRef = state;
+      stateRef.studentInfo.elemYear = payload;
+    },
+
     addNewStrand(state, payload) {
       const stateRef = state;
       stateRef.strand = payload;
@@ -62,6 +72,14 @@ export default new Vuex.Store({
 
     passNewBirthday({ commit }, payload) {
       commit('updateBirthday', payload)
+    },
+
+    passUpdatedJHS({ commit }, payload) {
+      commit('updateJhsGraduation', payload)
+    },
+
+    passUpdatedElem({ commit }, payload) {
+      commit('updateElemGraduation', payload)
     },
 
     passJHSgrades({ commit }, payload) {
