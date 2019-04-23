@@ -26,7 +26,7 @@
           type="text"
           class="form-control"
           placeholder="date of graudation"
-          :value="studentInfo.formattedElemYear"
+          :value="studentInfo.elemYear"
           v-if="editable === false"
         >
         <date-picker
@@ -39,9 +39,9 @@
           lang="en"
           v-if="editable === true"
           v-validate="{ required: true }"
-          name="elementar graduation"
+          name="elementary graduation"
         ></date-picker>
-        <div class="err">{{ errors.first('elementar graduation') }}</div>
+        <div class="err">{{ errors.first('elementary graduation') }}</div>
       </div>
     </div>
     <div class="form-row p-2">
@@ -91,8 +91,8 @@
           readonly
           type="text"
           class="form-control"
-          placeholder="data of graudation"
-          :value="studentInfo.formattedJhsYear"
+          placeholder="date of graudation"
+          :value="studentInfo.jhsYear"
           v-if="editable === false"
         >
         <date-picker
