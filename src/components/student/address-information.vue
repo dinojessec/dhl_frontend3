@@ -322,6 +322,98 @@
       </div>
     </div>
 
+    <h3>my Guardian Address</h3>
+    <div class="row p-2">
+      <div class="col-3">
+        <input
+          readonly
+          class="form-control"
+          type="text"
+          placeholder="House Number"
+          :value="studentInfo.guardianHouseNumber"
+          v-if="editable === false"
+        >
+        <input
+          class="form-control"
+          type="text"
+          placeholder="House Number"
+          v-model="studentInfo.guardianHouseNumber"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col-5">
+        <input
+          readonly
+          class="form-control"
+          type="text"
+          placeholder="Street Name"
+          :value="studentInfo.guardianStreetName"
+          v-if="editable === false"
+        >
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Street Name"
+          v-model="studentInfo.guardianStreetName"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col-4">
+        <input
+          readonly
+          class="form-control"
+          type="text"
+          placeholder="Barangay"
+          :value="studentInfo.guardianBarangay"
+          v-if="editable === false"
+        >
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Barangay"
+          v-model="studentInfo.guardianBarangay"
+          v-if="editable === true"
+        >
+      </div>
+    </div>
+
+    <div class="row p-2">
+      <div class="col-6">
+        <input
+          readonly
+          class="form-control"
+          type="text"
+          placeholder="Town"
+          :value="studentInfo.guardianTown"
+          v-if="editable === false"
+        >
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Town"
+          v-model="studentInfo.guardianTown"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col-6">
+        <input
+          readonly
+          class="form-control"
+          type="text"
+          placeholder="City"
+          :value="studentInfo.guardianCity"
+          v-if="editable === false"
+        >
+        <input
+          class="form-control"
+          type="text"
+          placeholder="City"
+          v-model="studentInfo.guardianCity"
+          v-if="editable === true"
+        >
+      </div>
+    </div>
+
     <!-- end of container -->
   </div>
 </template>
