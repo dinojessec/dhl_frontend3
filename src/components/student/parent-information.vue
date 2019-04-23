@@ -181,14 +181,14 @@
           readonly
           type="text"
           class="form-control"
-          placeholder="Mother Name"
+          placeholder="Mother Name with Maiden Name"
           :value="studentInfo.motherName"
           v-if="editable === false"
         >
         <input
           type="text"
           class="form-control"
-          placeholder="Mother Name"
+          placeholder="Mother Name with Maiden Name"
           v-model="studentInfo.motherName"
           v-if="editable === true"
           v-validate="{ alpha_spaces: true }"
@@ -347,22 +347,166 @@
       </div>
     </div>
 
+    <h3>Guardian</h3>
     <div class="row p-2">
       <div class="col">
-        <label>Guardian</label>
         <input
           readonly
           type="text"
           class="form-control"
-          placeholder="Point of Contact"
+          placeholder="Name of Guardian"
           :value="studentInfo.guardian"
           v-if="editable === false"
         >
         <input
           type="text"
           class="form-control"
-          placeholder="Point of Contact"
+          placeholder="Name of Guardian"
           v-model="studentInfo.guardian"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          placeholder="Guardian Occupation"
+          :value="studentInfo.guardianOccupation"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Guardian Occupation"
+          v-model="studentInfo.guardianOccupation"
+          v-if="editable === true"
+        >
+      </div>
+    </div>
+
+    <div class="row p-2">
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          placeholder="Guardian Mobile Number"
+          :value="studentInfo.guardianMobileNumber"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Guardian Mobile Number"
+          v-model="studentInfo.guardianMobileNumber"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          placeholder="Guardian Landline Number"
+          :value="studentInfo.guardianLandlineNumber"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Guardian Landline Number"
+          v-model="studentInfo.guardianLandlineNumber"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          placeholder="Guardian Religion"
+          :value="studentInfo.guardianReligion"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Guardian Religion"
+          v-model="studentInfo.guardianReligion"
+          v-if="editable === true"
+        >
+      </div>
+    </div>
+
+    <div class="row p-2">
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          placeholder="guardian Educational Attainment"
+          :value="studentInfo.guardianEducation"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="guardian Educational Attainment"
+          v-model="studentInfo.guardianEducation"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          placeholder="guardian School Graduated"
+          :value="studentInfo.guardianSchool"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="guardian School Graduated"
+          v-model="studentInfo.guardianSchool"
+          v-if="editable === true"
+        >
+      </div>
+    </div>
+    <div class="row p-2">
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          placeholder="guardian Employer"
+          :value="studentInfo.guardianEmployer"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="guardian Employer"
+          v-model="studentInfo.guardianEmployer"
+          v-if="editable === true"
+        >
+      </div>
+      <div class="col">
+        <input
+          readonly
+          type="text"
+          class="form-control"
+          placeholder="guardian Employer Address"
+          :value="studentInfo.guardianEmployerAddress"
+          v-if="editable === false"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="guardian Employer Address"
+          v-model="studentInfo.guardianEmployerAddress"
           v-if="editable === true"
         >
       </div>
