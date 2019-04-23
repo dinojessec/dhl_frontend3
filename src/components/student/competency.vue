@@ -3,99 +3,48 @@
   <div class="container">
     <div class="row">
       <div class="col m-2">
-        <div class="pept m-1">
-          <label>PEPT passer</label>
-          <select
-            class="custom-select mb-2"
-            v-model="competency.pept"
-          >
-            <option
-              selected
-              disabled
-            >Choose..</option>
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
-
-          <div class="input-group">
-            <div class="custom-file">
-              <input
-                type="file"
-                ref="pept"
-                class="custom-file-input"
-                id="pept"
-              >
-              <label
-                class="custom-file-label"
-                for="pept"
-              >Choose file</label>
-            </div>
-          </div>
-        </div>
+        testing
+        <label>Philippine Educational Placement Test Passer: {{ studentInfo.pept }}</label>
+        <select
+          class="form-control"
+          v-model="studentInfo.pept"
+          v-if="editable === true"
+          v-validate="{ required: true }"
+          name="PEPT"
+        >
+          <div class="err">{{ errors.first('PEPT') }}</div>
+          <option value="yes">YES</option>
+          <option value="no">NO</option>
+        </select>
 
         <hr>
 
-        <div class="als m-1">
-          <label>Alternative Learning System passer</label>
-          <select
-            class="custom-select mb-2"
-            v-model="competency.als"
-          >
-            <option
-              selected
-              disabled
-            >Choose..</option>
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
-
-          <div class="input-group">
-            <div class="custom-file">
-              <input
-                type="file"
-                ref="als"
-                class="custom-file-input"
-                id="als"
-              >
-              <label
-                class="custom-file-label"
-                for="als"
-              >Choose file</label>
-            </div>
-          </div>
-        </div>
+        <label>Alternative Learning System Passer: {{ studentInfo.als }}</label>
+        <select
+          class="form-control"
+          v-model="studentInfo.als"
+          v-if="editable === true"
+          v-validate="{ required: true }"
+          name="ALS"
+        >
+          <div class="err">{{ errors.first('ALS') }}</div>
+          <option value="yes">YES</option>
+          <option value="no">NO</option>
+        </select>
 
         <hr>
-
-        <div class="als m-1">
-          <label>Nactional Certificate</label>
-          <select
-            class="custom-select mb-2"
-            v-model="competency.nc"
-          >
-            <option
-              selected
-              disabled
-            >Choose..</option>
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
-
-          <div class="input-group">
-            <div class="custom-file">
-              <input
-                type="file"
-                ref="nc"
-                class="custom-file-input"
-                id="nc"
-              >
-              <label
-                class="custom-file-label"
-                for="nc"
-              >Choose file</label>
-            </div>
-          </div>
-        </div>
+        <label>National Certificate Passer: {{ studentInfo.nc }}</label>
+        <select
+          class="form-control"
+          v-model="studentInfo.nc"
+          v-if="editable === true"
+          v-validate="{ required: true }"
+          name="NC"
+        >
+          <div class="err">{{ errors.first('NC') }}</div>
+          <option value="yes">YES</option>
+          <option value="no">NO</option>
+        </select>
 
       </div>
     </div>
@@ -106,10 +55,10 @@
 <script>
 export default {
   name: "Competency",
+  inject: ["$validator"],
+  props: ["editable", "studentInfo"],
   data() {
-    return {
-      competency: ""
-    };
+    return {};
   }
 };
 </script>
