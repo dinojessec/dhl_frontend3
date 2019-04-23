@@ -104,6 +104,7 @@
           <!-- LRN -->
           <div class="row">
             <div class="col">
+              <label>Learners Reference Number:</label>
               <h4
                 class=""
                 v-if="editable === false"
@@ -339,7 +340,10 @@
             role="tabpanel"
             aria-labelledby="competency-tab"
           >
-            <competency-information :editable="editable"></competency-information>
+            <competency-information
+              :editable="editable"
+              :studentInfo="studentInfo"
+            ></competency-information>
           </div>
           <div
             class="tab-pane fade"
