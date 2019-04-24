@@ -127,7 +127,7 @@
           type="text"
           id="fatherHouseNumber"
           placeholder="House Number"
-          :value="studentInfo.fatherHouseNumber"
+          :value="studentInfo.fatherHomeNumber"
           v-if="editable === false"
         >
         <input
@@ -135,7 +135,7 @@
           type="text"
           id="fatherHouseNumber"
           placeholder="House Number"
-          v-model="studentInfo.fatherHouseNumber"
+          v-model="studentInfo.fatherHomeNumber"
           v-if="editable === true"
         >
       </div>
@@ -227,17 +227,17 @@
           readonly
           class="form-control"
           type="text"
-          id="motherHouseNumber"
-          placeholder="House Number"
-          :value="studentInfo.motherHouseNumber"
+          id="motherHomeNumber"
+          placeholder="Home Number"
+          :value="studentInfo.motherHomeNumber"
           v-if="editable === false"
         >
         <input
           class="form-control"
           type="text"
-          id="motherHouseNumber"
-          placeholder="House Number"
-          v-model="studentInfo.motherHouseNumber"
+          id="motherHomeNumber"
+          placeholder="Home Number"
+          v-model="studentInfo.motherHomeNumber"
           v-if="editable === true"
         >
       </div>
@@ -329,15 +329,15 @@
           readonly
           class="form-control"
           type="text"
-          placeholder="House Number"
-          :value="studentInfo.guardianHouseNumber"
+          placeholder="Home Number"
+          :value="studentInfo.guardianHomeNumber"
           v-if="editable === false"
         >
         <input
           class="form-control"
           type="text"
-          placeholder="House Number"
-          v-model="studentInfo.guardianHouseNumber"
+          placeholder="Home Number"
+          v-model="studentInfo.guardianHomeNumber"
           v-if="editable === true"
         >
       </div>
