@@ -5,11 +5,23 @@
         <input
           type="text"
           class="form-control"
+          placeholder="Input Strand Name"
           v-model="newStrand.strandName"
           v-validate="{required: true}"
           name="strand"
         >
         <div class="err">{{ errors.first('strand') }}</div>
+      </div>
+      <div class="col-md-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Input Strand Code"
+          v-model="newStrand.strandCode"
+          v-validate="{required: true}"
+          name="strand code"
+        >
+        <div class="err">{{ errors.first('strand code') }}</div>
       </div>
       <div class="col col-md-2">
         <button
@@ -26,6 +38,7 @@
           <thead class="thead-dark">
             <tr class="">
               <th scope="col">Name</th>
+              <th scope="col">Code</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -35,6 +48,7 @@
               :key="item.strandID"
             >
               <th scope="row">{{ item.strandName }}</th>
+              <th scope="row">{{ item.strandCode }}</th>
               <th><button
                   class="btn btn-danger"
                   @click="removeStrand(item.strandID)"
@@ -55,7 +69,8 @@ export default {
   data() {
     return {
       newStrand: {
-        strandName: ""
+        strandName: "",
+        strandCode: ""
       },
       strandList: []
     };
