@@ -214,7 +214,6 @@
         >Save Changes</button>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-3 col-12">
         <div class="container other-info">
@@ -384,6 +383,7 @@ export default {
   },
   data() {
     return {
+      test: this.$store.state,
       editable: false,
       studentInfo: [],
       strandList: [],
@@ -409,7 +409,7 @@ export default {
         const queryResult = val.data.info[0];
         const queryResultStrand = val.data.strandResult;
         this.studentInfo = queryResult;
-        this.studentInfo.strandName = queryResultStrand;
+        this.studentInfo.strandName = queryResultStrand.strandName;
       })
       .catch(err => {
         throw err;
