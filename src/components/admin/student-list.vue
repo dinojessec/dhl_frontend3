@@ -136,7 +136,7 @@
             <td>
               <router-link :to="{ path: `/profile/${student.userID}`}">{{ student.firstName | capitalize }} {{ student.middleName | capitalize }} {{ student.lastName | capitalize }}</router-link>
             </td>
-            <td>{{ getLastWord(student.strandName) }}</td>
+            <td>{{ student.strandCode }}</td>
             <td>{{ student.age }}</td>
             <td>{{ student.gender }}</td>
             <td>{{ student.juniorHighSchool }}</td>
@@ -176,7 +176,7 @@ export default {
       searchResult: [],
       filter: "",
       // selected filter
-      filterBy: "strandName",
+      filterBy: "firstName",
       searchBy: "",
       // pull up strand
       selectedStrand: "",
@@ -204,11 +204,11 @@ export default {
   },
 
   methods: {
-    getLastWord(strandName) {
-      const last = strandName.split(" ").splice(-1);
-      // return last[last.length - 1];
-      return last[0].replace(/[()]/g, "");
-    },
+    // getLastWord(strandName) {
+    //   const last = strandName.split(" ").splice(-1);
+    //   // return last[last.length - 1];
+    //   return last[0].replace(/[()]/g, "");
+    // },
 
     searchStrand() {
       const token = localStorage.getItem("token");
