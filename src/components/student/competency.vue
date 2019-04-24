@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col m-2">
         testing
-        <label>Philippine Educational Placement Test Passer: {{ studentInfo.pept }}</label>
+        <label>Philippine Educational Placement Test Passer: <strong>{{ studentInfo.pept }}</strong></label>
         <select
           class="form-control"
           v-model="studentInfo.pept"
@@ -19,7 +19,7 @@
 
         <hr>
 
-        <label>Alternative Learning System Passer: {{ studentInfo.als }}</label>
+        <label>Alternative Learning System Passer: <strong>{{ studentInfo.als }}</strong></label>
         <select
           class="form-control"
           v-model="studentInfo.als"
@@ -33,7 +33,7 @@
         </select>
 
         <hr>
-        <label>National Certificate Passer: {{ studentInfo.nc }}</label>
+        <label>National Certificate Passer: <strong>{{ studentInfo.nc }}</strong></label>
         <select
           class="form-control"
           v-model="studentInfo.nc"
@@ -63,5 +63,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.err {
+  color: #ff0000;
+}
 </style>
