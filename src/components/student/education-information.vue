@@ -38,10 +38,7 @@
           :format="'YYYY-MM-DD'"
           lang="en"
           v-if="editable === true"
-          v-validate="{ required: true }"
-          name="elementary graduation"
         ></date-picker>
-        <div class="err">{{ errors.first('elementary graduation') }}</div>
       </div>
     </div>
     <div class="form-row p-2">
@@ -81,10 +78,7 @@
           placeholder="Junior High School"
           v-model="studentInfo.juniorHighSchool"
           v-if="editable === true"
-          v-validate="{ required: true }"
-          name="juniohighschool"
         >
-        <div class="err">{{ errors.first('juniohighschool') }}</div>
       </div>
       <div class="col-6">
         <input
@@ -104,10 +98,7 @@
           :format="'YYYY-MM-DD'"
           lang="en"
           v-if="editable === true"
-          v-validate="{ required: true }"
-          name="junior high graduation"
         ></date-picker>
-        <div class="err">{{ errors.first('junior high graduation') }}</div>
       </div>
     </div>
     <div class="form-row p-2">
@@ -146,10 +137,7 @@
           placeholder="Junior High School Location"
           v-model="studentInfo.jhsLocation"
           v-if="editable === true"
-          v-validate="{ required: true }"
-          name="school address"
         >
-        <div class="err">{{ errors.first('school address') }}</div>
       </div>
       <div class="col-3">
         <label>School Type</label>
