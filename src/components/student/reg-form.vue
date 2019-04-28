@@ -104,7 +104,7 @@
 export default {
   name: "reg-form",
   inject: ["$validator"],
-  props: ["strandList"],
+  props: ["strandList", "saveStudent"],
   data() {
     return {
       student: {

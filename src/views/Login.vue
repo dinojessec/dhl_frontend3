@@ -35,6 +35,7 @@
             id="password"
             placeholder="Password"
             v-model="userInput.password"
+            @keyup.enter="login()"
           >
         </div>
         <button

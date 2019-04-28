@@ -17,7 +17,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <reg-form></reg-form>
+        <reg-form :saveStudent="saveStudent"></reg-form>
       </div>
     </div>
     <div class="container mt-5 d-flex flex-row-reverse">
