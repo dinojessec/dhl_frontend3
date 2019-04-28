@@ -350,7 +350,7 @@
             role="tabpanel"
             aria-labelledby="grades-tab"
           >
-            <grades-information :editable="editable"></grades-information>
+            <grades-information :editable="editable" :gradeslist="gradeslist" :studentInfo="studentInfo"></grades-information>
           </div>
 
         </div>
@@ -369,7 +369,8 @@ import AddressInformation from "../components/student/address-information";
 import ParentInformation from "../components/student/parent-information";
 import EducationInformation from "../components/student/education-information";
 import CompetencyInformation from "../components/student/competency";
-import GradesInformation from "../components/student/grades";
+// import GradesInformation from "../components/student/grades";
+import GradesInformation from "../components/student/jhs-grades";
 
 export default {
   name: "Profile",
@@ -387,7 +388,8 @@ export default {
       editable: false,
       studentInfo: [],
       strandList: [],
-      roleID: localStorage.getItem("roleID")
+      roleID: localStorage.getItem("roleID"),
+      gradeslist: []
     };
   },
 
@@ -404,12 +406,14 @@ export default {
       .get(`http://localhost:3000/api/v1/profile/${userID}`, config)
       .then(val => {
         // console.log(val);
+        this.gradeslist = val.data.gradesQuery;
         const groupID = val.data.groupID;
         const userID = val.data.userID;
         const queryResult = val.data.info[0];
         const queryResultStrand = val.data.strandResult;
         this.studentInfo = queryResult;
         this.studentInfo.strandName = queryResultStrand.strandName;
+        localStorage.setItem('studentID', queryResult.studentID);
       })
       .catch(err => {
         throw err;
@@ -420,7 +424,7 @@ export default {
     studentInfo: {
       handler(val) {
         const dataMap = val;
-        console.log(dataMap);
+        // console.log(dataMap);
         this.$store.commit("sendStudentInfoToState", dataMap);
       },
       deep: true
@@ -442,7 +446,7 @@ export default {
 
     updateStudentInformation() {
       const data = this.$store.getters.getStudentInfo;
-      console.log("student data", data);
+      // console.log("student data", data);
       const userID = localStorage.getItem("userID");
       const token = localStorage.getItem("token");
       const config = {
@@ -469,7 +473,7 @@ export default {
       } else {
         const token = localStorage.getItem("token");
         const studentID = this.$route.params.userID;
-        console.log(studentID);
+        // console.log(studentID);
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,
