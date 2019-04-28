@@ -91,6 +91,13 @@ const router = new Router({
       name: 'user',
       component: () => import('./components/user/user.vue'),
     },
+
+
+    {
+      path: '/jhsgrades',
+      name: 'grades',
+      component: () => import('./components/student/jhs-grades.vue'),
+    }
   ],
 });
 
