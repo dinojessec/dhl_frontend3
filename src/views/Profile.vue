@@ -43,7 +43,10 @@
                 placeholder="First Name"
                 v-model="studentInfo.firstName"
                 v-if="editable === true"
+                name="first name"
+                v-validate="{ required: true }"
               >
+              <div class="err">{{ errors.first('first name') }}</div>
             </div>
             <div class="col">
               <input
@@ -52,7 +55,10 @@
                 placeholder="Middle Name"
                 v-model="studentInfo.middleName"
                 v-if="editable === true"
+                name="middle name"
+                v-validate="{ required: true }"
               >
+              <div class="err">{{ errors.first('middle name') }}</div>
             </div>
             <div class="col">
               <input
@@ -61,7 +67,10 @@
                 placeholder="Last Name"
                 v-model="studentInfo.lastName"
                 v-if="editable === true"
+                name="last name"
+                v-validate="{ required: true }"
               >
+              <div class="err">{{ errors.first('last name') }}</div>
             </div>
           </div>
           <!-- strand -->
@@ -73,6 +82,8 @@
               <select
                 v-model="studentInfo.strandID"
                 class="custom-select"
+                name="strand"
+                v-validate="{required: true}"
               >
                 <option
                   v-for="strand in strandlist"
@@ -80,6 +91,7 @@
                   :value="strand.strandID"
                 >{{ strand.strandName }}</option>
               </select>
+              <div class="err">{{ errors.first('strand') }}</div>
             </div>
             <!-- if not editable -->
             <div class="col">
@@ -93,10 +105,13 @@
                 v-model="studentInfo.gradeLevel"
                 class="custom-select"
                 v-if="editable === true"
+                name="grade level"
+                v-validate="{required: true}"
               >
                 <option value="Grade11">Grade 11</option>
                 <option value="Grade12">Grade 12</option>
               </select>
+              <div class="err">{{ errors.first('grade level') }}</div>
               <!-- if not editable -->
               <h4 v-if="editable === false">{{ studentInfo.gradeLevel }}</h4>
             </div>
@@ -115,7 +130,10 @@
                 placeholder="input LRN"
                 v-model="studentInfo.LRN"
                 v-if="editable === true"
+                name="lrn"
+                v-validate="{required: true}"
               >
+              <div class="err">{{ errors.first('lrn') }}</div>
             </div>
           </div>
           <!-- section -->
@@ -350,7 +368,11 @@
             role="tabpanel"
             aria-labelledby="grades-tab"
           >
-            <grades-information :editable="editable" :gradeslist="gradeslist" :studentInfo="studentInfo"></grades-information>
+            <grades-information
+              :editable="editable"
+              :gradeslist="gradeslist"
+              :studentInfo="studentInfo"
+            ></grades-information>
           </div>
 
         </div>
@@ -384,7 +406,6 @@ export default {
   },
   data() {
     return {
-      test: this.$store.state,
       editable: false,
       studentInfo: [],
       strandList: [],
@@ -413,7 +434,7 @@ export default {
         const queryResultStrand = val.data.strandResult;
         this.studentInfo = queryResult;
         this.studentInfo.strandName = queryResultStrand.strandName;
-        localStorage.setItem('studentID', queryResult.studentID);
+        localStorage.setItem("studentID", queryResult.studentID);
       })
       .catch(err => {
         throw err;
