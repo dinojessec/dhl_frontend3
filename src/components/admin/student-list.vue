@@ -9,13 +9,10 @@
           v-model="searchBy"
           @change="getAllStrand()"
         >
-          <option
-            disabled
-            :value="null"
-            selected
-          >Choose..</option>
+          <option value="all">All</option>
           <option value="strand">Strand</option>
           <option value="gradelevel">Grade Level</option>
+          <option value="age">Age(Ascending order)</option>
         </select>
       </div>
       <!-- // strand selection -->
@@ -52,6 +49,13 @@
       <div class="col-2">
         <label>&nbsp</label>
         <input
+          v-if="this.searchBy === 'all'"
+          type="button"
+          class="btn btn-primary form-control"
+          value="Search"
+          @click="searchByAll()"
+        >
+        <input
           v-if="this.searchBy === 'strand'"
           type="button"
           class="btn btn-primary form-control"
@@ -64,6 +68,13 @@
           class="btn btn-primary form-control"
           value="Search"
           @click="searchGrade()"
+        >
+        <input
+          v-if="this.searchBy === 'age'"
+          type="button"
+          class="btn btn-primary form-control"
+          value="Search"
+          @click="searchByAge()"
         >
       </div>
     </div>
@@ -142,7 +153,7 @@
             <td>{{ student.juniorHighSchool }}</td>
             <td>{{ student.jhsLocation }}</td>
             <td>{{ student.formattedJhsYear }}</td>
-            <td>grade</td>
+            <td>{{ student.jhs_average }}</td>
             <td>
               <div
                 class="alert alert-danger mb-0"
@@ -174,6 +185,7 @@ export default {
   data() {
     return {
       searchResult: [],
+      gradeResult: [],
       filter: "",
       // selected filter
       filterBy: "firstName",
@@ -195,7 +207,9 @@ export default {
     axios
       .get(`http://localhost:3000/api/v1/admin/student`, config)
       .then(response => {
+        console.log(response);
         this.searchResult = response.data.response;
+        this.gradeResult = response.data.gradesRes;
         // this.searchResult = response.data;
       })
       .catch(e => {
@@ -209,6 +223,26 @@ export default {
     //   // return last[last.length - 1];
     //   return last[0].replace(/[()]/g, "");
     // },
+    searchByAll() {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      axios
+        .get(`http://localhost:3000/api/v1/admin/student`, config)
+        .then(response => {
+          console.log(response);
+          this.searchResult = response.data.response;
+          this.gradeResult = response.data.gradesRes;
+          // this.searchResult = response.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
 
     searchStrand() {
       const token = localStorage.getItem("token");
@@ -246,6 +280,24 @@ export default {
           `http://localhost:3000/api/v1/admin/student/gradelevel/${param}`,
           config
         )
+        .then(response => {
+          this.searchResult = response.data.response;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+
+    searchByAge() {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      axios
+        .get(`http://localhost:3000/api/v1/admin/student/age`, config)
         .then(response => {
           this.searchResult = response.data.response;
         })
