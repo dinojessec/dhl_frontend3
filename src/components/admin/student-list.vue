@@ -79,7 +79,7 @@
       </div>
     </div>
 
-    <div class="row mb-3">
+    <!-- <div class="row mb-3">
       <div class="col-4">
         <label>Filter By:</label>
         <select
@@ -116,9 +116,9 @@
           v-if="this.filterBy === 'gender'"
         >
       </div>
-    </div>
+    </div> -->
 
-    <div class="table-responsive">
+    <!-- <div class="table-responsive">
       <table class="table table-hover">
         <thead>
           <tr>
@@ -171,10 +171,22 @@
           </tr>
         </tbody>
       </table>
+    </div> -->
+    <div id="filter-table">
+      <v-client-table
+        :data="filteredSearch"
+        :columns="columns"
+        :options="options"
+      >
+        <a
+          slot="path"
+          slot-scope="props"
+          :href="props.row.path"
+        >link</a>
+      </v-client-table>
+
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -184,6 +196,31 @@ export default {
   name: "StudentList",
   data() {
     return {
+      // columns StudentList
+      columns: [
+        "LRN",
+        "Fullname",
+        "strandCode",
+        "Age",
+        "gender",
+        "jhsName",
+        "juniorHighSchool",
+        "formattedJhsYear",
+        "jhs_average",
+        "status",
+        "approvedBy",
+        "path"
+      ],
+      options: {
+        headings: {
+          strandCode: "Strand",
+          jhsName: "School Name",
+          juniorHighSchool: "School Location",
+          formattedJhsYear: "Year Graduated",
+          jhs_average: "Final Grade",
+          path: "Link"
+        }
+      },
       searchResult: [],
       gradeResult: [],
       filter: "",
