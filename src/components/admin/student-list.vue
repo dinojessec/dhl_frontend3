@@ -187,6 +187,7 @@
           slot="status"
           slot-scope="props"
           :href="props.row.checkout"
+          v-if="props.row.status === 'approved'"
         >{{ props.row.status }}</a>
       </v-client-table>
 
