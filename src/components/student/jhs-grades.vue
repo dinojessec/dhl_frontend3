@@ -43,7 +43,7 @@
           class="form-control"
           placeholder="1st Quarter"
           v-model="input.first"
-          v-validate="{ required: true, numeric: true }"
+          v-validate="{ numeric: true }"
           name="1st grading"
         >
         <input
@@ -51,7 +51,7 @@
           class="form-control"
           placeholder="2nd Quarter"
           v-model="input.second"
-          v-validate="{ required: true, numeric: true }"
+          v-validate="{ numeric: true }"
           name="2nd grading"
         >
         <input
@@ -59,7 +59,7 @@
           class="form-control"
           placeholder="3rd Quarter"
           v-model="input.third"
-          v-validate="{ required: true, numeric: true }"
+          v-validate="{ numeric: true }"
           name="3rd grading"
         >
         <input
@@ -67,7 +67,7 @@
           class="form-control"
           placeholder="4th Quarter"
           v-model="input.fourth"
-          v-validate="{ required: true, numeric: true }"
+          v-validate="{ numeric: true }"
           name="4th grading"
         >
         <input
@@ -75,7 +75,7 @@
           class="form-control"
           placeholder="Final"
           v-model="input.final"
-          v-validate="{ required: true, numeric: true }"
+          v-validate="{ numeric: true }"
           name="Final grading"
         >
         <button
