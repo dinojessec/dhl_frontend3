@@ -179,10 +179,15 @@
         :options="options"
       >
         <a
-          slot="path"
+          slot="Fullname"
           slot-scope="props"
           :href="props.row.path"
-        >link</a>
+        >{{ props.row.Fullname | capitalize }}</a>
+        <a
+          slot="status"
+          slot-scope="props"
+          :href="props.row.checkout"
+        >{{ props.row.status }}</a>
       </v-client-table>
 
     </div>
@@ -208,8 +213,7 @@ export default {
         "formattedJhsYear",
         "jhs_average",
         "status",
-        "approvedBy",
-        "path"
+        "approvedBy"
       ],
       options: {
         headings: {
