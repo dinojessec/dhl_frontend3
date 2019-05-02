@@ -39,6 +39,14 @@
                       <span aria-hidden="true">&times;</span>
                     </button></td>
                 </tr>
+                <hr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>Balance: </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -74,7 +82,7 @@
             </div>
           </div>
         </div>
-
+        {{ values }}
         <!-- modal for add payment/ -->
         <div
           class="row m-3"
@@ -187,7 +195,7 @@ export default {
       roleID: localStorage.getItem("roleID"),
       inputVoucher: "",
       payment: {},
-      values: []
+      values: {}
     };
   },
   // TODO: must get payment records from student then display on payment page
@@ -206,8 +214,10 @@ export default {
         config
       )
       .then(val => {
-        const value = val.data.voucherRes;
-        this.values = value;
+        const voucher = val.data.voucherRes;
+        const paymentRecord = val.data.paymentRes;
+        const combine = Object.assign(voucher, paymentRecord);
+        this.values = combine;
       })
       .catch(err => {
         throw err;

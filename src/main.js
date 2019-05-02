@@ -2,7 +2,7 @@ import Vue from 'vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VeeValidate from 'vee-validate';
 import VueCarousel from 'vue-carousel';
-import { ClientTable, Event } from 'vue-tables-2';
+import { ClientTable } from 'vue-tables-2';
 
 // import _ from 'lodash';
 
