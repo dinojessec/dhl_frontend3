@@ -26,6 +26,7 @@
       >
         <option value="public">Public</option>
         <option value="private">Private</option>
+        <option value="other">Other</option>
       </select>
       <div class="err">{{ errors.first('school type') }}</div>
     </div>
@@ -71,6 +72,7 @@ export default {
           // alert("invalid input. some fields are empty");
         } else {
           this.updateTuition();
+          this.payment = {};
           // this.$router.go();
         }
       });

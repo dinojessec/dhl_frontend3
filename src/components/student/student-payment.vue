@@ -20,18 +20,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>registration fee</td>
-                  <td>Cash/Cheque</td>
-                  <td>500</td>
-                  <td>00/00/0000</td>
-                  <td>cashier</td>
-                  <td v-if="this.roleID >= 3">
+                <tr
+                  v-for="item in values"
+                  :key="item.paymentID"
+                >
+                  <td>{{ item.paymentName }}</td>
+                  <td>{{ item.paymentType }}</td>
+                  <td>{{ item.paymentAmount }}</td>
+                  <td>{{ item.paymentDate }}</td>
+                  <td>{{ item.cashier }}</td>
+                  <td>
                     <button
-                      type="button"
-                      class="btn btn-info"
-                    >Edit</button>
-                    <button
+                      v-if="roleID >= 3"
                       type="button"
                       class="close"
                       aria-label="Close"
@@ -44,15 +44,20 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td></td>
-                  <td>Balance: </td>
+                  <td>Balance: <strong>
+                      {{ (tuition - totalPaymentAmount) > 0 ? (
+                      tuition - totalPaymentAmount
+                      ) :(
+                      0
+                      ) }}
+                    </strong></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div class="card-footer d-flex">
-            <div class="p-2">
+            <!-- <div class="p-2">
               <div class="input-group">
                 <input
                   type="text"
@@ -71,18 +76,18 @@
                 </div>
                 <div class="err">{{ errors.first('voucher') }}</div>
               </div>
-            </div>
-            <div class="ml-auto p-2">
+            </div> -->
+            <!-- <div class="ml-auto p-2">
               <div
                 class="alert alert-success mb-0"
                 role="alert"
               >
                 {{values.voucherCode}}
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
-        {{ values }}
+
         <!-- modal for add payment/ -->
         <div
           class="row m-3"
@@ -155,9 +160,9 @@
                       <input
                         type="text"
                         class="form-control"
-                        v-validate="{ decimal:3 }"
+                        v-validate="{ required: true, decimal:3 }"
                         name="amount"
-                        v-model="payment.amount"
+                        v-model="payment.paymentAmount"
                       >
                       <div class="err">{{ errors.first('amount') }}</div>
                     </div>
@@ -171,6 +176,7 @@
                     <button
                       type="button"
                       class="btn btn-primary"
+                      @click="validate()"
                     >Save changes</button>
                   </div>
                 </div>
@@ -178,7 +184,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -195,7 +200,9 @@ export default {
       roleID: localStorage.getItem("roleID"),
       inputVoucher: "",
       payment: {},
-      values: {}
+      values: [],
+      tuition: "",
+      totalPaymentAmount: ""
     };
   },
   // TODO: must get payment records from student then display on payment page
@@ -214,10 +221,15 @@ export default {
         config
       )
       .then(val => {
-        const voucher = val.data.voucherRes;
-        const paymentRecord = val.data.paymentRes;
-        const combine = Object.assign(voucher, paymentRecord);
+        const totalPayment = val.data.totalAmount;
+        const tuition = val.data.tuition;
+        const paymentRecord = val.data.resPayment;
+        const combine = Object.assign(paymentRecord);
+        // this.values = { combine };
+        // console.log(combine);
         this.values = combine;
+        this.tuition = tuition;
+        this.totalPaymentAmount = totalPayment;
       })
       .catch(err => {
         throw err;
@@ -225,8 +237,19 @@ export default {
   },
 
   methods: {
-    addVoucher() {
-      const data = this.inputVoucher;
+    validate() {
+      const valid = this.$validator.validateAll().then(result => {
+        if (!result) {
+          console.log("invalid input. some fields are empty", result);
+          // alert("invalid input. some fields are empty");
+        } else {
+          this.addPayment();
+          // this.$router.go();
+        }
+      });
+    },
+    addPayment() {
+      const data = this.payment;
       const userID = this.$route.params.userID;
       const token = localStorage.getItem("token");
       const config = {
@@ -239,7 +262,7 @@ export default {
         alert("Invalid input");
       } else {
         axios
-          .put(
+          .post(
             `http://localhost:3000/api/v1/profile/student-payment/${userID}`,
             { data },
             config
