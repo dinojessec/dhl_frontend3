@@ -75,13 +75,12 @@
           </div>
           <!-- strand -->
           <div class="row">
-            <div
-              class="col"
-              v-if="editable === true"
-            >
+            <div class="col">
+              <label>Strand: </label>
               <select
                 v-model="studentInfo.strandID"
                 class="custom-select"
+                v-if="editable === true"
                 name="strand"
                 v-validate="{required: true}"
               >
@@ -92,15 +91,13 @@
                 >{{ strand.strandName }}</option>
               </select>
               <div class="err">{{ errors.first('strand') }}</div>
-            </div>
-            <!-- if not editable -->
-            <div class="col">
               <h4 v-if="editable === false">{{ studentInfo.strandName }}</h4>
             </div>
           </div>
           <!-- grade level -->
           <div class="row">
             <div class="col">
+              <label>Grade Level: </label>
               <select
                 v-model="studentInfo.gradeLevel"
                 class="custom-select"
@@ -460,7 +457,7 @@ export default {
           // alert("invalid input. some fields are empty");
         } else {
           this.updateStudentInformation();
-          // this.$router.go();
+          console.log(this.studentInfo);
         }
       });
     },

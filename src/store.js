@@ -62,6 +62,11 @@ export default new Vuex.Store({
     addJHSgrades(state, payload) {
       const stateRef = state;
       stateRef.studentInfo.grades = payload;
+    },
+
+    updateSchooltype(state, payload) {
+      const stateRef = state;
+      stateRef.studentInfo.schoolType = payload;
     }
   },
 
@@ -84,7 +89,8 @@ export default new Vuex.Store({
 
     passJHSgrades({ commit }, payload) {
       commit('addJHSgrades', payload);
-    }
+    },
+
   },
 
   getters: {

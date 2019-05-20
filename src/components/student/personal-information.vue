@@ -91,7 +91,7 @@
           v-model="studentInfo.mobileNumber"
           placeholder="Mobile Number"
           v-if="editable === true"
-          v-validate="{ required: true, digits:10 }"
+          v-validate="{ numeric: true }"
         >
         <div class="err">{{ errors.first('mobile number') }}</div>
       </div>
@@ -110,7 +110,7 @@
           v-model="studentInfo.landlineNumber"
           placeholder="Landline Number"
           v-if="editable === true"
-          v-validate="{ required: true, digits: 10 }"
+          v-validate="{ numeric: true }"
         >
         <div class="err">{{ errors.first('landline number') }}</div>
       </div>

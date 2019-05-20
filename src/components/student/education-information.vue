@@ -25,14 +25,14 @@
           readonly
           type="text"
           class="form-control"
-          placeholder="date of graudation"
+          placeholder="date of graduation"
           :value="studentInfo.elemYear"
           v-if="editable === false"
         >
         <date-picker
           :input-class="'form-control'"
           placeholder="Input date of graduation"
-          v-model="studentInfo.elemYear"
+          :v-model="studentInfo.elemYear"
           :value="elem"
           @input="(value) => { this.elem = value}"
           :format="'YYYY-MM-DD'"
@@ -85,14 +85,14 @@
           readonly
           type="text"
           class="form-control"
-          placeholder="date of graudation"
+          placeholder="date of graduation"
           :value="studentInfo.jhsYear"
           v-if="editable === false"
         >
         <date-picker
           :input-class="'form-control'"
           placeholder="Input date of graduation"
-          v-model="studentInfo.jhsYear"
+          :v-model="studentInfo.jhsYear"
           :value="jhs"
           @input="(value) => { this.jhs = value}"
           :format="'YYYY-MM-DD'"
@@ -161,13 +161,15 @@
           <option value="private">Private</option>
           <option value="other">if other, please specify below..</option>
         </select>
-        <input
-          type="text"
-          class="form-control p-2"
-          placeholder="Input previous school type"
-          v-model="studentInfo.schoolType"
-          v-if="studentInfo.schoolType === 'other'"
-        >
+        <div v-if="editable === true">
+          <input
+            type="text"
+            class="form-control p-2"
+            placeholder="Input previous school type"
+            v-model="studentInfo.schoolType"
+            v-if="studentInfo.schoolType !== 'public' && studentInfo.schoolType !== 'private' && studentInfo.schoolType !== null"
+          >
+        </div>
       </div>
     </div>
 
@@ -217,7 +219,8 @@ export default {
   data() {
     return {
       jhs: "",
-      elem: ""
+      elem: "",
+      schoolOther: ""
     };
   },
 
@@ -236,6 +239,14 @@ export default {
         this.$store.dispatch("passUpdatedElem", dataMap);
       },
       deep: true
+    },
+
+    schoolTypeOther: {
+      handler(val) {
+        const dataMap = this.schoolOther;
+        console.log(dataMap);
+        // this.$store.dispatch("updateSchooltype", dataMap);
+      }
     }
   },
 

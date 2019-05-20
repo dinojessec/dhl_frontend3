@@ -138,7 +138,7 @@
         type="text"
         class="form-control col-md-3"
         placeholder="Final Average"
-        v-model="studentInfo.average"
+        v-model="studentInfo.jhs_average"
         v-if="editable === true"
         v-validate="{ required: true, numeric: true }"
         name="average"

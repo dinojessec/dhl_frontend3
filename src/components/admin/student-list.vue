@@ -13,6 +13,7 @@
           <option value="strand">Strand</option>
           <option value="gradelevel">Grade Level</option>
           <option value="age">Age(Ascending order)</option>
+          <option value="gender">Gender</option>
         </select>
       </div>
       <!-- // strand selection -->
@@ -46,6 +47,19 @@
           <option value="Grade12">Grade 12</option>
         </select>
       </div>
+      <div
+        class='col-4'
+        v-if="this.searchBy === 'gender'"
+      >
+        <label>&nbsp</label>
+        <select
+          class="custom-select"
+          v-model="selectedGender"
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
       <div class="col-2">
         <label>&nbsp</label>
         <input
@@ -75,6 +89,13 @@
           class="btn btn-primary form-control"
           value="Search"
           @click="searchByAge()"
+        >
+        <input
+          v-if="this.searchBy === 'gender'"
+          type="button"
+          class="btn btn-primary form-control"
+          value="Search"
+          @click="searchGender()"
         >
       </div>
     </div>
@@ -210,7 +231,7 @@ export default {
         "Age",
         "gender",
         "jhsName",
-        "juniorHighSchool",
+        "jhsLocation",
         "formattedJhsYear",
         "jhs_average",
         "status",
@@ -220,7 +241,7 @@ export default {
         headings: {
           strandCode: "Strand",
           jhsName: "School Name",
-          juniorHighSchool: "School Location",
+          jhsLocation: "School Location",
           formattedJhsYear: "Year Graduated",
           jhs_average: "Final Grade",
           path: "Link"
@@ -235,6 +256,7 @@ export default {
       // pull up strand
       selectedStrand: "",
       selectedGrade: "",
+      selectedGender: "",
       strandList: []
     };
   },
@@ -324,6 +346,7 @@ export default {
         )
         .then(response => {
           this.searchResult = response.data.response;
+          console.log(response.data.response);
         })
         .catch(e => {
           console.log(e);
@@ -342,6 +365,26 @@ export default {
         .get(`http://localhost:3000/api/v1/admin/student/age`, config)
         .then(response => {
           this.searchResult = response.data.response;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+
+    searchGender() {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      const param = this.selectedGender;
+      axios
+        .get(`http://localhost:3000/api/v1/admin/student/${param}`, config)
+        .then(response => {
+          this.searchResult = response.data.response;
+          console.log(response.data.response);
         })
         .catch(e => {
           console.log(e);
