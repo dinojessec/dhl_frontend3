@@ -35,6 +35,7 @@
                       type="button"
                       class="close"
                       aria-label="Close"
+                      @click="deletePayment(item.paymentID)"
                     >
                       <span aria-hidden="true">&times;</span>
                     </button></td>
@@ -139,8 +140,8 @@
                         class="custom-select"
                         v-model="payment.paymentName"
                       >
-                        <option value="1">test1</option>
-                        <option value="2">test2</option>
+                        <option value="Registration">Registration</option>
+                        <option value="Installment">Installment</option>
                       </select>
                     </div>
                     <div class="col-4 p-2">
@@ -176,6 +177,7 @@
                     <button
                       type="button"
                       class="btn btn-primary"
+                      data-dismiss="modal"
                       @click="validate()"
                     >Save changes</button>
                   </div>
@@ -244,12 +246,14 @@ export default {
           // alert("invalid input. some fields are empty");
         } else {
           this.addPayment();
-          // this.$router.go();
+          this.$router.go();
         }
       });
     },
     addPayment() {
       const data = this.payment;
+      const username = localStorage.getItem("username");
+      data.cashier = username;
       const userID = this.$route.params.userID;
       const token = localStorage.getItem("token");
       const config = {
@@ -269,6 +273,35 @@ export default {
           )
           .then(response => {
             console.log(response);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
+    },
+
+    deletePayment(paymentID) {
+      const userID = this.$route.params.userID;
+      const token = localStorage.getItem("token");
+      const data = paymentID;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      if (!data) {
+        alert("Invalid input");
+      } else {
+        axios
+          .put(
+            `http://localhost:3000/api/v1/profile/student-payment/${userID}`,
+            { data },
+            config
+          )
+          .then(response => {
+            console.log(response);
+            this.$router.go();
           })
           .catch(e => {
             console.log(e);
