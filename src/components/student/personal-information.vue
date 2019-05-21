@@ -20,7 +20,9 @@
           :format="'YYYY/MM/DD'"
           lang="en"
           v-if="editable === true"
+          v-validate="{ required: true }"
         ></date-picker>
+        <div class="err">{{ errors.first('birthday') }}</div>
       </div>
       <div class="col-3">
         <label>Age</label>

@@ -3,7 +3,7 @@
     <carousel
       :minSwipeDistance="8"
       :per-page="1"
-      :autoplay="true"
+      :autoplay="false"
       :navigationClickTargetSize="8"
       navigationPrevLabel
     >
